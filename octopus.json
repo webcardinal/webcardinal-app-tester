@@ -40,6 +40,19 @@
       ]
     },
     {
+      "name": "copy-psk-code-dark-theme",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./.dev/webcardinal/.webcardinal/components/cardinal-wiki/node_modules/prismjs/themes/prism-tomorrow.css",
+          "target": "./.dev/themes/clear-sky-theme/src/components/psk-code/psk-code.css",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
       "name": "copy-themes",
       "actions": [
         {
@@ -59,10 +72,13 @@
       "actions": [
         {
           "type": "buildWebCardinalComponents",
-          "src": "./.webcardinal",
+          "src": "./.dev/webcardinal/.webcardinal",
           "target": "./webcardinal",
           "options": {
-            "DEV": true
+            "DEV": true,
+            "devComponents": [
+              "webcardinal-core"
+            ]
           }
         }
       ]

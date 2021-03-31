@@ -1,7 +1,7 @@
 {
-  "name": "webcardinal-app-starter",
+  "name": "webcardinal-app-tester",
   "version": "1.0.0",
-  "description": "Application template that combines multiple components of WebCardinal.",
+  "description": "Application made only for testing purposes.",
   "scripts": {
     "postinstall": "node node_modules/octopus/scripts/run dependencies devmode && npm run build",
     "build": "node node_modules/octopus/scripts/run build devmode",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webcardinal/webcardinal-app-starter.git"
+    "url": "git+https://github.com/webcardinal/webcardinal-app-tester.git"
   },
   "license": "MIT"
 }

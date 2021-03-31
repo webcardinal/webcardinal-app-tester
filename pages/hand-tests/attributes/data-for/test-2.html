@@ -1,0 +1,45 @@
+<webc-container id="test-container">
+    <header>
+        <section>
+            <h4>Complex view-model in the <code>Array</code> of <code>data-for</code></h4>
+            <div>Attribute: <code>data-for</code></div>
+        </section>
+    </header>
+    <main>
+        <section>
+            <psk-code language="JavaScript" file="/scripts/controllers/manual/data-for/Test2.js"></psk-code>
+            <psk-code language="HTML">
+                <code>state: {{ @state }}</code>
+                <div data-for="@items">
+                    <div>{{ @content }}</div>
+                    <code slot="no-data">There is no data!</code>
+                </div>
+            </psk-code>
+            <psk-example>
+                <style>
+                    .test2 {
+                        display: block;
+                        border: 1px solid #cdcdcd;
+                        padding: 1rem;
+                    }
+                    .test2 > div {
+                        padding-top: 1rem;
+                    }
+                    .test2 > div > div {
+                        border-bottom: 1px dotted #cdcdcd;
+                    }
+                    .test2 > div > div:last-child {
+                        border: none;
+                    }
+                </style>
+                <webc-container controller="manual/data-for/Test2" class="test2">
+                    <code>state: {{ @state }}</code>
+                    <div data-for="@items">
+                        <div>{{ @content }}</div>
+                        <code slot="no-data">There is no data!</code>
+                    </div>
+                </webc-container>
+            </psk-example>
+        </section>
+    </main>
+</webc-container>

@@ -1,4 +1,7 @@
 {
+  "identity": {
+    "email": "Playground"
+  },
   "pagesPathname": "pages",
   "pagesFallback": {
     "name": "Home"
@@ -37,6 +40,26 @@
       "name": "PSK Styles",
       "tag": "faq",
       "src": "https://privatesky.xyz/pages/faq.html"
+    },
+    {
+      "name": "Hand tests \uD83E\uDD19",
+      "path": "tests/manual",
+      "src": "hand-tests",
+      "children": [
+        {
+          "name": "Attributes",
+          "children": [
+            {
+              "name": "data-for",
+              "children": [
+                { "name": "Test 1" },
+                { "name": "Test 2" }
+
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "theme": "clear-sky-theme"

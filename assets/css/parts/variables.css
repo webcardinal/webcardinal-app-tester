@@ -1,0 +1,14 @@
+webc-app-menu {
+    --webc-app-menu-color: #212121;
+    --webc-app-menu-vertical-background: whitesmoke;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+webc-app-menu .app-menu {
+    border-top: 1px solid #cdcdcd;
+    padding-top: 1rem;
+}
+
+webc-app-identity {
+    --webc-app-identity-color: #212121;
+}
