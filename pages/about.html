@@ -1,0 +1,88 @@
+<webc-container controller="AboutController">
+
+    <h1>About</h1>
+
+    <psk-layout columns="3">
+        <input data-model="@input" />
+        <input value="@input.value" type="@input.type" />
+<!--        <psk-input data-model="@input"></psk-input>-->
+    </psk-layout>
+
+    <button name="modal" data-tag="showModal">Show modal</button>
+    <button name="modal" data-tag="showModalFromTemplate">Show modal from template</button>
+    <button name="modal-error" data-tag="showModalError">Show error modal</button>
+    <button name="modal-redirect" data-tag="showModalRedirect">Show error modal and redirect</button>
+
+    <h1>webc-for example 1</h1>
+    <div data-for="@itemsOne">
+        <article data-model="@"></article>
+        <span data-model="@"></span>
+        <button data-model="@" data-tag="sample1"></button>
+    </div>
+
+    <h1>webc-for example 2</h1>
+    <div data-model="@itemsTwo">
+        <article class="article">
+            <h4 data-model="@title" class="article"></h4>
+            <p data-model="@content"></p>
+        </article>
+    </div>
+
+    <button data-model="@addItem"></button>
+    <button data-model="@removeItem"></button>
+    <button data-model="@modifyItem"></button>
+    <button data-model="@reverse"></button>
+
+    <br>
+
+    <button data-model="@button1" data-tag="button1"></button>
+    <button data-model="@button2" data-tag="button2"></button>
+    <button data-model="@button3"></button>
+
+    <button data-model="@redirectToContact"></button>
+    <webc-link tag="contact">Contact</webc-link>
+    <webc-link href="http://127.0.0.1:8000/contact">Contact 2</webc-link>
+    <webc-link href="/">home</webc-link>
+    <webc-link href="https://stackoverflow.com">StackOverflow</webc-link>
+
+    <h1>webc-for example 3</h1>
+    <div data-for="@itemsThree">
+        <div data-model="@div" class="div"></div>
+        <div data-for="@array" >
+            <span data-model="@"></span>
+        </div>
+    </div>
+
+    <h1>webc-if example 1</h1>
+    <div data-if="@conditionResult">
+        <div slot="true" class="alert alert-danger">
+            <p>TRUE</p>
+            <input data-model="@input" />
+        </div>
+
+        <div slot="false" class="alert alert-success">
+            <p>FALSE</p>
+            <input value="@input.value" type="@input.type" />
+        </div>
+    </div>
+
+    <h1>webc-if example 2</h1>
+    <div data-if="@wasSubmitted">
+        <div slot="true" class="alert alert-danger">
+            <p>Was submitted:</p>
+            <div data-if="@hasErrors">
+                <div slot="true" class="alert alert-danger">
+                    <p>The email address is invalid</p>
+                </div>
+
+                <div slot="false" class="alert alert-success">
+                    <p>The email address is valid</p>
+                </div>
+            </div>
+        </div>
+        <div slot="false" class="alert alert-success">
+            <p>Submitting...</p>
+        </div>
+    </div>
+
+</webc-container>

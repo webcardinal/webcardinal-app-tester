@@ -1,0 +1,23 @@
+/*
+ * Valid (custom) styling for shadow root of psk-accordion-item
+ *
+ * in the #shadoow-root of your component
+ * a tag <style data-styled>...</style> should be appended
+ *
+ * [data-shadow] marks the entrance in the #shadow-root (fragment)
+ */
+main psk-accordion psk-accordion-item[data-shadow] .title > span {
+    font-weight: bold;
+}
+
+main psk-accordion psk-accordion-item[data-shadow] .content {
+    border-width: 1px !important;
+}
+
+/*
+ * An invalid example, a warning is thrown
+ * use <link rel="stylesheet" href="/path"> or <style>...</style>
+ */
+webc-container header {
+    border: 2px dashed #FF000050;
+}

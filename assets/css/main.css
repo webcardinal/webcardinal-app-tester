@@ -1,0 +1,10 @@
+:root {
+    /* Override defaults (css variables of webc-<component>) */
+
+    --webc-app-menu-mode: horizontal;
+}
+
+webc-page {
+    display: block;
+    padding: 1rem;
+}

@@ -1,0 +1,71 @@
+{
+  "workDir": ".",
+  "dependencies": [
+    {
+      "name": "webcardinal",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/webcardinal/webcardinal-bundler",
+          "target": "./.dev",
+          "collectLog": false
+        },
+        {
+          "type": "execute",
+          "cmd": "cd ./.dev/webcardinal && npm install && npm run bundle-all"
+        }
+      ]
+    },
+    {
+      "name": "clear-sky-theme",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/PrivateSky/clear-sky-theme.git",
+          "target": "./.dev/themes",
+          "collectLog": false
+        }
+      ]
+    }
+  ],
+  "build": [
+    {
+      "name": "build-webcardinal",
+      "actions": [
+        {
+          "type": "buildWebCardinalComponents",
+          "src": "./.dev/webcardinal/.webcardinal",
+          "target": "./webcardinal"
+        }
+      ]
+    },
+    {
+      "name": "copy-themes",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./.dev/themes/clear-sky-theme/src",
+          "target": "./themes/clear-sky-theme",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    }
+  ],
+  "dev": [
+    {
+      "name": "build-webcardinal-components",
+      "actions": [
+        {
+          "type": "buildWebCardinalComponents",
+          "src": "./.webcardinal",
+          "target": "./webcardinal",
+          "options": {
+            "DEV": true
+          }
+        }
+      ]
+    }
+  ]
+}

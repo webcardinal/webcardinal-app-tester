@@ -1,0 +1,89 @@
+<webc-container controller="demos/DataIfController" enable-translations>
+    <div>
+        <p>{{ $changeLanguage }}</p>
+        <button data-tag="set-language" data-model="@enButton">en</button>
+        <button data-tag="set-language" data-model="@roButton">ro</button>
+    </div>
+
+    <h1>data-if without slots</h1>
+    <div data-if="@conditionResult">
+        <div class="alert alert-danger">
+            <p>TRUE</p>
+            <input data-model="@input" />
+        </div>
+    </div>
+
+    <h1>data-if without slots and expression for condition</h1>
+    <div data-if="@isEvenInputValue">
+        <div class="alert alert-danger">
+            <p>IS EVEN</p>
+            <input data-model="@input" />
+            <input type="button" value="@formattedInputValue" />
+            <span>{{ @formattedInputValue }}</span>
+        </div>
+    </div>
+
+    <h1>data-if with both true and false slots and translations</h1>
+    <div data-if="@conditionResult">
+        <div slot="true" class="alert alert-danger">
+            <p>{{ $true }}</p>
+            <p>{{ @trueText }}</p>
+            <p>
+                <input type="button" value="$true" />
+            </p>
+            <input data-model="@input" />
+        </div>
+
+        <div slot="false" class="alert alert-success">
+            <p>{{ $false }}</p>
+            <p>{{ @falseText }}</p>
+            <p>
+                <input type="button" value="$false" />
+            </p>
+            <input value="@input.value" type="@input.type" />
+        </div>
+    </div>
+
+    <h1>data-if with both true and false slots</h1>
+    <div data-if="@conditionResult">
+        <div slot="true" class="alert alert-danger">
+            <p>TRUE</p>
+            <input data-model="@input" />
+        </div>
+
+        <div slot="false" class="alert alert-success">
+            <p>FALSE</p>
+            <input value="@input.value" type="@input.type" />
+        </div>
+    </div>
+
+    <h1>data-if with data-if inside</h1>
+    <div data-if="@wasSubmitted">
+        <div slot="true" class="alert alert-danger">
+            <p>Was submitted:</p>
+            <div data-if="@hasErrors">
+                <div slot="true" class="alert alert-danger">
+                    <p>The email address is invalid</p>
+                </div>
+
+                <div slot="false" class="alert alert-success">
+                    <p>The email address is valid</p>
+                </div>
+            </div>
+        </div>
+        <div slot="false" class="alert alert-success">
+            <p>Submitting...</p>
+        </div>
+    </div>
+
+    <h1>data-if with both true and false slots and promise for condition</h1>
+    <div data-if="@conditionPromise">
+        <div slot="true" class="alert alert-danger">
+            <p>TRUE</p>
+        </div>
+
+        <div slot="false" class="alert alert-success">
+            <p>FALSE</p>
+        </div>
+    </div>
+</webc-container>
