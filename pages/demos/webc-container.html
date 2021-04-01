@@ -1,6 +1,6 @@
 <webc-container controller="demos/WebcContainerController" enable-translations>
     dummy
-    <button data-model="@button1" data-tag="button1">{{ @button1.text }}</button>
+    <button data-view-model="@button1" data-tag="button1">{{ @button1.text }}</button>
     <p>
         <span>{{ $button1 }}</span>
     </p>
@@ -11,9 +11,9 @@
     <p>{{ @button1.text }}</p>
     dummy
 
-    <button data-model="@button1" data-tag="button1"></button>
-    <button data-model="@button2"></button>
-    <button data-model="@button3"></button>
+    <button data-view-model="@button1" data-tag="button1"></button>
+    <button data-view-model="@button2"></button>
+    <button data-view-model="@button3"></button>
     <input type="button" value="$button4" />
 
     <div data-if="@conditionResult">
@@ -29,7 +29,7 @@
     </div>
 
     <div data-for="@itemsOne">
-        <button data-model="@"></button>
+        <button data-view-model="@"></button>
     </div>
 
     <br />
@@ -38,8 +38,8 @@
     <webc-template template="demo-template"></webc-template>
 
     <h2>Template with simple binding</h2>
-    <webc-template template="demo-template" data-model="@"></webc-template>
+    <webc-template template="demo-template" data-view-model="@"></webc-template>
 
     <h2>Template with complex binding</h2>
-    <webc-template template="demo-template" data-model="@templateInnerInput"></webc-template>
+    <webc-template template="demo-template" data-view-model="@templateInnerInput"></webc-template>
 </webc-container>

@@ -1,15 +1,15 @@
 <webc-container controller="demos/DataIfController" enable-translations>
     <div>
         <p>{{ $changeLanguage }}</p>
-        <button data-tag="set-language" data-model="@enButton">en</button>
-        <button data-tag="set-language" data-model="@roButton">ro</button>
+        <button data-tag="set-language" data-view-model="@enButton">en</button>
+        <button data-tag="set-language" data-view-model="@roButton">ro</button>
     </div>
 
     <h1>data-if without slots</h1>
     <div data-if="@conditionResult">
         <div class="alert alert-danger">
             <p>TRUE</p>
-            <input data-model="@input" />
+            <input data-view-model="@input" />
         </div>
     </div>
 
@@ -17,7 +17,7 @@
     <div data-if="@isEvenInputValue">
         <div class="alert alert-danger">
             <p>IS EVEN</p>
-            <input data-model="@input" />
+            <input data-view-model="@input" />
             <input type="button" value="@formattedInputValue" />
             <span>{{ @formattedInputValue }}</span>
         </div>
@@ -31,7 +31,7 @@
             <p>
                 <input type="button" value="$true" />
             </p>
-            <input data-model="@input" />
+            <input data-view-model="@input" />
         </div>
 
         <div slot="false" class="alert alert-success">
@@ -48,7 +48,7 @@
     <div data-if="@conditionResult">
         <div slot="true" class="alert alert-danger">
             <p>TRUE</p>
-            <input data-model="@input" />
+            <input data-view-model="@input" />
         </div>
 
         <div slot="false" class="alert alert-success">

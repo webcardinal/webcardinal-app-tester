@@ -3,9 +3,9 @@
     <h1>About</h1>
 
     <psk-layout columns="3">
-        <input data-model="@input" />
+        <input data-view-model="@input" />
         <input value="@input.value" type="@input.type" />
-<!--        <psk-input data-model="@input"></psk-input>-->
+<!--        <psk-input data-view-model="@input"></psk-input>-->
     </psk-layout>
 
     <button name="modal" data-tag="showModal">Show modal</button>
@@ -15,31 +15,31 @@
 
     <h1>webc-for example 1</h1>
     <div data-for="@itemsOne">
-        <article data-model="@"></article>
-        <span data-model="@"></span>
-        <button data-model="@" data-tag="sample1"></button>
+        <article data-view-model="@"></article>
+        <span data-view-model="@"></span>
+        <button data-view-model="@" data-tag="sample1"></button>
     </div>
 
     <h1>webc-for example 2</h1>
-    <div data-model="@itemsTwo">
+    <div data-view-model="@itemsTwo">
         <article class="article">
-            <h4 data-model="@title" class="article"></h4>
-            <p data-model="@content"></p>
+            <h4 data-view-model="@title" class="article"></h4>
+            <p data-view-model="@content"></p>
         </article>
     </div>
 
-    <button data-model="@addItem"></button>
-    <button data-model="@removeItem"></button>
-    <button data-model="@modifyItem"></button>
-    <button data-model="@reverse"></button>
+    <button data-view-model="@addItem"></button>
+    <button data-view-model="@removeItem"></button>
+    <button data-view-model="@modifyItem"></button>
+    <button data-view-model="@reverse"></button>
 
     <br>
 
-    <button data-model="@button1" data-tag="button1"></button>
-    <button data-model="@button2" data-tag="button2"></button>
-    <button data-model="@button3"></button>
+    <button data-view-model="@button1" data-tag="button1"></button>
+    <button data-view-model="@button2" data-tag="button2"></button>
+    <button data-view-model="@button3"></button>
 
-    <button data-model="@redirectToContact"></button>
+    <button data-view-model="@redirectToContact"></button>
     <webc-link tag="contact">Contact</webc-link>
     <webc-link href="http://127.0.0.1:8000/contact">Contact 2</webc-link>
     <webc-link href="/">home</webc-link>
@@ -47,9 +47,9 @@
 
     <h1>webc-for example 3</h1>
     <div data-for="@itemsThree">
-        <div data-model="@div" class="div"></div>
+        <div data-view-model="@div" class="div"></div>
         <div data-for="@array" >
-            <span data-model="@"></span>
+            <span data-view-model="@"></span>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
     <div data-if="@conditionResult">
         <div slot="true" class="alert alert-danger">
             <p>TRUE</p>
-            <input data-model="@input" />
+            <input data-view-model="@input" />
         </div>
 
         <div slot="false" class="alert alert-success">

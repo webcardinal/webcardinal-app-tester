@@ -4,19 +4,19 @@
     <webc-skin href="/assets/css/demos/webc-skin.shadow.css">
         <div class="test-container">
             <header>
-                <h1 data-model="@header.title"></h1>
-                <psk-card data-model="@header.card"></psk-card>
+                <h1 data-view-model="@header.title"></h1>
+                <psk-card data-view-model="@header.card"></psk-card>
             </header>
 
             <main>
-                <textarea data-model="@main.textarea"></textarea>
+                <textarea data-view-model="@main.textarea"></textarea>
 
-                <button data-model="@main.save"></button>
-                <button data-model="@main.reset"></button>
+                <button data-view-model="@main.save"></button>
+                <button data-view-model="@main.reset"></button>
 
                 <psk-accordion multiple>
                     <div data-for="@main.items">
-                        <psk-accordion-item data-model="@"></psk-accordion-item>
+                        <psk-accordion-item data-view-model="@"></psk-accordion-item>
                     </div>
                 </psk-accordion>
             </main>

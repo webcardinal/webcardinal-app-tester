@@ -1,15 +1,15 @@
 <webc-container controller="demos/DataForController" enable-translations>
     <div>
         <p>{{ $changeLanguage }}</p>
-        <button data-tag="set-language" data-model="@enButton">en</button>
-        <button data-tag="set-language" data-model="@roButton">ro</button>
+        <button data-tag="set-language" data-view-model="@enButton">en</button>
+        <button data-tag="set-language" data-view-model="@roButton">ro</button>
     </div>
 
     <h1>data-for simple</h1>
     <div data-for="@itemsOne">
         <article class="article">
-            <h4 data-model="@title" class="article"></h4>
-            <p data-model="@content"></p>
+            <h4 data-view-model="@title" class="article"></h4>
+            <p data-view-model="@content"></p>
             <input type="button" value="@buttonText" />
             <span>{{ @spanText }}</span>
         </article>
@@ -18,15 +18,15 @@
 
     <h1>data-for simple 2</h1>
     <div data-for="@itemsTwo">
-        <article data-model="@"></article>
-        <span data-model="@"></span>
-        <button data-model="@" data-tag="sample1"></button>
+        <article data-view-model="@"></article>
+        <span data-view-model="@"></span>
+        <button data-view-model="@" data-tag="sample1"></button>
     </div>
 
     <h1>data-for simple with no-data slot</h1>
     <div data-for="@itemsEmpty">
         <article class="article">
-            <h4 data-model="@title" class="article"></h4>
+            <h4 data-view-model="@title" class="article"></h4>
         </article>
         <div slot="no-data">No data is currently available</div>
         <div slot="no-data">No data is currently available description</div>
@@ -35,8 +35,8 @@
     <h1>data-for simple with expressions</h1>
     <div data-for="@itemsOne">
         <article class="article">
-            <h4 data-model="@title" class="article"></h4>
-            <p data-model="@content"></p>
+            <h4 data-view-model="@title" class="article"></h4>
+            <p data-view-model="@content"></p>
             <input type="button" value="@formattedInputValue" />
             <span data-class="@formattedClass">{{ @formattedInputValue }}</span>
         </article>
@@ -44,16 +44,16 @@
 
     <h1>data-for with translation</h1>
     <div data-for="@itemsTwoTranslations">
-        <article data-model="@"></article>
-        <span data-model="@"></span>
-        <button data-model="@" data-tag="sample1"></button>
+        <article data-view-model="@"></article>
+        <span data-view-model="@"></span>
+        <button data-view-model="@" data-tag="sample1"></button>
     </div>
 
     <h1>data-for with inner data-for</h1>
     <div data-for="@itemsThree">
-        <div data-model="@div" class="div"></div>
+        <div data-view-model="@div" class="div"></div>
         <div data-for="@array">
-            <span data-model="@" style="margin: 0 10px"></span>
+            <span data-view-model="@" style="margin: 0 10px"></span>
         </div>
     </div>
 </webc-container>
