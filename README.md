@@ -1,25 +1,14 @@
 ## Description
 
-Application template that uses WebCardinal.
+Application playground and testing area for WebCardinal contributors.
 
-## How to make it run on your side
-
-### Clone it
-
-```
-git clone https://github.com/webcardinal/webcardinal-app-starter my-application
-```
+## Make it work
 
 ### Install components of your Application
 
 ```
-cd my-application
 npm install
 ```
-
-Now you should see a folder: __`.dev`__.
-
-In this folder you have the WebCardinal bundle and other dependecies.
 
 ### Generate the distribution
 
@@ -31,7 +20,13 @@ npm run build
 # npm run dev 
 ```
 
-The default output target is __`webcardinal`__ directory.
+Active distribution can be found in __`webcardinal`__ directory.
+
+The default bundle brought from [webcardinal-bundler](https://github.com/webcardinal/webcardinal-bundler) is __all__.
+
+This distribution is used by:
+- [webcardinal-app-tester](https://github.com/webcardinal/webcardinal-app-tester)
+- testing environments from [webcardinal-tests](https://github.com/webcardinal/webcardinal-tests)
 
 ### Run local server
 
@@ -39,6 +34,35 @@ The default output target is __`webcardinal`__ directory.
 npm run server
 ```
 
-### See it in your browser
+### Run tests
 
-Just open [http://127.0.0.1:8000](http://127.0.0.1:8000) with you favorite browser.
+```
+npm run test
+```
+
+<br>
+
+---
+
+#### Advanced options for development build
+
+```json
+{
+  "name": "build-webcardinal-components",
+  "actions": [
+    {
+      "type": "buildWebCardinalComponents",
+      "src": "./.dev/webcardinal/.webcardinal",
+      "target": "./webcardinal",
+      "options": {
+        "DEV": true,
+        "devComponents": [
+          "webcardinal-core",
+          <ANY_WEBCARDINAL_COMPONENT>
+        ]
+      }
+    }
+  ]
+}
+  
+```
