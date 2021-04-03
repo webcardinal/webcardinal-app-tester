@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "node node_modules/octopus/scripts/run dependencies devmode && npm run build",
     "build": "node node_modules/octopus/scripts/run build devmode",
+    "test": "node node_modules/octopus/scripts/run test devmode",
     "dev": "node node_modules/octopus/scripts/run dev devmode",
     "server": "ws --spa ./index.html"
   },
