@@ -1,0 +1,130 @@
+<webc-container id="test-container">
+    <header>
+        <section>
+            <h4>
+                Testing templates: with no <code>data-view-model</code>, with <code>@</code> and within a
+                <strong>scope</strong>.
+            </h4>
+            <div>Component: <code>webc-template</code></div>
+        </section>
+    </header>
+    <main>
+        <section>
+            <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-template/Test1.js"></psk-code>
+
+            <psk-code language="HTML">
+                <div><code>isFirstModel: {{ @isFirstModel }}</code></div>
+
+                <br />
+
+                <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                    <h4>Only <code>data-view-model</code>:</h4>
+                    <div>
+                        <label data-view-model="@templateLabel"></label>
+                        <input data-view-model="@templateInput" />
+                    </div>
+                </div>
+
+                <webc-template data-test="01" template="input-with-model"></webc-template>
+                <webc-template data-test="02" template="input-with-model" data-view-model="@"></webc-template>
+                <webc-template data-test="03" template="input-with-model" data-view-model="@scoped"></webc-template>
+
+                <br />
+
+                <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                    <h4>Only <code>bounded attributes</code>:</h4>
+                    <div>
+                        <label>{{ @templateLabel.text }}</label>
+                        <input value="@templateInput.value" />
+                    </div>
+                </div>
+
+                <webc-template data-test="04" template="input-with-attributes"></webc-template>
+                <webc-template data-test="05" template="input-with-attributes" data-view-model="@"></webc-template>
+                <webc-template
+                    data-test="06"
+                    template="input-with-attributes"
+                    data-view-model="@scoped"
+                ></webc-template>
+
+                <br />
+
+                <button data-tag="toggle">Toggle</button>
+            </psk-code>
+
+            <psk-code language="HTML" title="template: input-with-model">
+                <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                    <h4>Template with <code>data-view-model</code>:</h4>
+                    <div>
+                        <label data-view-model="@templateLabel"></label>
+                        <input data-view-model="@templateInput" />
+                    </div>
+                </div>
+            </psk-code>
+
+            <psk-code language="HTML" title="template: input-with-attributes">
+                <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                    <h4>Template with <code>bounded attributes</code>:</h4>
+                    <div>
+                        <label>{{ @templateLabel.text }}</label>
+                        <input value="@templateInput.value" />
+                    </div>
+                </div>
+            </psk-code>
+
+            <psk-example>
+                <style>
+                    .test1 > div:first-child {
+                        display: grid;
+                        grid-template-columns: 1fr auto auto;
+                        gap: 1rem;
+                        padding-bottom: 1rem;
+                    }
+                    .test1 > div:last-child {
+                        border: 1px solid #cdcdcd;
+                        padding: 1rem;
+                    }
+                </style>
+                <webc-container controller="manual/webc-template/Test1" class="test1">
+                    <div><code>isFirstModel: {{ @isFirstModel }}</code></div>
+
+                    <br />
+
+                    <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                        <h4>Only <code>data-view-model</code>:</h4>
+                        <div>
+                            <label data-view-model="@templateLabel"></label>
+                            <input data-view-model="@templateInput" />
+                        </div>
+                    </div>
+
+                    <webc-template data-test="01" template="input-with-model"></webc-template>
+                    <webc-template data-test="02" template="input-with-model" data-view-model="@"></webc-template>
+                    <webc-template data-test="03" template="input-with-model" data-view-model="@scoped"></webc-template>
+
+                    <br />
+
+                    <div style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+                        <h4>Only <code>bounded attributes</code>:</h4>
+                        <div>
+                            <label>{{ @templateLabel.text }}</label>
+                            <input value="@templateInput.value" />
+                        </div>
+                    </div>
+
+                    <webc-template data-test="04" template="input-with-attributes"></webc-template>
+                    <webc-template data-test="05" template="input-with-attributes" data-view-model="@"></webc-template>
+                    <webc-template
+                        data-test="06"
+                        template="input-with-attributes"
+                        data-view-model="@scoped"
+                    ></webc-template>
+
+                    <br />
+
+                    <button data-tag="toggle">Toggle</button>
+                </webc-container>
+            </psk-example>
+        </section>
+    </main>
+</webc-container>

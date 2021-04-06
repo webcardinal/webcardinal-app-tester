@@ -22,10 +22,7 @@ export default class extends Controller {
 
         const initialNumber = 4;
 
-        this.setModel({
-            number: initialNumber,
-            items: this.generateItems(initialNumber),
-        });
+        this.setModel(this.generateItems(initialNumber));
 
         this.onTagClick("plus", (_) => {
             const id = this.lastId++;
@@ -34,21 +31,14 @@ export default class extends Controller {
                 name: "Random item",
                 inputValue: id,
             };
-            const indexToAdd = this.getRandomInt(0, this.model.items.length);
-            this.model.items.splice(indexToAdd, 0, newItem);
-            this.model.number = this.model.items.length;
+            const indexToAdd = this.getRandomInt(0, this.model.length);
+            this.model.splice(indexToAdd, 0, newItem);
         });
         this.onTagClick("minus", (model) => {
-            const indexToRemove = this.model.items.findIndex((x) => x.id === model.id);
-            this.model.items.splice(indexToRemove, 1);
-            this.model.number = this.model.items.length;
+            const indexToRemove = this.model.findIndex((x) => x.id === model.id);
+            this.model.splice(indexToRemove, 1);
         });
 
-        this.model.addExpression(
-            "modelString",
-            () => JSON.stringify(this.model.toObject(), null, 2),
-            "number",
-            "items"
-        );
+        this.model.addExpression("modelString", () => JSON.stringify(this.model.toObject(), null, 2), "*");
     }
 }
