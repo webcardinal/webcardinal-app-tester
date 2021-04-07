@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Application made only for testing purposes.",
   "scripts": {
-    "postinstall": "node node_modules/octopus/scripts/run dependencies devmode && npm run build && npm run test",
+    "postinstall": "node node_modules/octopus/scripts/run dependencies devmode && npm run build && npm run test && npm run save",
     "build": "node node_modules/octopus/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
-    "save": "node node_modules/octopus/scripts/run save-tests devmode",
     "dev": "node node_modules/octopus/scripts/run dev devmode",
-    "server": "ws --spa ./index.html"
+    "server": "ws --spa ./index.html",
+    "save": "node node_modules/octopus/scripts/run save-test-results devmode",
+    "commit": "node node_modules/octopus/scripts/run commit-tests devmode"
   },
   "dependencies": {},
   "devDependencies": {

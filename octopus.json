@@ -89,9 +89,9 @@
       ]
     }
   ],
-  "save-tests": [
+  "commit-tests": [
     {
-      "name": "webcardinal-tests",
+      "name": "commit-webcardinal-tests",
       "actions": [
         {
           "type": "copy",
@@ -100,7 +100,14 @@
           "options": {
             "overwrite": true
           }
-        },
+        }
+      ]
+    }
+  ],
+  "save-test-results": [
+    {
+      "name": "save-webcardinal-tests",
+      "actions": [
         {
           "type": "copy",
           "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test-results",
@@ -114,7 +121,7 @@
   ],
   "test": [
     {
-      "name": "tests-webcardinal",
+      "name": "run-webcardinal-tests",
       "actions": [
         {
           "type": "execute",
