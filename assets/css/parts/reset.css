@@ -11,3 +11,12 @@ button {
 button {
     cursor: pointer;
 }
+
+psk-page::part(page-header),
+psk-page::part(page-title),
+psk-page::part(page-main),
+psk-page::part(page-grid),
+psk-page::part(page-container),
+psk-page::part(page-slot-container) {
+    background: transparent;
+}

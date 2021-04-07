@@ -1,0 +1,70 @@
+<style>
+    #test-container {
+        height: auto;
+    }
+</style>
+<div id="test-container">
+    <header>
+        <section>
+            <h4>Variable length of an <code>Array</code> in <code>data-for</code></h4>
+            <div>Attribute: <code>data-for</code></div>
+        </section>
+    </header>
+    <main>
+        <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-skin/Test1.js"></psk-code>
+        <psk-code language="HTML">
+            <link rel="stylesheet" href="/assets/css/demo/webc-skin.css" />
+            <webc-container controller="manual/webc-skin/Test1">
+                <webc-skin href="/assets/css/demo/webc-skin.shadow.css">
+                    <div class="test-container">
+                        <header>
+                            <h1 data-view-model="@header.title"></h1>
+                            <psk-card data-view-model="@header.card"></psk-card>
+                        </header>
+
+                        <main>
+                            <textarea data-view-model="@main.textarea"></textarea>
+
+                            <button data-view-model="@main.save"></button>
+                            <button data-view-model="@main.reset"></button>
+
+                            <psk-accordion multiple>
+                                <div data-for="@main.items">
+                                    <psk-accordion-item data-view-model="@"></psk-accordion-item>
+                                </div>
+                            </psk-accordion>
+                        </main>
+                    </div>
+                </webc-skin>
+            </webc-container>
+        </psk-code>
+        <psk-code language="CSS" file="/assets/css/demo/webc-skin.shadow.css"></psk-code>
+    </main>
+</div>
+
+<link rel="stylesheet" href="/assets/css/demo/webc-skin.css" />
+<webc-container controller="manual/webc-skin/Test1">
+    <webc-skin href="/assets/css/demo/webc-skin.shadow.css">
+        <div class="test-container">
+            <header>
+                <h1 data-view-model="@header.title"></h1>
+                <psk-card data-view-model="@header.card"></psk-card>
+            </header>
+
+            <main>
+                <textarea data-view-model="@main.textarea"></textarea>
+
+                <button data-view-model="@main.save"></button>
+                <button data-view-model="@main.reset"></button>
+
+                <psk-accordion multiple>
+                    <div data-for="@main.items">
+                        <psk-accordion-item data-view-model="@"></psk-accordion-item>
+                    </div>
+                </psk-accordion>
+            </main>
+        </div>
+    </webc-skin>
+</webc-container>
+
+

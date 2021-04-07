@@ -5,7 +5,7 @@
     background: #eaeaea;
 }
 
-#test-container header {
+#test-container > header {
     display: block;
     padding: 1.5rem 0;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
@@ -15,13 +15,13 @@
     z-index: 1;
 }
 
-#test-container header section {
+#test-container > header section {
     display: flex;
     justify-content: space-between;
 }
 
-#test-container header section,
-#test-container main {
+#test-container > header section,
+#test-container > main {
     margin: 0 auto;
     max-width: 1000px;
     width: 100%;
@@ -29,7 +29,8 @@
     overflow: hidden;
 }
 
-#test-container header code {
+#test-container > header code {
+    color: var(--primary-color);
     background: #e5e5e5;
     padding: 0.4rem;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
@@ -37,21 +38,29 @@
     font-size: 1.1rem;
 }
 
-#test-container main psk-code pre {
+#test-container > main psk-code pre {
     border-radius: 1px;
     font-size: 90%;
 }
 
-#test-container main {
+#test-container > main {
     display: block;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
 }
 
-#test-container main psk-example {
+#test-container > main psk-example {
     display: block;
     margin: 1.5rem 0;
     padding: 0 1rem 1rem 1rem;
     background: whitesmoke;
     border-radius: 1px
+}
+
+code {
+    color: var(--primary-color);
+}
+
+psk-page::part(page-title) {
+    color: var(--primary-color)
 }

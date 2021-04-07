@@ -1,3 +1,8 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-color-transparent: #4CAF5050;
+}
+
 webc-app-menu {
     --webc-app-menu-color: #212121;
     --webc-app-menu-vertical-background: whitesmoke;

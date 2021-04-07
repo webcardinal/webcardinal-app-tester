@@ -7,7 +7,12 @@
  * [data-shadow] marks the entrance in the #shadow-root (fragment)
  */
 main psk-accordion psk-accordion-item[data-shadow] .title > span {
+    color: var(--primary-color) !important;
     font-weight: bold;
+}
+
+main psk-accordion psk-accordion-item[data-shadow] .title {
+    background-color: var(--primary-color-transparent) !important;
 }
 
 main psk-accordion psk-accordion-item[data-shadow] .content {

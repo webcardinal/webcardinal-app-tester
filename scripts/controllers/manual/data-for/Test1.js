@@ -24,7 +24,7 @@ export default class extends Controller {
         this.onTagClick('plus', _ => this.model.number++);
         this.onTagClick('minus', _ => this.model.number > 0 && this.model.number--);
 
-        let oldValue = this.model.items[1].name
+        let oldValue = this.model.items[1].name;
         let newValue = '2. SUPER ITEM!';
         setInterval(() => {
             if (this.model.items.length < 2) return;

@@ -9,42 +9,8 @@
     "pages": [
         {
             "path": "/",
-            "name": "Homepage",
+            "name": "\uD83C\uDFE0 Homepage",
             "src": "home.html"
-        },
-        {
-            "path": "/webc-template",
-            "name": "webc-template",
-            "src": "webc-template.html"
-        },
-        {
-            "name": "About"
-        },
-        {
-            "name": "Demos",
-            "children": [
-                {
-                    "name": "data-if"
-                },
-                {
-                    "name": "data-for"
-                },
-                {
-                    "name": "webc-container"
-                },
-                {
-                    "name": "webc-skin"
-                }
-            ]
-        },
-        {
-            "name": "Contact",
-            "tag": "contact"
-        },
-        {
-            "name": "PSK Styles",
-            "tag": "faq",
-            "src": "https://privatesky.xyz/pages/faq.html"
         },
         {
             "name": "⚙️ Automated tests",
@@ -54,15 +20,35 @@
         {
             "name": "\uD83E\uDD19 Hand tests",
             "path": "tests/manual",
-            "src": "hand-tests",
+            "src": "manual-tests",
             "children": [
+                {
+                    "name": "data-for",
+                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
+                },
                 {
                     "name": "webc-template",
                     "children": [{ "name": "Test 1" }]
                 },
                 {
-                    "name": "data-for",
-                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
+                    "name": "webc-skin",
+                    "children": [{ "name": "Test 1" }]
+                }
+            ]
+        },
+        {
+            "name": "⌛ Deprecated tests",
+            "path": "./tests/deprecated",
+            "src": "./deprecated-tests",
+            "children": [
+                {
+                    "name": "data-if"
+                },
+                {
+                    "name": "data-for"
+                },
+                {
+                    "name": "webc-container"
                 }
             ]
         }

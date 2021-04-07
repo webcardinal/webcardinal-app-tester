@@ -1,15 +1,11 @@
-const { WebcController } = WebCardinal.controllers;
+const { Controller } = WebCardinal.controllers;
 
-class WebcSkinController extends WebcController {
+export default class extends Controller {
     initializeModel() {
         return ({
             header: {
-                title: {
-                    text: 'WebcSkin examples 👨‍🏫'
-                },
-                card: {
-                    title: 'Subheader'
-                }
+                title: { text: 'WebcSkin examples 👨‍🏫' },
+                card: { title: 'Subheader' }
             },
             main: {
                 textarea: {
@@ -17,12 +13,8 @@ class WebcSkinController extends WebcController {
                     rows: '10',
                     placeholder: 'Type something here...'
                 },
-                save: {
-                    text: 'Save'
-                },
-                reset: {
-                    text: 'Reset'
-                },
+                save: { text: 'Save' },
+                reset: { text: 'Reset' },
                 items: [
                     {
                         title: 'Item 1',
@@ -48,5 +40,3 @@ class WebcSkinController extends WebcController {
         this.setModel(this.initializeModel());
     }
 }
-
-export default WebcSkinController;
