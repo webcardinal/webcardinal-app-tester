@@ -35,7 +35,7 @@
         },
         {
           "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1"
+          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare"
         }
       ]
     },
@@ -89,13 +89,36 @@
       ]
     }
   ],
+  "save-tests": [
+    {
+      "name": "webcardinal-tests",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
+          "target": "./.dev/webcardinal-tests/webcardinal-core",
+          "options": {
+            "overwrite": true
+          }
+        },
+        {
+          "type": "copy",
+          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test-results",
+          "target": "./pages/automated-tests/webcardinal-core",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    }
+  ],
   "test": [
     {
       "name": "tests-webcardinal",
       "actions": [
         {
           "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e"
+          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
         }
       ]
     }

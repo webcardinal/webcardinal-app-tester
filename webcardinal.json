@@ -51,6 +51,14 @@
                     "name": "webc-container"
                 }
             ]
+        },
+        {
+            "name": "webcardinal-core-test-results",
+            "tag": "webcardinal-core-test-results",
+            "src": "automated-tests/webcardinal-core/index.html",
+            "path": "tests/webcardinal-core",
+            "loader": "object",
+            "indexed": false
         }
     ],
     "theme": "clear-sky-theme"

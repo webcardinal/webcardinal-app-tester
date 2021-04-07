@@ -4,5 +4,7 @@
 themes/
 webcardinal/
 node_modules/
+pages/automated-tests/webcardinal-*
+pages/automated-tests/cardinal-*
 
 latest-change-set.txt

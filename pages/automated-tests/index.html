@@ -1,4 +1,12 @@
 <style>
+    webc-link.button a {
+        text-decoration: none;
+    }
+    webc-link.button button {
+        border-radius: 3px;
+        /*border: 1px solid var(--primary-color);*/
+    }
+
     #test-container section:first-child {
         margin-top: 0.75rem;
     }
@@ -79,7 +87,10 @@
                 <ul>
                     <li>
                         <a href="/.dev/webcardinal/.webcardinal/components/webcardinal-core/test">webcardinal-core</a>
-                        <small style="margin-right: 1rem">This is only for preview!</small>
+                        <webc-link tag="webcardinal-core-test-results" class="button">
+                            <button style="margin-left: 1rem">View results ✔️</button>
+                        </webc-link>
+                        <br>
                         <p>
                             <br>
                             <strong>NOTE:</strong> <em>Environment 1</em> will uses the <strong>same webcardinal bundle</strong> as current workspace (webcardinal-app-tester), when tests are running Stencil (<code>Stencil Dev Server ⚡)</code> creates a <strong>temporarily distribution</strong>.
