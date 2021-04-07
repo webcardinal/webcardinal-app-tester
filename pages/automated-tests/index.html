@@ -1,19 +1,92 @@
 <style>
-    #test-container main {
+    #test-container section:first-child {
+        margin-top: 0.75rem;
+    }
+    #test-container section {
         margin-top: 2rem;
+        padding: 1rem 1.5rem;
         background: whitesmoke;
     }
-    #test-container main h2 {
+    #test-container section h2 {
         padding-bottom: 1rem;
     }
-    #test-container main a {
+    #test-container section a {
         color: var(--primary-color);
         font-weight: bolder;
+    }
+    #test-container section article {
+        padding: 0.5rem 0 1rem 0;
+    }
+    #test-container section ul,
+    #test-container section ol {
+        list-style-position: inside;
+    }
+    #test-container section article ol li {
+        padding: 0.25rem 0;
+    }
+    #test-container section article code {
+        font-size: 86%;
+    }
+    #test-container section article p {
+        padding: 0.25rem 0;
     }
 </style>
 <div id="test-container">
     <main>
-        <h2>For components</h2>
-        <a href="/.dev/webcardinal/.webcardinal/components/webcardinal-core/test">webcardinal-core</a>
+        <section>
+            <article>
+                <h2>How does it work</h2>
+                <ol>
+                    <li>
+                        Initially, the repository <webc-link href="https://github.com/webcardinal/webcardinal-tests">webcardinal-tests</webc-link> is cloned inside <code>.dev/webcardinal-tests</code>.
+                    </li>
+                    <li>
+                        Then by <strong>octopus</strong> runner, tests are moved in the development root of the component library, in <code>test</code> directory.
+                        <br>
+                        (e.g <code>.dev/webcardinal/.webcardinal/components/webcardinal-core/test</code>).
+                    </li>
+                    <li>
+                        At that location <a href="https://www.npmjs.com/package/jest" target="_blank">jest</a> and <a href="https://www.npmjs.com/package/puppeteer" target="_blank">puppeteer</a> will be installed.
+                        <br>
+                        (currently are installed by octopus for <strong>webcardinal-core</strong>)
+                    </li>
+                </ol>
+                <p style="padding: 0.5rem 0">In a nutshell, a Chromium instance is used for E2E testing.</p>
+                <br>
+                <p>Related: <a href="https://stenciljs.com/docs/end-to-end-testing" target="_blank">StencilJS E2E testing</a></p>
+            </article>
+            <article>
+                <h2>What is an WebCardinal Testing Environment</h2>
+                <p>A test environment is a WebCardinal application designed specifically for testing.</p>
+                <p>An environment contains <b>pages</b>, <b>templates</b>, <b>controllers</b>, etc.</p>
+                <p>It should supplies auxiliary <code>methods</code> and <code>helpers</code>.</p>
+                <p>Currently only <strong>webcardinal-core</strong> offers a testing environment.</p>
+            </article>
+        </section>
+        <section>
+            <article>
+                <h2>How to run current tests</h2>
+                <p>From the root of this application run the following command: </p>
+                <psk-code language="bash">
+                    npm run test
+                    # npm t
+                </psk-code>
+            </article>
+        </section>
+        <section>
+            <article>
+                <h2>Testing Environments for Components</h2>
+                <ul>
+                    <li>
+                        <a href="/.dev/webcardinal/.webcardinal/components/webcardinal-core/test">webcardinal-core</a>
+                        <small style="margin-right: 1rem">This is only for preview!</small>
+                        <p>
+                            <br>
+                            <strong>NOTE:</strong> <em>Environment 1</em> will uses the <strong>same webcardinal bundle</strong> as current workspace (webcardinal-app-tester), when tests are running Stencil (<code>Stencil Dev Server ⚡)</code> creates a <strong>temporarily distribution</strong>.
+                        </p>
+                    </li>
+                </ul>
+            </article>
+        </section>
     </main>
 </div>
