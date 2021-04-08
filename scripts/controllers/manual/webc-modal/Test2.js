@@ -21,12 +21,4 @@ export default class extends WebcController {
             // });
         });
     }
-
-    onConfirm(event) {
-        console.log('onClose', event)
-    }
-
-    onClose(event) {
-        console.log('onClose', event)
-    }
 }
