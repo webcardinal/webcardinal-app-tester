@@ -2,9 +2,8 @@
     "identity": {
         "email": "Playground"
     },
-    "pagesPathname": "pages",
     "pagesFallback": {
-        "name": "Home"
+        "name": "404"
     },
     "pages": [
         {
@@ -37,13 +36,21 @@
                 {
                     "name": "webc-skin",
                     "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "Skin & Translations",
+                    "path": "./skins",
+                    "src": "./skins.html",
+                    "skin": {
+                        "name": "advanced"
+                    }
                 }
             ]
         },
         {
             "name": "⌛ Deprecated tests",
-            "path": "./tests/deprecated",
-            "src": "./deprecated-tests",
+            "path": "tests/deprecated",
+            "src": "deprecated-tests",
             "children": [
                 {
                     "name": "data-if"
@@ -66,5 +73,14 @@
         }
     ],
     "theme": "clear-sky-theme",
-    "enableTranslations": true
+    "translations": false,
+    "skins": [
+        {
+            "name": "default"
+        },
+        {
+            "name": "advanced",
+            "translations": true
+        }
+    ]
 }

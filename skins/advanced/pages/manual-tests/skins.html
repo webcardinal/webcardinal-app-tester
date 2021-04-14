@@ -1,0 +1,37 @@
+<style>
+    h4 {
+        margin: 1rem 0;
+    }
+
+    button {
+        border: 1px solid var(--primary-color);
+        border-radius: 3px;
+    }
+
+    div.grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    div .full {
+        grid-column: 1 / -1;
+    }
+</style>
+<webc-container controller="AdvancedController">
+    <psk-page title="@hello">
+        <h4>{{ $content }}</h4>
+
+        <div class="grid">
+            <p class="full">Change the preferred skin (<code>{{ @skin.name }}</code>) to:</p>
+            <button data-tag="default">Default skin</button>
+            <button data-tag="advanced">Advanced skin</button>
+            <p class="full">As a result view <strong>Homepage</strong> with both skins: <webc-link href="/"><code>homepage</code></webc-link></p>
+        </div>
+        <br>
+        <div class="grid">
+            <p class="full"><code>modals</code> and <code>templates</code> are scoped to the current skin.</p>
+            <button data-tag="modal">Show modal</button>
+            <webc-template template="template" data-view-model="@"></webc-template>
+        </div>
+    </psk-page>
+</webc-container>

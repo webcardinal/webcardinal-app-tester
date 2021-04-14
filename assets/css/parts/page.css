@@ -57,6 +57,7 @@
     border-radius: 1px
 }
 
+a,
 code {
     color: var(--primary-color);
 }

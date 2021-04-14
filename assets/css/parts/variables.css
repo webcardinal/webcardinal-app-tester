@@ -6,6 +6,8 @@
 webc-app-menu {
     --webc-app-menu-color: #212121;
     --webc-app-menu-vertical-background: whitesmoke;
+    --webc-app-menu-mobile-background: whitesmoke;
+    --webc-app-menu-mobile-burger-color: #212121;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
