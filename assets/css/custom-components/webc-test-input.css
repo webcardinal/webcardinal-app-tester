@@ -1,0 +1,14 @@
+:host > div {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+:host input {
+    padding: 0.5rem;
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid var(--primary-color);
+}

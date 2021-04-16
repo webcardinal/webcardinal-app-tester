@@ -1,86 +1,106 @@
 {
-    "identity": {
-        "email": "Playground"
+  "identity": {
+    "email": "Playground"
+  },
+  "pagesFallback": {
+    "name": "404"
+  },
+  "pages": [
+    {
+      "path": "/",
+      "name": "\uD83C\uDFE0 Homepage",
+      "src": "home.html"
     },
-    "pagesFallback": {
-        "name": "404"
+    {
+      "name": "⚙️ Automated tests",
+      "path": "tests",
+      "src": "automated-tests/index.html"
     },
-    "pages": [
+    {
+      "name": "\uD83E\uDD19 Hand tests",
+      "path": "tests/manual",
+      "src": "manual-tests",
+      "children": [
         {
-            "path": "/",
-            "name": "\uD83C\uDFE0 Homepage",
-            "src": "home.html"
+          "name": "data-for",
+          "children": [
+            {
+              "name": "Test 1"
+            },
+            {
+              "name": "Test 2"
+            },
+            {
+              "name": "Test 3"
+            },
+            {
+              "name": "Test 4"
+            }
+          ]
         },
         {
-            "name": "⚙️ Automated tests",
-            "path": "tests",
-            "src": "automated-tests/index.html"
+          "name": "webc-modal",
+          "children": [
+            {
+              "name": "Test 1"
+            }
+          ]
         },
         {
-            "name": "\uD83E\uDD19 Hand tests",
-            "path": "tests/manual",
-            "src": "manual-tests",
-            "children": [
-                {
-                    "name": "data-for",
-                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
-                },
-                {
-                    "name": "webc-modal",
-                    "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "webc-template",
-                    "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "webc-skin",
-                    "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "Skin & Translations",
-                    "path": "./skins",
-                    "src": "./skins.html",
-                    "skin": {
-                        "name": "advanced"
-                    }
-                }
-            ]
+          "name": "webc-template",
+          "children": [
+            {
+              "name": "Test 1"
+            }
+          ]
         },
         {
-            "name": "⌛ Deprecated tests",
-            "path": "tests/deprecated",
-            "src": "deprecated-tests",
-            "children": [
-                {
-                    "name": "data-if"
-                },
-                {
-                    "name": "data-for"
-                },
-                {
-                    "name": "webc-container"
-                }
-            ]
+          "name": "webc-skin",
+          "children": [
+            {
+              "name": "Test 1"
+            }
+          ]
         },
         {
-            "name": "webcardinal-core-test-results",
-            "tag": "webcardinal-core-test-results",
-            "src": "automated-tests/webcardinal-core/index.html",
-            "path": "tests/webcardinal-core",
-            "loader": "object",
-            "indexed": false
+          "name": "Skin & Translations",
+          "path": "./skins",
+          "src": "./skins.html"
+        },
+        {
+          "name": "Custom Elements",
+          "children": [
+            {
+              "name": "webc-test-input"
+            }
+          ]
         }
-    ],
-    "theme": "clear-sky-theme",
-    "translations": false,
-    "skins": [
+      ]
+    },
+    {
+      "name": "⌛ Deprecated tests",
+      "path": "tests/deprecated",
+      "src": "deprecated-tests",
+      "children": [
         {
-            "name": "default"
+          "name": "data-if"
         },
         {
-            "name": "advanced",
-            "translations": true
+          "name": "data-for"
+        },
+        {
+          "name": "webc-container"
         }
-    ]
+      ]
+    },
+    {
+      "name": "webcardinal-core-test-results",
+      "tag": "webcardinal-core-test-results",
+      "src": "automated-tests/webcardinal-core/index.html",
+      "path": "tests/webcardinal-core",
+      "loader": "object",
+      "indexed": false
+    }
+  ],
+  "theme": "clear-sky-theme"
 }
