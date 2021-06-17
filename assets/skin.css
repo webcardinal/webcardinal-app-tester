@@ -1,8 +1,7 @@
-@import "parts/reset.css";
-@import 'parts/fonts.css';
-@import 'parts/variables.css';
-@import 'parts/page.css';
-
+@import 'css/parts/reset.css';
+@import 'css/parts/fonts.css';
+@import 'css/parts/variables.css';
+@import 'css/parts/page.css';
 
 html, body {
     width: 100%;

@@ -36,14 +36,6 @@
                 {
                     "name": "webc-skin",
                     "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "Skin & Translations",
-                    "path": "./skins",
-                    "src": "./skins.html",
-                    "skin": {
-                        "name": "advanced"
-                    }
                 }
             ]
         },
@@ -72,15 +64,5 @@
             "indexed": false
         }
     ],
-    "theme": "clear-sky-theme",
-    "translations": false,
-    "skins": [
-        {
-            "name": "default"
-        },
-        {
-            "name": "advanced",
-            "translations": true
-        }
-    ]
+    "theme": "clear-sky-theme"
 }

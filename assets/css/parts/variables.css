@@ -3,11 +3,15 @@
     --primary-color-transparent: #4CAF5050;
 }
 
-webc-app-menu {
-    --webc-app-menu-color: #212121;
-    --webc-app-menu-vertical-background: whitesmoke;
-    --webc-app-menu-mobile-background: whitesmoke;
-    --webc-app-menu-mobile-burger-color: #212121;
+webc-app-menu[mode='vertical'] {
+    --background: whitesmoke;
+    --color: #212121;
+    --min-width: 240px;
+}
+
+webc-app-menu[mode='mobile'] {
+    --background: whitesmoke;
+    --burger-color: #212121;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
 }
 
@@ -17,5 +21,5 @@ webc-app-menu .app-menu {
 }
 
 webc-app-identity {
-    --webc-app-identity-color: #212121;
+    --color: #212121;
 }
