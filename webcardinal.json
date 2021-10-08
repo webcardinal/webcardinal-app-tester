@@ -36,6 +36,14 @@
                 {
                     "name": "webc-skin",
                     "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "webc-container",
+                    "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "webc-datatable",
+                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }]
                 }
             ]
         },

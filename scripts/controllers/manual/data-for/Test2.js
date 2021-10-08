@@ -24,9 +24,9 @@ export default class extends Controller {
         this.model.items = this.getItems();
     }
 
-    constructor(element, history) {
-        super(element, history);
-        this.setModel({ state: 0, items: [] });
+    constructor(...props) {
+        super(...props);
+        this.model = { state: 0, items: [] };
         setInterval(this.changeItems, 1000);
     }
 }
