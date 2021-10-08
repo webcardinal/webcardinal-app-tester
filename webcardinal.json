@@ -26,15 +26,7 @@
                     "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
                 },
                 {
-                    "name": "webc-modal",
-                    "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "webc-template",
-                    "children": [{ "name": "Test 1" }]
-                },
-                {
-                    "name": "webc-skin",
+                    "name": "webc-component",
                     "children": [{ "name": "Test 1" }]
                 },
                 {
@@ -44,6 +36,18 @@
                 {
                     "name": "webc-datatable",
                     "children": [{ "name": "Test 1" }, { "name": "Test 2" }]
+                },
+                {
+                    "name": "webc-modal",
+                    "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "webc-skin",
+                    "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "webc-template",
+                    "children": [{ "name": "Test 1" }]
                 }
             ]
         },

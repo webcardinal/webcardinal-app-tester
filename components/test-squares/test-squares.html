@@ -1,0 +1,36 @@
+<style>
+  .test-squares {
+    display: flex; gap: 1rem;
+  }
+  .test-squares > div {
+    border: 4px dashed #cdcdcd;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+  }
+  .test-squares > div:nth-child(1) {
+    border-color: red;
+  }
+  .test-squares > div:nth-child(2) {
+    border-color: yellow;
+  }
+  .test-squares > div:nth-child(3) {
+    border-color: blue;
+  }
+</style>
+
+<div style="padding-bottom: 0.5rem">Maximum of 4 squares</div>
+<div class="test-squares">
+  <div>
+    <slot name="square-1"></slot>
+  </div>
+  <div>
+    <slot name="square-2"></slot>
+  </div>
+  <div>
+    <slot name="square-3"></slot>
+  </div>
+  <div>
+    <slot name="square-4"></slot>
+  </div>
+</div>
