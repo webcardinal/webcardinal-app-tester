@@ -1,0 +1,50 @@
+<style>
+    .test--container,
+    .webc-datatable--container {
+        --demo-gap: 0.5rem;
+    }
+    .test--container > div,
+    .webc-datatable--container > div {
+        padding: var(--demo-gap) 0;
+    }
+    .test--container > test-input-with-dashes,
+    .webc-datatable--container > test-input-with-dashes {
+        display: block;
+        padding-bottom: var(--demo-gap);
+    }
+    .test--container > hr,
+    .webc-datatable--container > hr {
+        border: 1px solid var(--primary-color);
+        margin: var(--demo-gap) 0 calc(2 * var(--demo-gap)) 0;
+    }
+    .webc-datatable--container > hr:last-of-type {
+        display: none;
+    }
+</style>
+
+<webc-container id="test-container" controller="manual/webc-datatable/Test3Controller">
+    <main>
+        <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-datatable/Test3Controller.js"></psk-code>
+
+        <section class="test--container">
+            Label: "{{ @test.label }}" --- Value: "{{ @test.value }}" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
+            <div>
+                Label: "<span>{{ @test.label }}</span>" --- Value: "<span>{{ @test.value }}</span>" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
+            </div>
+            <test-input value="@test.value" label="@test.label" type="@test.type"></test-input>
+            <test-input-with-dashes value="@test.value" label="@test.label" type="@test.type"></test-input-with-dashes>
+            <test-input-with-dashes data-view-model="@test"></test-input-with-dashes>
+            <hr>
+        </section>
+
+        <webc-datatable datasource="@dataSource">
+            Label: "{{ @label }}" --- Value: "{{ @number }}" ⇜ <input type="text" value="@label"> --- <input type="number" value="@number">
+            <div>
+                Label: "<span>{{ @label }}</span>" --- Value: "<span>{{ @number }}</span>" ⇜ <input type="text" value="@label"> --- <input type="number" value="@number">
+            </div>
+            <test-input-with-dashes type="number" value="@number" label="@label"></test-input-with-dashes>
+            <test-input-with-dashes data-view-model="@"></test-input-with-dashes>
+            <hr>
+        </webc-datatable>
+    </main>
+</webc-container>

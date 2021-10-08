@@ -10,6 +10,7 @@ async function initializeWebCardinalConfig() {
 }
 
 define('test-input');
+define('test-input-with-dashes', 'test-input/test-input-with-dashes');
 define('test-squares');
 
 const config = await initializeWebCardinalConfig();

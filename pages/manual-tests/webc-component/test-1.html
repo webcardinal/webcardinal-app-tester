@@ -13,6 +13,9 @@
         border-bottom: 1px solid var(--primary-color);
     }
 
+    #test-container > main > header > code {
+        font-size: 0.9rem;
+    }
     #test-container > main > section > code {
         margin-top: 1.5rem;
         color: #5a5a5a;
@@ -42,15 +45,16 @@
             define('test-input');
             define('test-squares');
 
-            // define(&lt;TAG_NAME&gt;) => /componetns/&lt;TAG_NAME&gt;/&lt;TAG_NAME&gt;.html
-            // define(&lt;SUB_FOLDER&gt;, &lt;TAG_NAME&gt;) => /componetns/&lt;SUB_FOLDER&gt;/&lt;TAG_NAME&gt;.html
+            // define(&lt;TAG_NAME&gt;) => /components/&lt;TAG_NAME&gt;/&lt;TAG_NAME&gt;.html
+            // define(&lt;TAG_NAME&gt;, &lt;COMPONENT_LOCATION&gt;) => /components/&lt;COMPONENT_LOCATION&gt;/&lt;TAG_NAME&gt;.html
         </psk-code>
+        <psk-code language="JavaScript" file="/components/test-input/test-input.html"></psk-code>
         <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-component/Controller.test1.js"></psk-code>
 
         <h1>Results</h1>
         <header>
             <h2 style="grid-column: 1 / -1; padding-top: 1rem">Native</h2>
-            <code>&lt;span&gt; &#x2774;&#x2774; @input.value &#x2775;&#x2775; &lt;/span&gt;</code> <span>{{ @input.value }}</span>
+            <code>&lt;span&gt;&#x2774;&#x2774; @input.value &#x2775;&#x2775;&lt;/span&gt;</code> <span>{{ @input.value }}</span>
             <code>&lt;input value="@input.value" type="@input.type"&gt;</code> <input value="@input.value" type="@input.type">
             <code>&lt;input data-view-model="@input"&gt;</code> <input data-view-model="@input">
             <code>&lt;input value="@inputNumber.value" type="@inputNumber.type"&gt;</code> <input value="@inputNumber.value" type="@inputNumber.type">
