@@ -24,23 +24,32 @@
         border: 1px solid var(--primary-color); border-radius: 1rem;
     }
 </style>
-<webc-container id="test-container" controller="manual/webc-datatable/Test2Controller">
+
+<webc-container id="test-container" controller="manual/webc-datatable/Controller.test2">
     <header>
-        <section>Testing pagination of DataTable</section>
+        <section>
+            <h1>Pagination of DataTable</h1>
+        </section>
     </header>
     <main>
-        <webc-datatable datasource="@datasource">
-            <div slot="header" data-sortable>Id</div>
-            <div slot="header" data-sortable>Name</div>
-            <div slot="header" data-sortable>Date</div>
+        <webcat-card shadow header="Result">
+            <webc-datatable datasource="@datasource">
+                <div slot="header" data-sortable>Id</div>
+                <div slot="header" data-sortable>Name</div>
+                <div slot="header" data-sortable>Date</div>
 
-            <div>{{ @id }}</div>
-            <div>{{ @name }}</div>
-            <div>{{ @date }}</div>
-        </webc-datatable>
+                <div>{{ @id }}</div>
+                <div>{{ @name }}</div>
+                <div>{{ @date }}</div>
+            </webc-datatable>
 
-        <button data-tag="prev-page">Go to previous page</button>
-        <button data-tag="next-page">Go to next page</button>
-        <button data-tag="random-page">Go to page {{ @randomPage }}</button>
+            <button data-tag="prev-page">Go to previous page</button>
+            <button data-tag="next-page">Go to next page</button>
+            <button data-tag="random-page">Go to page {{ @randomPage }}</button>
+        </webcat-card>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-datatable/Controller.test2.js"></psk-code>
+        </webcat-section>
     </main>
 </webc-container>

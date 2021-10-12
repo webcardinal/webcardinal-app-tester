@@ -9,7 +9,6 @@
     display: block;
     padding: 1.5rem 0;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.15);
-    font-size: 1.4rem;
     align-items: center;
     gap: 1rem;
     z-index: 1;
@@ -18,6 +17,7 @@
 #test-container > header section {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #test-container > header section,
@@ -37,6 +37,9 @@
     border-radius: 0.25rem;
     font-size: 1.1rem;
 }
+#test-container > header > * code {
+    font-size: inherit;
+}
 
 #test-container > main psk-code pre {
     border-radius: 1px;
@@ -47,6 +50,15 @@
     display: block;
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+}
+
+#test-container > main h1,
+#test-container > main h2,
+#test-container > main h3,
+#test-container > main h4,
+#test-container > main h5,
+#test-container > main h6 {
+    padding-top: 0.75rem;
 }
 
 #test-container > main psk-example {

@@ -27,7 +27,7 @@
                 },
                 {
                     "name": "webc-component",
-                    "children": [{ "name": "Test 1" }]
+                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }]
                 },
                 {
                     "name": "webc-container",

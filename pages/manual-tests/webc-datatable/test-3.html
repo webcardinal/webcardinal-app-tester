@@ -22,29 +22,43 @@
     }
 </style>
 
-<webc-container id="test-container" controller="manual/webc-datatable/Test3Controller">
-    <main>
-        <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-datatable/Test3Controller.js"></psk-code>
-
-        <section class="test--container">
-            Label: "{{ @test.label }}" --- Value: "{{ @test.value }}" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
-            <div>
-                Label: "<span>{{ @test.label }}</span>" --- Value: "<span>{{ @test.value }}</span>" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
-            </div>
-            <test-input value="@test.value" label="@test.label" type="@test.type"></test-input>
-            <test-input-with-dashes value="@test.value" label="@test.label" type="@test.type"></test-input-with-dashes>
-            <test-input-with-dashes data-view-model="@test"></test-input-with-dashes>
-            <hr>
+<webc-container id="test-container" controller="manual/webc-datatable/Controller.test3">
+    <header>
+        <section>
+            <h1>DataTable with WebCardinal Components</h1>
+            <small>keywords: <code>webc-datatable</code>, <code>WebCardinal.components</code></small>
         </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Markup">
+            <psk-code language="HTML" file="/pages/manual-tests/webc-datatable/test-3.specs.html"></psk-code>
+        </webcat-section>
 
-        <webc-datatable datasource="@dataSource">
-            Label: "{{ @label }}" --- Value: "{{ @number }}" ⇜ <input type="text" value="@label"> --- <input type="number" value="@number">
-            <div>
-                Label: "<span>{{ @label }}</span>" --- Value: "<span>{{ @number }}</span>" ⇜ <input type="text" value="@label"> --- <input type="number" value="@number">
-            </div>
-            <test-input-with-dashes type="number" value="@number" label="@label"></test-input-with-dashes>
-            <test-input-with-dashes data-view-model="@"></test-input-with-dashes>
-            <hr>
-        </webc-datatable>
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="/scripts/controllers/manual/webc-datatable/Controller.test3.js"></psk-code>
+        </webcat-section>
+
+        <webcat-card shadow header="Controller bindings">
+            <section class="test--container">
+                Label: "{{ @test.label }}" --- Value: "{{ @test.value }}" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
+                <div>
+                    Label: "<span>{{ @test.label }}</span>" --- Value: "<span>{{ @test.value }}</span>" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
+                </div>
+                <test-input-with-dashes value="@test.value" label="@test.label"></test-input-with-dashes>
+                <test-input-with-dashes data-view-model="@test"></test-input-with-dashes>
+            </section>
+        </webcat-card>
+
+        <webcat-card shadow header="DataTable bindings">
+            <webc-datatable datasource="@dataSource">
+                Label: "{{ @label }}" --- Value: "{{ @value }}" ⇜ <input type="text" value="@label"> --- <input type="number" value="@value">
+                <div>
+                    Label: "<span>{{ @label }}</span>" --- Value: "<span>{{ @value }}</span>" ⇜ <input type="text" value="@label"> --- <input type="number" value="@value">
+                </div>
+                <test-input-with-dashes type="number" value="@value" label="@label"></test-input-with-dashes>
+                <test-input-with-dashes data-view-model="@"></test-input-with-dashes>
+                <hr>
+            </webc-datatable>
+        </webcat-card>
     </main>
 </webc-container>

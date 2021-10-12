@@ -13,8 +13,9 @@ class CustomDataSource extends DataSource {
      */
     async getPageDataAsync(startOffset, dataLengthForCurrentPage) {
         return [...Array(dataLengthForCurrentPage).keys()].map(index => ({
-            number: Math.floor(Math.random() * 100) + 1,
-            label: `Input no. ${index}`
+            value: Math.floor(Math.random() * 100) + 1,
+            label: `Input no. ${startOffset + index + 1}`,
+            type: 'number',
         }));
     }
 }
@@ -24,12 +25,12 @@ export default class extends Controller {
         super(...props);
 
         this.model = {
-            dataSource: new CustomDataSource({ pageSize: 0 }),
             test: {
-                type: 'number',
                 value: Math.floor(Math.random() * 100) + 1,
-                label: 'Test'
-            }
+                label: 'Test',
+                type: 'number'
+            },
+            dataSource: new CustomDataSource({ pageSize: 3, recordsNumber: 700 }),
         }
     }
 }

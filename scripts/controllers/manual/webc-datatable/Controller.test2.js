@@ -1,3 +1,5 @@
+// Path: scripts/controllers/manual/webc-component/Controller.test1.js
+
 const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;
 
@@ -70,7 +72,7 @@ class PersonsDataSource extends DataSource {
     constructor(...props) {
         super(...props);
 
-        this.setPageSize(15);
+        this.setPageSize(10);
 
         this.walletStorage = mock.getWalletStorage();
         this.walletStorage

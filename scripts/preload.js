@@ -9,9 +9,15 @@ async function initializeWebCardinalConfig() {
     return config;
 }
 
+// WebCardinal App Tester components
+define('webcat-section');
+define('webcat-card');
+
+// Testing components
 define('test-input');
 define('test-input-with-dashes', 'test-input/test-input-with-dashes');
 define('test-squares');
+define('test-multiple-bindings-component')
 
 const config = await initializeWebCardinalConfig();
 setConfig(config);
