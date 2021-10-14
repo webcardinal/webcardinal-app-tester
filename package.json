@@ -7,13 +7,12 @@
     "build": "node node_modules/octopus/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
     "dev": "node node_modules/octopus/scripts/run dev devmode",
-    "server": "live-server",
+    "server": "node server.js",
     "save": "node node_modules/octopus/scripts/run save-test-results devmode",
     "commit": "node node_modules/octopus/scripts/run commit-tests devmode"
   },
-  "dependencies": {},
   "devDependencies": {
-    "local-web-server": "^4.2.1",
+    "live-server": "^1.2.1",
     "octopus": "https://github.com/webcardinal/octopus"
   },
   "repository": {
