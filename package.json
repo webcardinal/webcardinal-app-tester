@@ -7,7 +7,7 @@
     "build": "node node_modules/octopus/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
     "dev": "node node_modules/octopus/scripts/run dev devmode",
-    "server": "ws --spa ./index.html",
+    "server": "live-server",
     "save": "node node_modules/octopus/scripts/run save-test-results devmode",
     "commit": "node node_modules/octopus/scripts/run commit-tests devmode"
   },
