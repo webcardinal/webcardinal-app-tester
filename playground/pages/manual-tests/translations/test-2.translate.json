@@ -1,0 +1,10 @@
+{
+  "key": "Key",
+  "number": "Number",
+  "value": "Value",
+  "address": {
+    "street": "Street",
+    "city": "City",
+    "country": "Country"
+  }
+}

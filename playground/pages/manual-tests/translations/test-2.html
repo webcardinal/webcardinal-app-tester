@@ -1,0 +1,37 @@
+<style>
+    #test-container button {
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--primary-color);
+        border-radius: 0.5rem;
+    }
+</style>
+
+<webc-container controller="manual/translations/Controller.test1&2" id="test-container">
+    <header>
+        <section>
+            <h3>Translations</h3>
+        </section>
+    </header>
+    <main>
+        <section>
+            <h2>Result:</h2>
+            <h4>Expected skin is: <code>ro</code></h4>
+            <h4>Actual skin is: <code>{{ @skin }}</code></h4>
+        </section>
+
+        <section style="margin-top: 1rem">
+            <div><code>key:</code> {{ $key }}</div>
+            <div><code>number:</code> {{ $number }}</div>
+            <div><code>value:</code> {{ $value }}</div>
+            <div><code>address.street:</code> {{ $address.street }}</div>
+            <div><code>address.city:</code> {{ $address.city }}</div>
+            <div><code>address.country:</code> {{ $address.country }}</div>
+        </section>
+
+        <h3>Dynamic change of skin:</h3>
+        <section style="margin-top: 0.25rem">
+            <button data-tag="language" data-skin="default">default</button>
+            <button data-tag="language" data-skin="ro">ro</button>
+        </section>
+    </main>
+</webc-container>

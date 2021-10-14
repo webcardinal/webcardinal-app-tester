@@ -1,0 +1,10 @@
+{
+  "key": "Cheie",
+  "number": "Număr",
+  "value": "Valoare",
+  "address": {
+    "street": "Stradă",
+    "city": "Oraș",
+    "country": "Țară"
+  }
+}

@@ -26,6 +26,18 @@
                     "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
                 },
                 {
+                    "name": "translations",
+                    "children": [
+                        {
+                            "name": "Test 1",
+                            "tag": "translations-test-1"
+                        },
+                        {
+                            "name": "Test 2",
+                            "tag": "translations-test-2"
+                        }]
+                },
+                {
                     "name": "webc-component",
                     "children": [{ "name": "Test 1" }, { "name": "Test 2" }]
                 },
