@@ -1,6 +1,7 @@
 import {
   getSkinFromState,
   getTranslationsFromState,
+  getPathname,
   MODEL_CHAIN_PREFIX,
   VIEW_MODEL_KEY,
   TAG_ATTRIBUTE,
@@ -45,17 +46,6 @@ function isRequireAvailable() {
 function isSkinEnabled() {
   const { state } = window.WebCardinal || {};
   return state && state.skin && typeof state.skin === 'string';
-}
-
-function getPathname() {
-  let { pathname } = window.location;
-  if (pathname === '/') {
-    return pathname;
-  }
-  if (pathname.endsWith('/')) {
-    return pathname.slice(0, -1);
-  }
-  return pathname;
 }
 
 function getValueFromModelByChain(model, chain) {
