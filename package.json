@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Application made only for testing purposes.",
   "scripts": {
-    "postinstall": "node node_modules/octopus/scripts/run dependencies devmode && npm run build && npm run test && npm run save",
+    "update": "rm -rf .dev/ themes/ webcardinal/ && node node_modules/octopus/scripts/run dependencies devmode && npm run build",
     "build": "node node_modules/octopus/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
     "dev": "node node_modules/octopus/scripts/run dev devmode",
