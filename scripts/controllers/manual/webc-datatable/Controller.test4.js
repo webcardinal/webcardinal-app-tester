@@ -1,4 +1,4 @@
-// Path: scripts/controllers/manual/webc-component/Controller.test2.js
+// Path: scripts/controllers/manual/webc-component/Controller.test4.js
 
 const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;
@@ -33,22 +33,8 @@ const mock = {
 
     getItems: (skipCount, count) => {
         return Array.from(Array(count)).reduce((accumulator, _, index) => {
-            const id = index + skipCount + 1;
-
-            const date = new Date(
-                Math.floor(Math.random() * 100 + 1821),
-                Math.floor(Math.random() * 12 + 1),
-                Math.floor(Math.random() * 28)
-            );
-            const y = new Intl.DateTimeFormat("en", { year: "numeric" }).format(date);
-            const m = new Intl.DateTimeFormat("en", { month: "short" }).format(date);
-            const d = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(date);
-
-            accumulator[index] = {
-                id,
-                name: `Name ${id}`,
-                date: `${d}-${m}-${y}`,
-            };
+            const number = index + skipCount + 1;
+            accumulator[index] = { number, string: `Lorem Ipsum ${number}` };
             return accumulator;
         }, []);
     },
@@ -89,6 +75,7 @@ class PersonsDataSource extends DataSource {
             startOffset,
             dataLengthForCurrentPage
         );
+        return [];
     }
 }
 
@@ -98,20 +85,27 @@ export default class extends Controller {
 
         this.model = {
             datasource: new PersonsDataSource(),
-            randomPage: 4
         };
 
         const { datasource } = this.model;
 
-        this.onTagClick("random-page", async (model) => {
-            this.model.randomPage = mock.getRandomPage() + 1;
-            console.log("go to page", model.randomPage);
-            await datasource.goToPageByIndex(model.randomPage - 1);
+        let lastPageIndex = null;
+        let isDeleted = false;
+
+        this.onTagClick('clear-data', async () => {
+            if (!isDeleted) {
+                lastPageIndex = datasource.getCurrentPageIndex();
+                await datasource.clearPageDataAsync();
+                isDeleted = true;
+            }
         });
 
-        this.onTagClick("prev-page", () => datasource.goToPreviousPage());
-
-        this.onTagClick("next-page", () => datasource.goToNextPage());
+        this.onTagClick('restore-data', () => {
+            if (isDeleted) {
+                datasource.goToPageByIndex(lastPageIndex);
+                isDeleted = false;
+            }
+        });
     }
 }
 
