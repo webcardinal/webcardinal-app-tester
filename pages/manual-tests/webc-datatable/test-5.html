@@ -1,0 +1,49 @@
+<style>
+    .webc-datatable--header {
+        font-size: 110%; font-weight: bold;
+        padding: 1rem 0;
+        border-bottom: 1px solid #1b1e21;
+    }
+    .webc-datatable--container {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        row-gap: 0.35rem; column-gap: 1rem;
+    }
+    .webc-datatable--container div:not(.webc-datatable--header) {
+        border-bottom: 1px dashed var(--primary-color-transparent);
+    }
+    .webc-datatable--container button {
+        padding: 0.75rem;
+        border: 1px solid var(--primary-color); border-radius: 1rem;
+    }
+</style>
+
+<webc-container id="test-container" controller="manual/webc-datatable/Controller.test5">
+    <header>
+        <section>
+            <h1>Basic example of DataTable with translations</h1>
+            <small>keywords: <code>webc-datatable</code>, <code>translate.json</code></small>
+        </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Translations">
+            <psk-code language="JSON" file="pages/manual-tests/webc-datatable/test-5.translate.json"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Markup">
+            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/test-5.markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-card shadow header="Result">
+            <webc-datatable datasource="@testDataSource">
+                <div slot="header">{{ $number }}</div>
+                <div slot="header">{{ $text }}</div>
+                <div slot="header">{{ $action }}</div>
+
+                <div>{{ @number }}</div>
+                <div>{{ @text }}</div>
+                <button>{{ $view }} ›</button>
+            </webc-datatable>
+        </webcat-card>
+    </main>
+</webc-container>
