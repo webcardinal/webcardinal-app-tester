@@ -1,0 +1,94 @@
+<webc-container id="test-container">
+    <header>
+        <section>
+            <h4>Model as an <code>Array</code> with variable length and interactions in <code>data-if</code> and <code>data-for</code></h4>
+            <div>Attributes: <code>data-if</code>,<code>data-for</code></div>
+        </section>
+    </header>
+    <main>
+        <section>
+            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test5.js"></psk-code>
+            <psk-code language="HTML">
+                <div>
+                    <button data-tag="plus">➕</button>
+                    <button data-tag="toggle-display">Toggle display</button>
+                </div>
+                <div data-if="@canDisplay">
+                    <div slot="false">
+                        <span>The items are hidden now.</span>
+                    </div>
+
+                    <div data-for="@items" slot="true">
+                        {{@id}}
+                        <div class="item-container">
+                            <div class="item-name-container">
+                                <span>
+                                    <fa-icon icon="@icon" color="@color"></fa-icon>
+                                    {{@name}}
+                                </span>
+                                <button data-tag="minus">➖</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </psk-code>
+            <psk-example>
+                <style>
+                    fa-icon {
+                        margin-right: 0.5rem;
+                    }
+
+                    .test5 .item-container {
+                        border: 1px solid grey;
+                        border-radius: 4px;
+                        padding: 5px;
+                        margin: 5px 0;
+                    }
+                    .test5 .item-name-container {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .test5 > div:first-child {
+                        display: grid;
+                        grid-template-columns: 1fr auto auto;
+                        gap: 1rem;
+                        padding-bottom: 1rem;
+                    }
+                    .test5 > div:last-child {
+                        border: 1px solid #cdcdcd;
+                        padding: 1rem;
+                    }
+                </style>
+                <webc-container controller="manual/data-for/Test5" class="test5">
+                    <div>
+                        <button data-tag="plus">➕</button>
+                        <button data-tag="toggle-display">Toggle display</button>
+                    </div>
+                    <div data-if="@canDisplay">
+                        <div slot="false">
+                            <span>The items are hidden now.</span>
+                        </div>
+
+                        <div data-for="@items" slot="true">
+                            {{@id}}
+                            <div class="item-container">
+                                <div class="item-name-container">
+                                <span>
+                                    <fa-icon icon="@icon" color="@color"></fa-icon>
+                                    {{@name}}
+                                </span>
+                                    <button data-tag="minus">➖</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Model:</p>
+                        <pre>{{ @modelString }}</pre>
+                    </div>
+                </webc-container>
+            </psk-example>
+        </section>
+    </main>
+</webc-container>

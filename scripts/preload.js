@@ -15,10 +15,11 @@ define('webcat-card');
 
 
 // Testing components
+define('fa-icon');
 define('test-input');
 define('test-input-with-dashes', 'test-input/test-input-with-dashes');
 define('test-squares');
-define('test-multiple-bindings-component')
+define('test-multiple-bindings-component');
 
 
 // Testing setSkin

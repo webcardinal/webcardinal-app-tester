@@ -23,7 +23,7 @@
             "children": [
                 {
                     "name": "data-for",
-                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }]
+                    "children": [{ "name": "Test 1" }, { "name": "Test 2" }, { "name": "Test 3" }, { "name": "Test 4" }, { "name": "Test 5" }]
                 },
                 {
                     "name": "translations",
