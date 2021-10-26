@@ -35,7 +35,7 @@ export default class extends Controller {
 
     getRandomItem() {
         const min = Math.ceil(0);
-        const max = Math.floor(this.colors.length);
+        const max = Math.floor(this.colors.length - 1);
         const random = Math.floor(Math.random() * (max - min + 1)) + min;
         return {
             icon: this.icons[random],
