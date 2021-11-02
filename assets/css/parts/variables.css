@@ -1,12 +1,17 @@
 :root {
     --primary-color: #4CAF50;
     --primary-color-transparent: #4CAF5050;
+
+    --webc-primary-background: var(--primary-color);
+    --webc-secondary-background: var(--primary-color-transparent);
 }
 
 webc-app-menu[mode='vertical'] {
     --background: whitesmoke;
     --color: #212121;
     --min-width: 240px;
+    --scrollbar-thumb-background: whitesmoke;
+    --scrollbar-track-background: var(--primary-color);
 }
 
 webc-app-menu[mode='mobile'] {

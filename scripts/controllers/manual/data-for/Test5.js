@@ -13,7 +13,7 @@ export default class extends Controller {
 
         this.model = {
             items: this.generateItems(initialNumber),
-            canDisplay: true
+            isDisabled: false
         };
 
         this.onTagClick("plus", () => {
@@ -27,7 +27,7 @@ export default class extends Controller {
         });
 
         this.onTagClick("toggle-display", () => {
-            this.model.canDisplay = !this.model.canDisplay;
+            this.model.isDisabled = !this.model.isDisabled;
         });
 
         this.model.addExpression("modelString", () => JSON.stringify(this.model.toObject(), null, 2), "*");

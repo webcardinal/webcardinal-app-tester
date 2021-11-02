@@ -1,0 +1,62 @@
+<webc-container id="test-container">
+  <header>
+    <section>
+      <h4>Variable length of an <code>Array</code> in <code>data-for</code></h4>
+      <div>Attribute: <code>data-for</code></div>
+    </section>
+  </header>
+  <main>
+    <section>
+      <webcat-card shadow header="Result">
+          <style>
+            .test6 > div:first-child {
+              display: grid;
+              grid-template-columns: 1fr auto auto;
+              gap: 1rem;
+            }
+            .test6 > hr {
+              margin: 1rem 0;
+            }
+            test-input-with-dashes {
+              margin-bottom: 0.5rem;
+              display: block;
+            }
+          </style>
+
+          <webc-container controller="manual/data-for/Test6" class="test6">
+            <div>
+              <input min="0" max="10000" type="number" value="@length">
+              <button data-tag="plus">➕</button>
+              <button data-tag="minus">➖</button>
+            </div>
+
+            <hr>
+
+            <!-- direct children of data-for -->
+            <div data-for="@items">
+              <test-input label="@label" value="@value"></test-input>
+              <test-input-with-dashes label="@label" value="@value"></test-input-with-dashes>
+            </div>
+
+            <hr>
+
+            <!-- grand-children and so on of data-for -->
+            <div data-for="@items">
+              <div>
+                <test-input label="@label" value="@value"></test-input>
+                <test-input-with-dashes label="@label" value="@value"></test-input-with-dashes>
+              </div>
+            </div>
+          </webc-container>
+      </webcat-card>
+
+      <webcat-section shadow header="Markup">
+        <psk-code language="JavaScript" file="pages/manual-tests/data-for/test-6.markup.html"></psk-code>
+      </webcat-section>
+
+      <webcat-section shadow header="Controller">
+        <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test6.js"></psk-code>
+      </webcat-section>
+    </section>
+  </main>
+</webc-container>

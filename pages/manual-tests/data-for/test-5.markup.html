@@ -1,0 +1,29 @@
+<webc-container controller="manual/data-for/Test5" class="test5">
+    <div>
+        <button disabled="@isDisabled" data-tag="plus">➕</button>
+        <button data-tag="toggle-display">Toggle display</button>
+    </div>
+
+    <div data-if="@isDisabled">
+        <div slot="true">
+            <span>The items are hidden now.</span>
+        </div>
+
+        <div data-for="@items" slot="false">
+            <div class="item-container">
+                <div class="item-name-container">
+                    <span>
+                        <fa-icon controller="manual/data-for/FAIconController" icon="@icon" color="@color"></fa-icon>
+                        {{ @name }}
+                    </span>
+                    <button data-tag="minus">➖</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p>Model:</p>
+        <pre>{{ @modelString }}</pre>
+    </div>
+</webc-container>

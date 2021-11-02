@@ -3,6 +3,7 @@ const {WebcController} = WebCardinal.controllers;
 export default class FAIconController extends WebcController {
     constructor(...props) {
         super(...props);
+        console.log('c-tor');
     }
 
     onReady() {

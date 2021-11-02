@@ -1,0 +1,151 @@
+<style>
+    [test-id='container|test-2'] {
+        display: block;
+        padding: 1rem;
+    }
+
+    webc-container > code,
+    webc-container > hr {
+        margin-top: 1rem;
+        display: block;
+    }
+
+    .control,
+    .readonly {
+        padding: 1rem;
+        border: 1px solid transparent;
+    }
+
+    .control > input,
+    .control > button,
+    .readonly > input,
+    .readonly > button {
+        border: 1px solid #CDCDCD;
+    }
+
+    .control {
+        border-color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    .readonly {
+        border-color: #CDCDCD;
+    }
+</style>
+
+<webc-container test-id="container|test-2" controller="../../pages/manual-tests/webc-container/test-2/Controller1">
+    <div class="control">
+        <h2>Control</h2>
+        <input type="text" data-tag="chain" value="@input.chain" placeholder="@chain">
+        <input type="text" data-tag="value" value="@input.value" placeholder="value">
+        <button data-tag="apply">Apply to model</button>
+        <button data-tag="restore">Restore</button>
+    </div>
+
+    <div class="readonly">
+        <h2>ReadOnly</h2>
+        <input type="text" value="@input.chain" disabled>
+        <input type="text" value="@input.value" disabled>
+    </div>
+
+<!--    <psk-code>{{ @model }}</psk-code>-->
+
+    <code>webc-container, no data-view-model</code>
+
+    <br>
+    {{ @text1 }}
+    <br>
+    {{ @scope.text3 }}
+    <br>
+    Number: {{ @number1 }}
+    <br>
+    Number: {{ @scope.number3 }}
+
+    <code>data-if</code>
+    <div data-if="@boolean1">
+        <span slot="true">{{ @trueValue1 }}</span>
+        <span slot="false">{{ @falseValue1 }}</span>
+    </div>
+
+    <code>data-for</code>
+    <div data-for="@array1">
+        {{ @index1 }} - {{ @value1 }}<br>
+    </div>
+
+    <hr>
+
+    <code>webc-container, data-view-model="@"</code>
+    <webc-container data-view-model="@" controller="../../pages/manual-tests/webc-container/test-2/Controller2">
+        <br>
+        {{ @text1 }}
+        <br>
+        {{ @scope.text3 }}
+        <br>
+        Number: {{ @number1 }}
+        <br>
+        Number: {{ @scope.number3 }}
+
+        <code>data-if</code>
+        <div data-if="@boolean1">
+            <span slot="true">{{ @trueValue1 }}</span>
+            <span slot="false">{{ @falseValue1 }}</span>
+        </div>
+
+        <code>data-for</code>
+        <div data-for="@array1">
+            {{ @index1 }} - {{ @value1 }}<br>
+        </div>
+    </webc-container>
+
+    <hr>
+
+    <code>webc-container, data-view-model="@scope"</code>
+    <webc-container data-view-model="@scope" controller="../../pages/manual-tests/webc-container/test-2/Controller3">
+
+        <br>
+        {{ @text3 }}
+        <br>
+        Number: {{ @number3 }}
+
+        <code>data-if</code>
+        <div data-if="@boolean3">
+            <span slot="true">{{ @trueValue3 }}</span>
+            <span slot="false">{{ @falseValue3 }}</span>
+        </div>
+
+        <code>data-for</code>
+        <div data-for="@array3">
+            {{ @index3 }} - {{ @value3 }}<br>
+        </div>
+    </webc-container>
+
+    <hr>
+
+    <code>webc-template, data-view-model="@"</code>
+    <webc-template data-view-model="@" template="container-template"></webc-template>
+
+    <hr>
+
+    <code>webc-template, data-view-model="@scope"</code>
+    <webc-template data-view-model="@scope" template="container-scoped-template"></webc-template>
+
+    <hr>
+
+    <code>webc-template, data-view-model="@"<br>webc-container, data-view-model="@"</code>
+    <webc-template data-view-model="@" template="container-template-controller"></webc-template>
+
+    <hr>
+
+    <code>webc-template, data-view-model="@scope"<br>webc-container, data-view-model="@"</code>
+    <webc-template data-view-model="@scope" template="container-scoped-template-controller"></webc-template>
+
+    <hr>
+
+    <code>test-container, data-view-model="@"</code>
+    <test-container data-view-model="@"></test-container>
+
+    <hr>
+
+    <code>test-container-scoped, data-view-model="@scope"</code>
+    <test-container-scoped data-view-model="@scope"></test-container-scoped>
+
+</webc-container>

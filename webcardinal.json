@@ -43,7 +43,15 @@
                 },
                 {
                     "name": "webc-container",
-                    "children": [{ "name": "Test 1" }]
+                    "children": [
+                        {
+                            "name": "Test 1"
+                        },
+                        {
+                            "name": "Test 2",
+                            "src": "./test-2/index.html"
+                        }
+                    ]
                 },
                 {
                     "name": "webc-datatable",

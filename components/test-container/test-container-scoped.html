@@ -1,0 +1,15 @@
+<br>
+{{ @text3 }}
+<br>
+Number: {{ @number3 }}
+
+<code>data-if</code>
+<div data-if="@boolean3">
+  <span slot="true">{{ @trueValue3 }}</span>
+  <span slot="false">{{ @falseValue3 }}</span>
+</div>
+
+<code>data-for</code>
+<div data-for="@array3">
+  {{ @index3 }} - {{ @value3 }}<br>
+</div>

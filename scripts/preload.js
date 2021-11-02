@@ -20,6 +20,8 @@ define('test-input');
 define('test-input-with-dashes', 'test-input/test-input-with-dashes');
 define('test-squares');
 define('test-multiple-bindings-component');
+define('test-container');
+define('test-container-scoped', 'test-container/test-container-scoped');
 
 
 // Testing setSkin

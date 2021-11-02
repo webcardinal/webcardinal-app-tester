@@ -1,0 +1,21 @@
+<webc-container data-view-model="@" controller="../../pages/manual-tests/webc-container/test-2/Controller2">
+    <br>
+    {{ @text1 }}
+    <br>
+    {{ @scope.text3 }}
+    <br>
+    Number: {{ @number1 }}
+    <br>
+    Number: {{ @scope.number3 }}
+
+    <code>data-if</code>
+    <div data-if="@boolean1">
+        <span slot="true">{{ @trueValue1 }}</span>
+        <span slot="false">{{ @falseValue1 }}</span>
+    </div>
+
+    <code>data-for</code>
+    <div data-for="@array1">
+        {{ @index1 }} - {{ @value1 }}<br>
+    </div>
+</webc-container>
