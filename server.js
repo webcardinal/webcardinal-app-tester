@@ -32,7 +32,9 @@ async function start(base, options) {
 
 const options = {
     port: 8000,
-    open: true // When false, it won't load a new window of your browser.
+    open: true, // When false, it won't load a new window of your browser.
+    // host: '192.168.1.110'
+
 };
 
 start('/webcardinal-app-tester', options);

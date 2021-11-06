@@ -12,7 +12,7 @@
     "commit": "node node_modules/octopus/scripts/run commit-tests devmode"
   },
   "devDependencies": {
-    "live-server": "^1.2.1",
+    "live-server": "^1.1.0",
     "octopus": "https://github.com/webcardinal/octopus"
   },
   "repository": {

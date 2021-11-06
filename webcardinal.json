@@ -68,6 +68,31 @@
                 {
                     "name": "webc-template",
                     "children": [{ "name": "Test 1" }]
+                },
+                {
+                    "name": "psk-barcode-scanner",
+                    "children": [
+                        {
+                            "name": "ZXing Video",
+                            "src": "zxing-video.html",
+                            "loader": "object"
+                        },
+                        {
+                            "name": "ZXing Image",
+                            "src": "zxing-image.html",
+                            "loader": "object"
+                        },
+                        {
+                            "name": "Frame user",
+                            "src": "./test-1/index.html",
+                            "path": "./test-1"
+                        },
+                        {
+                            "name": "Frame creator",
+                            "src": "./test-2/index.html",
+                            "path": "./test-2"
+                        }
+                    ]
                 }
             ]
         },
