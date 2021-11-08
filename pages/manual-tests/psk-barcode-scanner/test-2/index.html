@@ -6,6 +6,7 @@
     height: 100%;
     padding: 1rem;
     max-width: 600px;
+    max-height: 90vh;
     margin: 0 auto;
     gap: 1rem;
   }
@@ -15,7 +16,11 @@
 <webc-container controller="../../pages/manual-tests/psk-barcode-scanner/test-2/CreateFramesController"
                 class="barcode-framer--container">
     <video controls name="media">
-        <source src="./pages/manual-tests/psk-barcode-scanner/test-2/video.mp4" type="video/mp4">
+<!--        <source src="./pages/manual-tests/psk-barcode-scanner/test-2/video-01.mp4" type="video/mp4">-->
+        <source src="./pages/manual-tests/psk-barcode-scanner/test-2/video-02.mp4" type="video/mp4">
+<!--        <source src="./pages/manual-tests/psk-barcode-scanner/test-2/video-deny-w.webm" type="video/webm">-->
+<!--        <source src="./pages/manual-tests/psk-barcode-scanner/test-2/video-deny-b.webm" type="video/webm">-->
+
     </video>
     <button data-tag="store-frames">Generate frames</button>
 </webc-container>
