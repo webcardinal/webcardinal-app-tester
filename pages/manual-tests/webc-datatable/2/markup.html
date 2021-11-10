@@ -1,0 +1,15 @@
+<!-- Path: pages/manual-tests/webc-datatable/2/index.html -->
+
+<webc-datatable datasource="@datasource">
+  <div slot="header" data-sortable>Id</div>
+  <div slot="header" data-sortable>Name</div>
+  <div slot="header" data-sortable>Date</div>
+
+  <div>{{ @id }}</div>
+  <div>{{ @name }}</div>
+  <div>{{ @date }}</div>
+</webc-datatable>
+
+<button data-tag="prev-page">Go to previous page</button>
+<button data-tag="next-page">Go to next page</button>
+<button data-tag="random-page" data-page="@randomPage">Go to page {{ @randomPage }}</button>

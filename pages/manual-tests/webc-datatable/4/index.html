@@ -1,0 +1,58 @@
+<style>
+    .webc-datatable--container {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1rem;
+    }
+    .webc-datatable--container > * {
+        padding: 0.5rem;
+        border-bottom: 1px solid #CDCDCD;
+    }
+    .webc-datatable--container > .webc-datatable--header {
+        font-weight: bold;
+        border-color: #2F2F2F;
+        margin-bottom: 1rem;
+    }
+    .webc-datatable--container > *:not(.webc-datatable--header):nth-last-child(-n+2) {
+        border-bottom: none;
+    }
+    #test-container button[data-tag] {
+        padding: 0.75rem; margin: 0.5rem 0.5rem 0 0;
+        border: 1px solid var(--primary-color); border-radius: 1rem;
+    }
+</style>
+
+<webc-container id="test-container">
+    <header>
+        <section>
+            <h1>Slot of DataTable</h1>
+            <div><code>no-data</code>, <code>before</code>, <code>after</code>, <code>header</code>, <code>footer</code></div>
+        </section>
+    </header>
+    <main>
+        <webcat-card shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/4/Controller">
+                <webc-datatable datasource="@datasource">
+                    <div slot="header">Number</div>
+                    <div slot="header">String</div>
+
+                    <div>{{ @id }}</div>
+                    <div>{{ @name }}</div>
+
+                    <div slot="no-data">There is no data</div>
+                </webc-datatable>
+
+                <button data-tag="clear-data">Clear data</button>
+                <button data-tag="restore-data">Restore data</button>
+            </webc-container>
+        </webcat-card>
+
+        <webcat-section shadow header="Markup">
+            <psk-code language="Markup" file="pages/manual-tests/webc-datatable/4/markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/4/Controller.js"></psk-code>
+        </webcat-section>
+    </main>
+</webc-container>

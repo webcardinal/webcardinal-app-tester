@@ -1,0 +1,12 @@
+<webc-datatable datasource="@datasource">
+  <div slot="header">Number</div>
+  <div slot="header">String</div>
+
+  <div>{{ @id }}</div>
+  <div>{{ @name }}</div>
+
+  <div slot="no-data">There is no data</div>
+</webc-datatable>
+
+<button data-tag="clear-data">Clear data</button>
+<button data-tag="restore-data">Restore data</button>

@@ -615,6 +615,25 @@ class PskBindableModel {
                                     return target[prop];
                                 }
                         }
+                    } else {
+                      switch (prop) {
+                        case "onChange":
+                          return onChange;
+                        case "offChange":
+                          return offChange;
+                        case "notify":
+                          return notify;
+                        case "getChainValue":
+                          return getChainValue;
+                        case "setChainValue":
+                          return setChainValue;
+                        case "cleanReferencedChangeCallbacks":
+                          return cleanReferencedChangeCallbacks;
+                        default:
+                          if(PROXY_ROOT_METHODS.includes(prop)) {
+                            return target[prop];
+                          }
+                      }
                     }
 
                     if (prop === "__isProxy") {

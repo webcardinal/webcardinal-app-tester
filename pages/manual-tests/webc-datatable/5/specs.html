@@ -1,0 +1,15 @@
+<!-- Path: pages/manual-tests/webc-datatable/5/index.html -->
+
+...
+
+<webc-datatable datasource="@dataSource">
+    Label: "{{ @label }}" --- Value: "{{ @value }}" ⇜ <input type="text" value="@label"> --- <input type="number" value="@value">
+    <div>
+        Label: "<span>{{ @label }}</span>" --- Value: "<span>{{ @value }}</span>" ⇜ <input type="text" value="@label"> --- <input type="number" value="@value">
+    </div>
+    <test-input-with-dashes type="number" value="@value" label="@label"></test-input-with-dashes>
+    <test-input-with-dashes data-view-model="@"></test-input-with-dashes>
+    <hr>
+</webc-datatable>
+
+...

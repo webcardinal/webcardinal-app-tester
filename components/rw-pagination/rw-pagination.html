@@ -1,0 +1,30 @@
+<style>
+  :host {
+    --ion-color-primary: #69bb7b;
+    --ion-color-primary-rgb: 105,187,123;
+    --ion-color-primary-contrast: #000000;
+    --ion-color-primary-contrast-rgb: 0,0,0;
+    --ion-color-primary-shade: #5ca56c;
+    --ion-color-primary-tint: #78c288;
+  }
+  webc-container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    margin-top: 1rem;
+  }
+</style>
+<webc-container controller="../../components/rw-pagination/PaginationController" data-view-model="@">
+  <ion-button data-tag="prev" fill="outline" disabled="@isPrevDisabled">
+    <ion-icon slot="start" name="arrow-back"></ion-icon>
+    Prev
+  </ion-button>
+  <ion-range step="1" value="@pageNumbers.current" snaps>
+    <ion-label slot="start">{{ @pageNumbers.start }}</ion-label>
+    <ion-label slot="end">{{ @pageNumbers.end }}</ion-label>
+  </ion-range>
+  <ion-button data-tag="next" fill="outline" disabled="@isNextDisabled">
+    Next
+    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-button>
+</webc-container>

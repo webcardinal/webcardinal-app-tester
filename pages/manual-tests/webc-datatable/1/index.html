@@ -1,0 +1,51 @@
+<style>
+    .webc-datatable--header {
+        font-size: 110%; font-weight: bold;
+        padding: 1rem 0;
+        border-bottom: 1px solid #1b1e21;
+    }
+    .webc-datatable--container {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        row-gap: 0.35rem; column-gap: 1rem;
+    }
+    .webc-datatable--container div:not(.webc-datatable--header) {
+        border-bottom: 1px dashed var(--primary-color-transparent);
+    }
+    .webc-datatable--container button {
+        padding: 0.75rem;
+        border: 1px solid var(--primary-color); border-radius: 1rem;
+    }
+</style>
+
+<div id="test-container">
+    <header>
+        <section>
+            <h1>Basic example of DataTable</h1>
+            <small>keywords: <code>webc-datatable</code>, <code>DataSource</code></small>
+        </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Markup">
+            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/1/markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/1/Controller.js"></psk-code>
+        </webcat-section>
+
+        <webcat-card shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/1/Controller">
+                <webc-datatable datasource="@testDataSource">
+                    <div slot="header">Number</div>
+                    <div slot="header">Text</div>
+                    <div slot="header">Action</div>
+
+                    <div>{{ @number }}</div>
+                    <div>{{ @text }}</div>
+                    <button>View ›</button>
+                </webc-datatable>
+            </webc-container>
+        </webcat-card>
+    </main>
+</div>
