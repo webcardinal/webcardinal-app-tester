@@ -1,0 +1,10 @@
+{
+  "key": "Llave",
+  "number": "Número",
+  "value": "Valor",
+  "address": {
+    "street": "Calle",
+    "city": "Ciudad",
+    "country": "País"
+  }
+}

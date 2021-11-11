@@ -1,0 +1,17 @@
+<link href="components/accordion-item/accordion-item.css" rel="stylesheet">
+
+<webc-container controller="../../components/accordion-item/AccordionController">
+    <div class="accordion-item">
+        <div class="item-title-container" data-tag="accordion-item-click">
+            <div class="title-section">
+                <div class="accordion-item-title">{{@title}}</div>
+                <div class="subtitle">{{@subtitle}}</div>
+            </div>
+            <div class="accordion-item-icon"></div>
+        </div>
+        <div class="item-content-slot-wrapper" part="item-content">
+            <slot></slot>
+        </div>
+    </div>
+</webc-container>
+

@@ -22,6 +22,16 @@
       "src": "manual-tests",
       "children": [
         {
+          "name": "data-if",
+          "children": [
+            {
+              "name": "Test 1 - Basics",
+              "path": "./1",
+              "src": "./1/index.html"
+            }
+          ]
+        },
+        {
           "name": "data-for",
           "children": [
             {
@@ -62,6 +72,16 @@
             },
             {
               "name": "Test 2"
+            },
+            {
+              "name": "Test 3",
+              "path": "./3",
+              "src": "./3/index.html"
+            },
+            {
+              "name": "Test 4",
+              "path": "./4",
+              "src": "./4/index.html"
             }
           ]
         },

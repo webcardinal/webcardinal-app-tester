@@ -5,7 +5,7 @@ import mock from './mock.js';
 const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;
 
-class PersonsDataSource extends DataSource {
+class PersonDataSource extends DataSource {
     constructor(...props) {
         super(...props);
 
@@ -34,7 +34,7 @@ export default class extends Controller {
         super(...props);
 
         this.model = {
-            datasource: new PersonsDataSource(),
+            datasource: new PersonDataSource(),
             randomPage: 4
         };
         const { datasource } = this.model;

@@ -48,6 +48,10 @@ define("webcat-card");
 
 // Testing components
 define("fa-icon");
+define("accordion-item");
+define("test-component");
+define("test-translations");
+define("test-translations-complex", "test-translations/test-translations-complex", { shadow: true });
 define("test-input");
 define("test-input-with-dashes", "test-input/test-input-with-dashes");
 define("test-squares");

@@ -1,0 +1,45 @@
+<style>
+  .if1 .header {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 1rem;
+  }
+</style>
+
+<div id="test-container" class="if1">
+  <header>
+    <section>
+      <h1>Basic example of <code>data-if</code></h1>
+      <small>keywords: <code>data-if</code>, <code>false</code>, <code>true</code></small>
+    </section>
+  </header>
+  <main>
+    <webcat-card shadow header="Result">
+      <webc-container controller="../../pages/manual-tests/data-if/1/Controller">
+        <div class="header">
+          Condition: <code>{{ @condition }}</code>
+        </div>
+
+        <div data-if="@condition">
+          Content that is never visible: <div>no slot</div>
+
+          <div slot="true">
+            1. Content visible in when condition is: <code>true</code>
+          </div>
+
+          <div slot="false">
+            0. Content visible in when condition is: <code>false</code>
+          </div>
+        </div>
+      </webc-container>
+    </webcat-card>
+
+    <webcat-section shadow header="Markup">
+      <psk-code language="HTML" file="pages/manual-tests/data-if/1/markup.html"></psk-code>
+    </webcat-section>
+
+    <webcat-section shadow header="Controller">
+      <psk-code language="JavaScript" file="pages/manual-tests/data-if/1/Controller.js"></psk-code>
+    </webcat-section>
+  </main>
+</div>

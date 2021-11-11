@@ -4,22 +4,37 @@
         border: 1px solid var(--primary-color);
         border-radius: 0.5rem;
     }
+
+    .translations h2,
+    .translations h3 {
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    }
 </style>
 
-<webc-container controller="manual/translations/Controller.test1&2" id="test-container">
+<webc-container controller="manual/translations/Controller.test1&2" id="test-container" class="translations">
     <header>
         <section>
-            <h3>Translations</h3>
+            <h1>Translations</h1>
+            <small>keywords: <code>setSkin</code>, <code>applySkinForCurrentPage</code>, <code>preload script</code></small>
         </section>
     </header>
+
     <main>
         <section>
-            <h2>Result:</h2>
             <h4>Expected skin is: <code>ro</code></h4>
             <h4>Actual skin is: <code>{{ @skin }}</code></h4>
         </section>
 
-        <section style="margin-top: 1rem">
+        <h2>Dynamic change of skin:</h2>
+        <section>
+            <button data-tag="language" data-skin="default">default | en</button>
+            <button data-tag="language" data-skin="ro">ro</button>
+            <button data-tag="language" data-skin="es">es</button>
+        </section>
+
+        <h3>Inside <code>webc-container</code></h3>
+        <section>
             <div><code>key:</code> {{ $key }}</div>
             <div><code>number:</code> {{ $number }}</div>
             <div><code>value:</code> {{ $value }}</div>
@@ -28,10 +43,20 @@
             <div><code>address.country:</code> {{ $address.country }}</div>
         </section>
 
-        <h3>Dynamic change of skin:</h3>
-        <section style="margin-top: 0.25rem">
-            <button data-tag="language" data-skin="default">default</button>
-            <button data-tag="language" data-skin="ro">ro</button>
-        </section>
+        <h3>Inside <code>webc-template</code></h3>
+        <webc-template template="translations" data-view-model="@"></webc-template>
+
+        <h3>Inside <code>webc-component</code> <small>without #shadow-root</small></h3>
+        <test-translations></test-translations>
+
+        <h3>Inside <code>webc-component</code> <small>with #shadow-root</small></h3>
+        <test-translations-complex>
+            <div><code>key:</code> {{ $key }}</div>
+            <div><code>number:</code> {{ $number }}</div>
+            <div><code>value:</code> {{ $value }}</div>
+            <div><code>address.street:</code> {{ $address.street }}</div>
+            <div><code>address.city:</code> {{ $address.city }}</div>
+            <div><code>address.country:</code> {{ $address.country }}</div>
+        </test-translations-complex>
     </main>
 </webc-container>
