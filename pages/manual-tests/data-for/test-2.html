@@ -8,13 +8,7 @@
     <main>
         <section>
             <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test2.js"></psk-code>
-            <psk-code language="HTML">
-                <code>state: {{ @state }}</code>
-                <div data-for="@items">
-                    <div>{{ @content }}</div>
-                    <code slot="no-data">There is no data!</code>
-                </div>
-            </psk-code>
+            <psk-code language="HTML" file="pages/manual-tests/data-for/test-2.markup.html"></psk-code>
             <psk-example>
                 <style>
                     .test2 {
@@ -33,10 +27,11 @@
                     }
                 </style>
                 <webc-container controller="manual/data-for/Test2" class="test2">
-                    <code>state: {{ @state }}</code>
+                    <code>state: {{ @state }}, typeof @items: {{ @typeOfState }}</code>
                     <div data-for="@items">
                         <div>{{ @content }}</div>
                         <code slot="no-data">There is no data!</code>
+                        <code slot="loading">Loading...</code>
                     </div>
                 </webc-container>
             </psk-example>
