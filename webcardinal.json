@@ -82,7 +82,10 @@
               "name": "Test 4",
               "path": "./4",
               "src": "./4/index.html"
-            }
+            },
+	        {
+		      "name": "Test 5"
+	        }
           ]
         },
         {

@@ -60,6 +60,10 @@ define("test-container");
 define("test-container-scoped", "test-container/test-container-scoped");
 define("rw-pagination", { shadow: true });
 
+define('pharma-container');
+define('pharma-header');
+define('pharma-footer');
+
 // Testing setSkin
 addHook("beforePageLoads", "translations-test-2", () => {
   setSkin("ro");
