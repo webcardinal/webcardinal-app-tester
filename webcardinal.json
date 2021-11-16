@@ -28,6 +28,11 @@
               "name": "Test 1 - Basics",
               "path": "./1",
               "src": "./1/index.html"
+            },
+            {
+              "name": "Test 2 - Slots",
+              "path": "./2",
+              "src": "./2/index.html"
             }
           ]
         },
