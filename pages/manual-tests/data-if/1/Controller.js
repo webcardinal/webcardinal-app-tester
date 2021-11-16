@@ -10,13 +10,13 @@ class TestController extends Controller {
             condition: true
         }
 
-        this.inerval = setInterval(() => {
+        this.interval = setInterval(() => {
             this.model.condition = !this.model.condition;
         }, 1000);
     }
 
     onDisconnectedCallback() {
-        clearInterval(this.inerval);
+        clearInterval(this.interval);
     }
 }
 

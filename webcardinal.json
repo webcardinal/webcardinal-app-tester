@@ -33,6 +33,11 @@
               "name": "Test 2 - Slots",
               "path": "./2",
               "src": "./2/index.html"
+            },
+            {
+              "name": "Test 3 - Promise",
+              "path": "./3",
+              "src": "./3/index.html"
             }
           ]
         },

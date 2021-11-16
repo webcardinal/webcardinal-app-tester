@@ -1,0 +1,58 @@
+<style>
+  .if3 .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  .if3 button {
+    background: var(--primary-color);
+    border-radius: 3px;
+    color: whitesmoke;
+  }
+  .if3 button:disabled {
+    background: var(--primary-color-transparent);
+    cursor: not-allowed;
+  }
+</style>
+
+<div id="test-container" class="if3">
+  <header>
+    <section>
+      <h1>Async/Promise condition in <code>data-if</code></h1>
+      <small>keywords: <code>async</code>, <code>Promise</code></small>
+    </section>
+  </header>
+  <main>
+    <webcat-card shadow header="Result">
+      <webc-container controller="../../pages/manual-tests/data-if/3/Controller">
+        <div class="header">
+          <div>Condition: <code>{{ @conditionString }}</code></div>
+          <button data-tag="conditionToggle">Toggle condition</button>
+        </div>
+
+        <div data-if="@condition">
+          Content that is never visible: <div>no slot</div>
+
+          <div slot="true">
+            [resolved] Content visible when condition is: <code>true</code>
+          </div>
+
+          <div slot="false">
+            [resolved] Content visible when condition is: <code>false</code>
+          </div>
+
+          <div slot="loading">
+            [awaiting] Loading...
+          </div>
+        </div>
+      </webc-container>
+    </webcat-card>
+
+    <webcat-section shadow header="Markup">
+      <psk-code language="HTML" file="pages/manual-tests/data-if/3/markup.html"></psk-code>
+    </webcat-section>
+
+    <webcat-section shadow header="Controller">
+      <psk-code language="JavaScript" file="pages/manual-tests/data-if/3/Controller.js"></psk-code>
+    </webcat-section>
+  </main>
+</div>

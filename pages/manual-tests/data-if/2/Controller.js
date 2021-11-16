@@ -14,7 +14,7 @@ class TestController extends Controller {
             return `${this.model.condition}`;
         }, 'condition');
 
-        this.inerval = setInterval(() => {
+        this.interval = setInterval(() => {
             this.changeCondition();
         }, 1000);
     }
@@ -35,7 +35,7 @@ class TestController extends Controller {
     }
 
     onDisconnectedCallback() {
-        clearInterval(this.inerval);
+        clearInterval(this.interval);
     }
 }
 

@@ -1,0 +1,22 @@
+<!-- Path: pages/manual-tests/data-if/3/index.html -->
+
+<div class="header">
+    <div>Condition: <code>{{ @conditionString }}</code></div>
+    <button data-tag="conditionToggle">Toggle condition</button>
+</div>
+
+<div data-if="@condition">
+    Content that is never visible: <div>no slot</div>
+
+    <div slot="true">
+        [resolved] Content visible when condition is: <code>true</code>
+    </div>
+
+    <div slot="false">
+        [resolved] Content visible when condition is: <code>false</code>
+    </div>
+
+    <div slot="loading">
+        [awaiting] Loading...
+    </div>
+</div>
