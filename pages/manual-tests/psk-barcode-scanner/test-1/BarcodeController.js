@@ -9,8 +9,8 @@ export default class _ extends Controller {
         super(...props);
 
         this.model = {
-            // framesJSON: 'frames-01.json',
-            framesJSON: 'frames-02.json',
+            framesJSON: 'frames-01.json',
+            // framesJSON: 'frames-02.json',
             // framesJSON: 'frames-deny-w.json',
             // framesJSON: 'frames-deny-b.json'
         }
@@ -29,10 +29,12 @@ export default class _ extends Controller {
 
     async applyFrames(frames) {
         const barcodeScanner = this.querySelector('psk-barcode-scanner');
+        barcodeScanner.useFrames = true;
+
         let i = 0;
         let increment = true;
 
-        while (true) {
+        const interval = setInterval(async () => {
             if (i === 0) {
                 increment = true;
             }
@@ -40,8 +42,15 @@ export default class _ extends Controller {
                 increment = false;
             }
             await barcodeScanner.setFrame(frames[i]);
-            await timeout(100);
             increment ? i++ : i--;
+        }, 100);
+
+        const clearFrameInterval = () => {
+            clearInterval(interval);
+            // stencil router does not have a removeListener for history
         }
+
+        this.model.onChange("data", clearFrameInterval);
+        this.history.listen(clearFrameInterval);
     }
 }

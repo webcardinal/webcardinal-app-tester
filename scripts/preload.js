@@ -6,6 +6,8 @@ const { define } = WebCardinal.components;
 async function initializeWebCardinalConfig() {
   const config = getConfig();
   // config.translations = false;
+  console.log(config);
+
   return config;
 }
 
@@ -70,13 +72,15 @@ addHook("whenPageClose", "translations-test-2", () => {
 });
 
 // Injecting Ionic Distribution
-addHook("beforePageLoads", "webc-datasource:test-6", () => {
-  preloadContext.injectIonic();
-});
+for (const tag of ["webc-datasource:test-6", "accordion"]) {
+  addHook("beforePageLoads", tag, () => {
+    preloadContext.injectIonic();
+  });
 
-addHook("whenPageClose", "webc-datasource:test-6", () => {
-  preloadContext.removeIonic();
-});
+  addHook("whenPageClose", tag, () => {
+    preloadContext.removeIonic();
+  });
+}
 
 const config = await initializeWebCardinalConfig();
 setConfig(config);

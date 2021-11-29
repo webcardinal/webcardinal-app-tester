@@ -1,7 +1,64 @@
-<div id="test-container">
-  <main>
-    <accordion-item shadow title="Title of accordion">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus earum fugiat mollitia voluptates! Quidem, similique, velit! Blanditiis nihil optio placeat provident soluta? Accusamus adipisci doloribus enim error est ipsa libero minima optio, possimus. Architecto dolores in incidunt iste minus quia rerum suscipit totam unde velit. Aliquam dolores laboriosam molestias. At ex expedita laborum magni odio perferendis provident! Beatae error impedit reprehenderit veritatis? Commodi consequuntur labore laborum quos unde. Et facilis illum labore minus officiis perspiciatis quis, rem temporibus? Alias amet asperiores assumenda beatae debitis ea earum, ex excepturi expedita fugit incidunt iste iure laudantium maiores maxime modi molestiae nisi numquam placeat, provident quisquam quos repellat sed sunt temporibus vel veniam vero vitae voluptates voluptatibus. Deserunt earum est expedita explicabo magnam qui quibusdam quidem sit? A ab beatae dolore dolorem, dolorum est, exercitationem facere fugiat, in labore magnam minima minus neque optio porro sequi sint? Aliquam animi autem, consequatur cupiditate dicta dolore dolorem esse et iste iusto nobis nostrum perspiciatis quaerat quia reiciendis totam, vel. Ab aliquid animi delectus dignissimos dolores eius eligendi facilis harum, labore magnam natus, nemo nesciunt odio officia omnis quibusdam quod ullam vel. Aperiam est fuga reiciendis saepe soluta! Ab asperiores, deserunt dolorum eligendi exercitationem impedit, itaque modi quisquam sequi tempore, vitae voluptatibus. Aspernatur autem cumque doloremque eius eum eveniet in inventore itaque iure nihil pariatur perferendis porro quisquam, reprehenderit, rerum voluptatibus voluptatum. Asperiores assumenda at, culpa, debitis dolorum enim expedita facere ipsum iusto libero magnam magni minima minus obcaecati qui rem repellat reprehenderit repudiandae saepe, sapiente sequi sunt tempora tempore totam ut veritatis voluptatum! Amet asperiores assumenda culpa delectus doloremque earum et illo in, iste laborum, libero officiis quam quasi quos recusandae repellat vero! Asperiores aspernatur consectetur, culpa cupiditate dicta dolor dolore est exercitationem fugit iusto libero nisi, nobis reiciendis rem repellat rerum tempora ullam vero?
-    </accordion-item>
-  </main>
+<style>
+    .leaflet-accordion {
+        background: white !important;
+    }
+
+    .dev-options ion-toggle {
+        pointer-events: none;
+    }
+    .dev-options ion-item {
+        --background: transparent;
+        --border-color: transparent;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+    }
+    .dev-options ion-badge {
+        background: #F0EFFE;
+        color: #2F2F2F;
+        padding: 0.15rem 0.25rem;
+    }
+</style>
+
+<div id="test-container" class="leaflet-accordion">
+    <main>
+        <accordion-item shadow title="Title of accordion">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus earum fugiat mollitia voluptates!
+            Quidem, similique, velit! Blanditiis nihil optio placeat provident soluta? Accusamus adipisci doloribus enim
+            error est ipsa libero minima optio, possimus. Architecto dolores in incidunt iste minus quia rerum suscipit
+            totam unde velit. Aliquam dolores laboriosam molestias. At ex expedita laborum magni odio perferendis
+            provident! Beatae error impedit reprehenderit veritatis? Commodi consequuntur labore laborum quos unde. Et
+            facilis illum labore minus officiis perspiciatis quis, rem temporibus? Alias amet asperiores assumenda
+            beatae debitis ea earum, ex excepturi expedita fugit incidunt iste iure laudantium maiores maxime modi
+            molestiae nisi numquam placeat, provident quisquam quos repellat sed sunt temporibus vel veniam vero vitae
+            voluptates voluptatibus. Deserunt earum est expedita explicabo magnam qui quibusdam quidem sit? A ab beatae
+            dolore dolorem, dolorum est, exercitationem facere fugiat, in labore magnam minima minus neque optio porro
+            sequi sint? Aliquam animi autem, consequatur cupiditate dicta dolore dolorem esse et iste iusto nobis
+            nostrum perspiciatis quaerat quia reiciendis totam, vel. Ab aliquid animi delectus dignissimos dolores eius
+            eligendi facilis harum, labore magnam natus, nemo nesciunt odio officia omnis quibusdam quod ullam vel.
+            Aperiam est fuga reiciendis saepe soluta! Ab asperiores, deserunt dolorum eligendi exercitationem impedit,
+            itaque modi quisquam sequi tempore, vitae voluptatibus. Aspernatur autem cumque doloremque eius eum eveniet
+            in inventore itaque iure nihil pariatur perferendis porro quisquam, reprehenderit, rerum voluptatibus
+            voluptatum. Asperiores assumenda at, culpa, debitis dolorum enim expedita facere ipsum iusto libero magnam
+            magni minima minus obcaecati qui rem repellat reprehenderit repudiandae saepe, sapiente sequi sunt tempora
+            tempore totam ut veritatis voluptatum! Amet asperiores assumenda culpa delectus doloremque earum et illo in,
+            iste laborum, libero officiis quam quasi quos recusandae repellat vero! Asperiores aspernatur consectetur,
+            culpa cupiditate dicta dolor dolore est exercitationem fugit iusto libero nisi, nobis reiciendis rem
+            repellat rerum tempora ullam vero?
+        </accordion-item>
+
+        <webc-container controller="../../pages/manual-tests/webc-component/4/Controller">
+            <div data-if="@devOptions.areEnabled">
+                <accordion-item slot="true" shadow title="Developer Options" class="dev-options">
+                    <ion-item class="ion" data-tag="dev-options:ios-use-frames" class="dev-options" button>
+                        <ion-label>
+                            <ion-badge color="dark" mode="ios">Experimental</ion-badge>
+                            <br>Applicable only for iOS
+                            <br>Use native frames captured by camera instead of user video stream
+                        </ion-label>
+                        <ion-toggle checked="@devOptions.useFrames.value" slot="end" mode="ios"></ion-toggle>
+                    </ion-item>
+                </accordion-item>
+            </div>
+        </webc-container>
+    </main>
 </div>

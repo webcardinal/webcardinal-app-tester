@@ -38,6 +38,16 @@
               "name": "Test 3 - Promise",
               "path": "./3",
               "src": "./3/index.html"
+            },
+            {
+              "name": "Test 4 - Backward compatibility",
+              "path": "./4",
+              "src": "./4/index.html"
+            },
+            {
+              "name": "Test 4 - If in If",
+              "path": "./5",
+              "src": "./5/index.html"
             }
           ]
         },
@@ -65,11 +75,15 @@
           "name": "translations",
           "children": [
             {
-              "name": "Test 1",
+              "name": "Test 1 - Default",
+              "src": "./test-1.html",
+              "path": "./1",
               "tag": "translations-test-1"
             },
             {
-              "name": "Test 2",
+              "name": "Test 2 - Custom",
+              "src": "./test-2.html",
+              "path": "./2",
               "tag": "translations-test-2"
             }
           ]
@@ -91,7 +105,8 @@
             {
               "name": "Test 4",
               "path": "./4",
-              "src": "./4/index.html"
+              "src": "./4/index.html",
+              "tag": "accordion"
             }
           ]
         },
@@ -219,5 +234,11 @@
       "indexed": false
     }
   ],
-  "theme": "clear-sky-theme"
+  "theme": "clear-sky-theme",
+  "leaflet": {
+    "devOptions": {
+      "disabled": ["useFrames"],
+      "useFrames": false
+    }
+  }
 }
