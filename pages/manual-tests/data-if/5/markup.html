@@ -1,0 +1,23 @@
+<!-- Path: pages/manual-tests/data-if/5/index.html -->
+
+<div data-if="@condition1">
+    <!-- true -->
+    <div slot="true" data-if="@condition2">
+        <div slot="true">
+            Slot: <code>1. true > true</code>
+        </div>
+        <div slot="false">
+            Slot: <code>4. true > false</code>
+        </div>
+    </div>
+
+    <!-- false -->
+    <div slot="false" data-if="@condition3">
+        <div slot="true">
+            Slot: <code>2. false > true</code>
+        </div>
+        <div slot="false">
+            Slot: <code>3. false > false</code>
+        </div>
+    </div>
+</div>

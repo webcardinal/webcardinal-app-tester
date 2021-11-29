@@ -30,14 +30,14 @@
         </div>
 
         <div data-if="@condition">
-          Content that is never visible: <div>no slot</div>
+          Content that is never visible <strong>no slot</strong>
 
           <div slot="true">
-            [resolved] Content visible when condition is: <code>true</code>
+            [resolved] <strong>true slot</strong> is visible!
           </div>
 
           <div slot="false">
-            [resolved] Content visible when condition is: <code>false</code>
+            [resolved] <strong>false slot</strong> is visible!
           </div>
 
           <div slot="loading">

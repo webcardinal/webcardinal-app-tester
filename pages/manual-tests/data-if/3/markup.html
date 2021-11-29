@@ -6,17 +6,13 @@
 </div>
 
 <div data-if="@condition">
-    Content that is never visible: <div>no slot</div>
-
-    <div slot="true">
-        [resolved] Content visible when condition is: <code>true</code>
-    </div>
+    <strong>no slot</strong> is never visible!
 
     <div slot="false">
-        [resolved] Content visible when condition is: <code>false</code>
+        0. <strong>false slot</strong> is visible!
     </div>
 
-    <div slot="loading">
-        [awaiting] Loading...
+    <div slot="true">
+        1. <strong>true slot</strong> is visible!
     </div>
 </div>

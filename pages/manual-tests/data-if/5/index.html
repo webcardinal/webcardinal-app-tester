@@ -1,0 +1,85 @@
+<style>
+  .if5 code {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+</style>
+
+<div id="test-container" class="if5">
+  <header>
+    <section>
+      <h1><code>data-if</code> in <code>data-if</code></h1>
+    </section>
+  </header>
+  <main>
+    <webcat-card shadow header="Result">
+      <webc-container controller="../../pages/manual-tests/data-if/5/Controller">
+        <table style="width: 100%">
+          <tr>
+            <td><strong>@condition1</strong>: <code>{{ @condition1String }}</code></td>
+            <td><strong>@condition2</strong>: <code>{{ @condition2String }}</code></td>
+            <td><strong>@condition3</strong>: <code>{{ @condition3String }}</code></td>
+          </tr>
+        </table>
+
+        <div><br>Final result: <code>{{ @finalCondition }}</code></div>
+
+        <div data-if="@condition1">
+          <!-- true -->
+          <div slot="true" data-if="@condition2">
+            <div slot="true">
+              Slot: <code>1. true > true</code>
+            </div>
+            <div slot="false">
+              Slot: <code>4. true > false</code>
+            </div>
+          </div>
+
+          <!-- false -->
+          <div slot="false" data-if="@condition3">
+            <div slot="true">
+              Slot: <code>2. false > true</code>
+            </div>
+            <div slot="false">
+              Slot: <code>3. false > false</code>
+            </div>
+          </div>
+        </div>
+
+        <table style="width: 100%">
+          <tr>
+            <td>
+              <strong>Expected</strong>
+              <code data-tag="expected">
+                <br>
+                1. true > true
+                <br>
+                2. false > true
+                <br>
+                3. false > false
+                <br>
+                4. true > false
+                <br>
+                3. false > false
+              </code>
+            </td>
+            <td>
+              <strong>Actual</strong>
+              <code data-tag="actual">Computing...</code>
+            </td>
+          </tr>
+        </table>
+        <code data-tag="steps"></code>
+
+      </webc-container>
+    </webcat-card>
+
+    <webcat-section shadow header="Markup">
+      <psk-code language="HTML" file="pages/manual-tests/data-if/5/markup.html"></psk-code>
+    </webcat-section>
+
+    <webcat-section shadow header="Controller">
+      <psk-code language="JavaScript" file="pages/manual-tests/data-if/5/Controller.js"></psk-code>
+    </webcat-section>
+  </main>
+</div>

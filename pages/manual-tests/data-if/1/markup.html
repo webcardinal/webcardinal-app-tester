@@ -1,13 +1,13 @@
 <!-- Path: pages/manual-tests/data-if/1/index.html -->
 
 <div data-if="@condition">
-  Content that is never visible: <div>no slot</div>
-
-  <div slot="true">
-    1. Content visible in when condition is: <code>true</code>
-  </div>
+  <strong>no slot</strong> is never visible!
 
   <div slot="false">
-    0. Content visible in when condition is: <code>false</code>
+    0. <strong>false slot</strong> is visible!
+  </div>
+
+  <div slot="true">
+    1. <strong>true slot</strong> is visible!
   </div>
 </div>

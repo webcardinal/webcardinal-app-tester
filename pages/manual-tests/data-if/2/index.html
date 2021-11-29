@@ -1,30 +1,49 @@
+<style>
+  .if2 .header {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 1rem;
+  }
+  .if2 code {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+</style>
+
 <div id="test-container" class="if2">
   <header>
     <section>
       <h1>Slots for <code>data-if</code></h1>
-      <small>slots: <code>loading</code>, <code>true</code>, <code>false</code></small>
+      <small>slots: <code>loading</code>, <code>false</code>, <code>true</code>, <code>no-data</code></small>
     </section>
   </header>
   <main>
     <webcat-card shadow header="Result">
       <webc-container controller="../../pages/manual-tests/data-if/2/Controller">
         <div class="header">
-          Condition: <code>{{ @conditionString }}</code>
+          <code>{{ @conditionString }}</code>
         </div>
 
-        <div data-if="@condition">
+        <div class="data-if--slots" data-if="@condition">
           Content that is never visible: <div>no slot</div>
 
-          <div slot="true">
-            1. Content visible when condition is: <code>true</code>
+          <div slot="loading">
+            -1. <strong>[loading slot]</strong> Loading...
           </div>
 
           <div slot="false">
-            0. Content visible when condition is: <code>false</code>
+            0. <strong>[false slot]</strong> Content visible when condition is:
+            <code>false</code>, <code>null</code>, <code>NaN</code> or <code>''</code>
           </div>
 
-          <div slot="loading">
-            -1. Loading...
+          <div slot="true">
+            1. <strong>[true slot]</strong> Content visible when condition is:
+            <code>true</code>, <code>6</code> or <code>'lorem'</code>
+          </div>
+
+          <div slot="no-data">
+            2. <strong>[no-data slot]</strong> Content visible when condition is:
+            <code>[]</code> or <code>{}</code>
           </div>
         </div>
       </webc-container>

@@ -1,13 +1,22 @@
 <!-- Path: pages/manual-tests/data-if/2/index.html -->
 
-<div slot="true">
-    1. Content visible in when condition is: <code>true</code>
+Content that is never visible: <div>no slot</div>
+
+<div slot="loading">
+    -1. <strong>[loading slot]</strong> Loading...
 </div>
 
 <div slot="false">
-    0. Content visible in when condition is: <code>false</code>
+    0. <strong>[false slot]</strong> Content visible when condition is:
+    <code>false</code>, <code>null</code>, <code>NaN</code> or <code>''</code>
 </div>
 
-<div slot="loading">
-    -1. loading...
+<div slot="true">
+    1. <strong>[true slot]</strong> Content visible when condition is:
+    <code>true</code>, <code>6</code> or <code>'lorem'</code>
+</div>
+
+<div slot="no-data">
+    2. <strong>[no-data slot]</strong> Content visible when condition is:
+    <code>[]</code> or <code>{}</code>
 </div>

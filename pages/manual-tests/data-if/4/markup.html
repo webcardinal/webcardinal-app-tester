@@ -1,0 +1,8 @@
+<!-- Path: pages/manual-tests/data-if/4/index.html -->
+
+<div data-for="@people">
+    <div data-if="@age">
+        <span slot="true">Person: <b>{{ @name }}</b>, {{ @age }} years old</span>
+        <span slot="false">Person: <b>{{ @name }}</b></span>
+    </div>
+</div>

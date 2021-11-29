@@ -1,0 +1,27 @@
+<div id="test-container">
+  <header>
+    <section>
+      <h1>Backward compatibility of <code>data-if</code></h1>
+    </section>
+  </header>
+  <main>
+    <webcat-card shadow header="Result">
+      <webc-container controller="../../pages/manual-tests/data-if/4/Controller">
+        <div data-for="@people">
+          <div data-if="@age">
+            <span slot="true">Person: <b>{{ @name }}</b>, {{ @age }} years old</span>
+            <span slot="false">Person: <b>{{ @name }}</b></span>
+          </div>
+        </div>
+      </webc-container>
+    </webcat-card>
+
+    <webcat-section shadow header="Markup">
+      <psk-code language="HTML" file="pages/manual-tests/data-if/4/markup.html"></psk-code>
+    </webcat-section>
+
+    <webcat-section shadow header="Controller">
+      <psk-code language="JavaScript" file="pages/manual-tests/data-if/4/Controller.js"></psk-code>
+    </webcat-section>
+  </main>
+</div>
