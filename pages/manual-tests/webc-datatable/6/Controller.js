@@ -1,4 +1,4 @@
-// Path: pages/manual-tests/webc-datatable/7/Controller.js
+// Path: pages/manual-tests/webc-datatable/6/Controller.js
 
 const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;

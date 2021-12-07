@@ -151,10 +151,22 @@
               "src": "./5/index.html"
             },
             {
-              "name": "Test 6 - Customization",
+              "name": "Test 6 - Infinit Scroll",
               "path": "./6",
               "src": "./6/index.html",
               "tag": "webc-datasource:test-6"
+            },
+            {
+              "name": "Test 7 - Customization (I)",
+              "path": "./7",
+              "src": "./7/index.html",
+              "tag": "webc-datasource:test-7"
+            },
+            {
+              "name": "Test 8 - Customization (II)",
+              "path": "./8",
+              "src": "./8/index.html",
+              "tag": "webc-datasource:test-8"
             }
           ]
         },

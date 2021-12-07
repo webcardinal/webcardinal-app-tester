@@ -35,6 +35,7 @@ export default class extends Controller {
 
         this.model = {
             datasource: new PersonDataSource(),
+            datasourceFail: new PersonDataSource(),
             randomPage: 4
         };
         const { datasource } = this.model;

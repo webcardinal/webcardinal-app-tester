@@ -1,0 +1,26 @@
+/* Src: pages/manual-tests/webc-datatable/1/styles.css */
+
+.tdb-1 .webc-datatable--header {
+    font-size: 110%; font-weight: bold;
+    padding: 0.5rem 0; margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--primary-color);
+}
+.tdb-1 .webc-datatable--container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.35rem 1rem;
+}
+.tdb-1 .webc-datatable--container div:not(.webc-datatable--header) {
+    border-bottom: 1px dashed var(--primary-color-transparent);
+}
+.tdb-1 .webc-datatable--container button {
+    padding: 0.65rem;
+    border: 1px solid dodgerblue; border-radius: 1rem;
+}
+
+/*
+Classes: .webc-datatable--header, .webc-datatable--container, .webc-datatable--scroll, .webc-datatable--loading
+and in general .webc-datatable-<SLOT_NAME> are injected by webc-datatable for an easier styling
+
+.tdb-1 is just a scoping of styles (because multiple datatables are present in the current environment)
+ */

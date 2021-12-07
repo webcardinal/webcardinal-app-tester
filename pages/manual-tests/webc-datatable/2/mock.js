@@ -1,5 +1,5 @@
 const mock = {
-    delay: 0,
+    delay: 1500,
     count: 3001,
 
     sleep: async (ms) => {

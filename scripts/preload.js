@@ -13,7 +13,7 @@ async function initializeWebCardinalConfig() {
 
 function createIonicContext() {
   const ionicPath = "https://cdn.jsdelivr.net/npm/@ionic/core/";
-  const ioniconsPath = "https://unpkg.com/ionicons@5.5.2/"
+  const ioniconsPath = "https://unpkg.com/ionicons@5.5.2/";
 
   const styles = Object.assign(document.createElement("link"), {
     rel: "stylesheet",
@@ -25,7 +25,7 @@ function createIonicContext() {
   });
   const ionicons = Object.assign(document.createElement("script"), {
     type: "module",
-    src: `${ioniconsPath}dist/ionicons/ionicons.esm.js`
+    src: `${ioniconsPath}dist/ionicons/ionicons.esm.js`,
   });
 
   return {
@@ -53,7 +53,9 @@ define("fa-icon");
 define("accordion-item");
 define("test-component");
 define("test-translations");
-define("test-translations-complex", "test-translations/test-translations-complex", { shadow: true });
+define("test-translations-complex", "test-translations/test-translations-complex", {
+  shadow: true,
+});
 define("test-input");
 define("test-input-with-dashes", "test-input/test-input-with-dashes");
 define("test-squares");
@@ -72,7 +74,12 @@ addHook("whenPageClose", "translations-test-2", () => {
 });
 
 // Injecting Ionic Distribution
-for (const tag of ["webc-datasource:test-6", "accordion"]) {
+for (const tag of [
+  "webc-datasource:test-6",
+  "webc-datasource:test-7",
+  "webc-datasource:test-8",
+  "accordion",
+]) {
   addHook("beforePageLoads", tag, () => {
     preloadContext.injectIonic();
   });

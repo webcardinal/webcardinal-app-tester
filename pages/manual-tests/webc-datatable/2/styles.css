@@ -1,0 +1,40 @@
+/* Path: pages/manual-tests/webc-datatable/2/styles.css */
+
+.tdb-2 .webc-datatable--container {
+    display: grid;
+    /* 3 columns */
+    grid-template-columns: auto 1fr 200px;
+    align-content: start;
+    column-gap: 1rem;
+    min-height: 425px;
+}
+.tdb-2 .webc-datatable--container > * {
+    padding: 0.5rem;
+    border-bottom: 1px solid #CDCDCD;
+}
+.tdb-2 .webc-datatable--container > .webc-datatable--header {
+    font-weight: bold;
+    border-color: #2F2F2F;
+    margin-bottom: 0.5rem; padding-right: 1rem;
+}
+.tdb-2 .webc-datatable--container webc-spinner {
+    align-self: center;
+}
+.tdb-2 .webc-datatable--container > *:not(.webc-datatable--header):nth-last-child(-n+3) {
+    border-bottom: none;
+}
+.tdb-2 .webc-datatable--container > div:not(.webc-datatable--header):nth-child(3n) {
+    font-family: monospace;
+}
+.tdb-2 .controls {
+    display: flex;
+    justify-content: center;
+}
+.tdb-2 .controls > button {
+    padding: 0.75rem; margin: 1rem 0.5rem 0 0; border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.1); border: 1px solid transparent;
+    transition: border-color 200ms ease-in-out;
+}
+.tdb-2 .controls > button:hover {
+    border-color: var(--primary-color);
+}

@@ -1,0 +1,128 @@
+<style>
+    .tdb-8 h1, .tdb-8 h2, .tdb-8 h3, .tdb-8 h4, .tdb-8 h5, .tdb-8 h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .tdb-8 webc-datatable {
+        /* used by webc-datatable only for this example */
+        --my-custom-height-for-this-example: 80px;
+
+        /* used by webc-datatable internally */
+        --height: 500px;
+    }
+
+    .tdb-8 .webc-datatable--scroll {
+        position: relative;
+        border: 1px dotted #cdcdcd;
+    }
+
+    .tdb-8 .webc-datatable--header {
+        display: flex; align-items: center; padding: 0 1rem; margin-bottom: 1rem;
+        font-size: 110%; font-weight: bold; position: sticky; top: 0;
+        grid-column: 1 / -1;
+        background: #FFFFFF; box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.075);
+        z-index: 15;
+        height: var(--my-custom-height-for-this-example);
+    }
+
+    .tdb-8 .webc-datatable--container,
+    .tdb-8 .webc-datatable--loading {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .tdb-8 .webc-datatable--container ion-item,
+    .tdb-8 .webc-datatable--loading ion-item {
+        --background: transparent;
+        --padding-start: 1rem;
+        --padding-end: 1rem;
+        --inner-padding-start: 1rem;
+        --inner-padding-end: 0;
+    }
+
+    .tdb-8 .webc-datatable--container ion-avatar {
+        margin-right: 0.75rem;
+    }
+    .tdb-8 .webc-datatable--container ion-button {
+        --color: var(--primary-color);
+    }
+
+    .tdb-8 .webc-datatable--loading ion-item {
+        --border-color: transparent;
+    }
+    .tdb-8 .webc-datatable--loading ion-skeleton-text ~ ion-skeleton-text {
+        margin-top: 0.5rem;
+    }
+</style>
+
+<div id="test-container" class="tdb-8">
+    <header>
+        <section>
+            <h1>Customisation for <strong>infinite scroll</strong> of <code>DataSource</code></h1>
+            <small>keywords: <code>useInfiniteScroll</code></small>
+        </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/8/Controller">
+                <webc-datatable datasource="@dataSource">
+                    <div slot="header">My Contacts</div>
+
+                    <ion-item>
+                        <ion-avatar slot="start">
+                            <img src="@image.source">
+                        </ion-avatar>
+                        <ion-label>{{ @name }}</ion-label>
+                        <ion-button slot="end" fill="clear">
+                            <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+                        </ion-button>
+                    </ion-item>
+
+                    <div slot="loading">
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
+                            </ion-label>
+                        </ion-item>
+
+                        <ion-item>
+                            <ion-avatar slot="start">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 75%"></ion-skeleton-text>
+                            </ion-label>
+                        </ion-item>
+                    </div>
+                </webc-datatable>
+            </webc-container>
+        </webcat-section>
+    </main>
+</div>

@@ -1,31 +1,6 @@
-<style>
-    .webc-datatable--container {
-        display: grid;
-        grid-template-columns: auto 1fr auto;
-        column-gap: 1rem;
-    }
-    .webc-datatable--container > * {
-        padding: 0.5rem;
-        border-bottom: 1px solid #CDCDCD;
-    }
-    .webc-datatable--container > .webc-datatable--header {
-        font-weight: bold;
-        border-color: #2F2F2F;
-        margin-bottom: 1rem;
-    }
-    .webc-datatable--container > *:not(.webc-datatable--header):nth-last-child(-n+3) {
-        border-bottom: none;
-    }
-    .webc-datatable--container > div:not(.webc-datatable--header):nth-child(3n) {
-        font-family: monospace;
-    }
-    #test-container button[data-tag] {
-        padding: 0.75rem; margin: 0.5rem 0.5rem 0 0;
-        border: 1px solid var(--primary-color); border-radius: 1rem;
-    }
-</style>
+<link rel="stylesheet" href="pages/manual-tests/webc-datatable/2/styles.css">
 
-<div id="test-container">
+<div id="test-container" class="tdb-2">
     <header>
         <section>
             <h1>Pagination of DataTable</h1>
@@ -46,9 +21,11 @@
                     <div>{{ @date }}</div>
                 </webc-datatable>
 
-                <button data-tag="prev-page">Go to previous page</button>
-                <button data-tag="next-page">Go to next page</button>
-                <button data-tag="random-page" data-page="@randomPage">Go to page {{ @randomPage }}</button>
+                <section class="controls">
+                    <button data-tag="prev-page">Previous page</button>
+                    <button data-tag="random-page" data-page="@randomPage">Random page ({{ @randomPage }})</button>
+                    <button data-tag="next-page">Next page</button>
+                </section>
             </webc-container>
         </webcat-card>
 
@@ -58,6 +35,10 @@
 
         <webcat-section shadow header="Markup">
             <psk-code language="HTML" file="pages/manual-tests/webc-datatable/2/markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Styles">
+            <psk-code language="CSS" file="pages/manual-tests/webc-datatable/2/styles.css"></psk-code>
         </webcat-section>
     </main>
 </div>

@@ -1,0 +1,22 @@
+/* Path: pages/manual-tests/webc-datatable/7/index.html */
+
+.webc-datatable--header {
+    font-size: 110%; font-weight: bold;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .35);
+}
+.webc-datatable--container {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 0.35rem 1rem;
+    margin-right: 1rem;
+}
+.webc-datatable--container div:not(.webc-datatable--header) {
+    padding: 0.35rem 0;
+    border-bottom: 1px dashed var(--primary-color-transparent);
+}
+.webc-datatable--scroll {
+    background: white;
+    padding: 1rem;
+}
