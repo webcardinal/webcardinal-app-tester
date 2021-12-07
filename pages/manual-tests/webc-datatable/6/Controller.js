@@ -1,38 +1,54 @@
+// Path: pages/manual-tests/webc-datatable/7/Controller.js
+
 const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;
 
-class RWDataSource extends DataSource {
-    constructor(...props) {
-        super(...props);
+const timeout = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
-        this.setRecordsNumber(9 * 9 + 2);
-        this.setPageSize(9);
-    }
+const db = {
+  async fetchData(start, length) {
+    await timeout(2000);
+    return [...Array(length).keys()];
+  },
+};
 
-    /**
-     * @override
-     */
-    async getPageDataAsync(startOffset, dataLengthForCurrentPage) {
-        return [...Array(dataLengthForCurrentPage).keys()].map(index => {
-            const id = startOffset + index;
+class InfinitScrollDataSource extends DataSource {
+  constructor(...props) {
+    super(...props);
 
-            return {
-                image: {
-                    source: `https://www.gravatar.com/avatar/${id}?d=robohash`
-                },
-                name: `Robo #${id}`,
-                role: 'Role'
-            }
-        });
-    }
+    // The height of datatable is computed base on pageSize (height of all items that are rendered)
+    // default value is 30
+    this.setPageSize(15);
+
+    // Without knowing the records count datasource will try to fetch data infinitely
+    this.setRecordsNumber(67);
+
+    // Specific data only for your custom DataSource
+    this.currentbucketNumber = 0;
+  }
+
+  /**
+   * @override
+   */
+  async getPageDataAsync(startOffset, dataLengthForCurrentPage) {
+    const data = await db.fetchData(startOffset, dataLengthForCurrentPage);
+    this.currentbucketNumber++;
+    return data.map((index) => ({
+      lineNumber: startOffset + index + 1,
+      bucketNumber: this.currentbucketNumber,
+      dataNumber: index + 1,
+      dataString: `Current data ${this.currentbucketNumber}.${startOffset + index + 1}.${index + 1}`,
+    }));
+  }
 }
 
-export default class extends Controller {
-    constructor(...props) {
-        super(...props);
-
-        this.model = {
-            dataSource: new RWDataSource()
-        }
-    }
+export default class InfinitScrollController extends Controller {
+  constructor(...props) {
+    super(...props);
+    this.model = {
+      infinitScrollDataSource: new InfinitScrollDataSource({
+        useInfiniteScroll: true,
+      }),
+    };
+  }
 }

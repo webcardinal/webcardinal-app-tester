@@ -1,0 +1,94 @@
+<style>
+  #test-container.rw > header section,
+  #test-container.rw > main {
+    max-width: 700px;
+  }
+  #test-container.rw > header section h1 {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    margin: 0; padding: 1.2rem 0;
+    font-weight: lighter;
+  }
+  #test-container.rw > header section h1 ion-icon {
+    color: #69bb7b;
+  }
+
+  .rw-header {
+    background: #FFFFFF;
+    padding: 0 0 0.45rem 0 !important;
+  }
+  .rw-datasource .webc-datatable--container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: space-around;
+    height: 340px;
+    gap: 1.5rem;
+    margin-top: 0.25rem;
+  }
+  .rw-datasource .rw-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .rw-datasource .rw-container ion-avatar {
+    background: whitesmoke;
+  }
+  .rw-datasource .rw-status {
+    display: block;
+    padding: 1rem 0 1rem 1.1rem;
+  }
+  .rw-datasource .rw-wallpaper {
+    max-height: 350px;
+  }
+  .rw-datasource .rw-loading {
+    display: flex;
+    place-content: center; align-items: center;
+    grid-column: 1 / -1;
+    transform: scale(4.5);
+  }
+  .rw-datasource .rw-loading ion-spinner {
+    color: var(--primary-color);
+  }
+</style>
+
+<div id="test-container" class="rw">
+  <header class="rw-header">
+    <section>
+      <h1>
+        <ion-icon name="color-palette"></ion-icon>
+        Highly customizable
+      </h1>
+    </section>
+  </header>
+
+  <main>
+    <webc-container controller="../../pages/manual-tests/webc-datatable/6/Controller">
+      <webc-datatable datasource="@dataSource" class="rw-datasource" hide-pagination>
+        <ion-card>
+          <div class="rw-container">
+            <ion-avatar>
+              <img src="@image.source">
+            </ion-avatar>
+            <ion-card-header>
+              <ion-card-title>{{ @name }}</ion-card-title>
+              <ion-card-subtitle>{{ @role }}</ion-card-subtitle>
+            </ion-card-header>
+          </div>
+        </ion-card>
+
+        <img slot="before" class="rw-wallpaper" src="assets/svg/robots.svg" alt="Wallpaper">
+        <code slot="before" class="rw-status" >
+          Current: {{ @pageNumbers.current }}, Start: {{ @pageNumbers.start }}, End: {{ @pageNumbers.end }}
+        </code>
+
+        <div class="rw-loading" slot="loading">
+          <ion-spinner name="crescent"></ion-spinner>
+        </div>
+      </webc-datatable>
+
+      <rw-pagination></rw-pagination>
+    </webc-container>
+  </main>
+</div>

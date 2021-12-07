@@ -1,77 +1,69 @@
 <style>
-  #test-container.rw > header section,
-  #test-container.rw > main {
-    max-width: 700px;
-  }
-  #test-container.rw > header section h1 {
-    display: flex;
-    align-items: center;
-    gap: 0.25em;
-  }
-  #test-container.rw > header section h1 ion-icon {
-    color: #69bb7b;
-  }
+    .tdb-7 h1, .tdb-7 h2, .tdb-7 h3, .tdb-7 h4, .tdb-7 h5, .tdb-7 h6 {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 
-  .rw-header {
-    background: #FFFFFF;
-    padding: 0 0 0.45rem 0 !important;
-  }
-  .rw-datasource .webc-datatable--container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 0.25rem;
-  }
-  .rw-datasource .rw-container {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
-  }
-  .rw-datasource .rw-container ion-avatar {
-    background: whitesmoke;
-  }
-  .rw-datasource .rw-status {
-    display: block;
-    padding: 1rem 0 1rem 1.1rem;
-  }
-  .rw-datasource .rw-wallpaper {
-    max-height: 350px;
-  }
+    .tdb-7 webc-datatable {
+        --height: 500px
+    }
+
+    .tdb-7 .webc-datatable--header {
+        font-size: 110%; font-weight: bold;
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.25rem;
+        border-bottom: 1px solid rgba(0, 0, 0, .35);
+    }
+    .tdb-7 .webc-datatable--container {
+        display: grid;
+        grid-template-columns: auto auto auto 1fr;
+        gap: 0.35rem 1rem;
+        margin-right: 1rem;
+    }
+    .tdb-7 .webc-datatable--container > div:not(.webc-datatable--header) {
+        padding: 0.35rem 0;
+        border-bottom: 1px dashed var(--primary-color-transparent);
+    }
+    .tdb-7 .webc-datatable--scroll {
+        background: white;
+        padding: 1rem;
+    }
 </style>
 
-<div id="test-container" class="rw">
-  <header class="rw-header">
-    <section>
-      <h1>
-        <ion-icon name="color-palette"></ion-icon>
-        Highly customizable
-      </h1>
-    </section>
-  </header>
+<div id="test-container" class="tdb-7">
+    <header>
+        <section>
+            <h1>Basic example of DataTable</h1>
+            <small>keywords: <code>useInfiniteScroll</code>, <code>DataSource</code></small>
+        </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/7/Controller">
+                <webc-datatable datasource="@infinitScrollDataSource">
+                    <div slot="header">Bucket number</div>
+                    <div slot="header">Line number</div>
+                    <div slot="header">Data number</div>
+                    <div slot="header">Actual data</div>
 
-  <main>
-    <webc-container controller="../../pages/manual-tests/webc-datatable/6/Controller">
-      <webc-datatable datasource="@dataSource" class="rw-datasource" hide-pagination>
-        <ion-card>
-          <div class="rw-container">
-            <ion-avatar>
-              <img src="@image.source">
-            </ion-avatar>
-            <ion-card-header>
-              <ion-card-title>{{ @name }}</ion-card-title>
-              <ion-card-subtitle>{{ @role }}</ion-card-subtitle>
-            </ion-card-header>
-          </div>
-        </ion-card>
+                    <div>{{ @bucketNumber }}</div>
+                    <div>{{ @lineNumber }}</div>
+                    <div>{{ @dataNumber }}</div>
+                    <div>{{ @dataString }}</div>
+                </webc-datatable>
+            </webc-container>
+        </webcat-section>
 
-        <img class="rw-wallpaper" slot="before" src="assets/svg/robots.svg" alt="Wallpaper">
-        <code class="rw-status" slot="before">
-          Current: {{ @pageNumbers.current }}, Start: {{ @pageNumbers.start }}, End: {{ @pageNumbers.end }}
-        </code>
-      </webc-datatable>
+        <webcat-section shadow header="Markup">
+            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/7/markup.html"></psk-code>
+        </webcat-section>
 
-      <rw-pagination></rw-pagination>
-    </webc-container>
-  </main>
+        <webcat-section shadow header="Styles">
+            <psk-code language="CSS" file="pages/manual-tests/webc-datatable/7/styles.css"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/7/Controller.js"></psk-code>
+        </webcat-section>
+    </main>
 </div>
