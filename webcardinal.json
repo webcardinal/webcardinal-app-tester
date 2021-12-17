@@ -167,6 +167,11 @@
               "path": "./8",
               "src": "./8/index.html",
               "tag": "webc-datasource:test-8"
+            },
+            {
+              "name": "Test 9 - Complete bindings",
+              "path": "./9",
+              "src": "./9/index.html"
             }
           ]
         },

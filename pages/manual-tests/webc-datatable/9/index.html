@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="pages/manual-tests/webc-datatable/9/styles.css">
+
+<div id="test-container" class="tdb-9">
+    <header>
+        <section>
+            <h1>Wrapper over DataTable</h1>
+        </section>
+    </header>
+    <main>
+        <webcat-card shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/9/Controller">
+                <webc-datatable datasource="@datasource">
+                    <div slot="before">
+                        <label for="no_of_columns">Number of columns</label>
+                        <input id="no_of_columns" type="number" value="@noOfColumns">
+                    </div>
+
+                    <div slot="header" data-for="@headerItems">
+                        <span>{{ @name }}</span>
+                    </div>
+
+                    <div>{{ @id }}</div>
+
+                    <div slot="footer">
+                        <div data-for="@footerItems">
+                            {{ @name }}
+                        </div>
+                    </div>
+                </webc-datatable>
+
+                <section class="controls">
+                    <button data-tag="prev-page">Previous page</button>
+                    <button data-tag="next-page">Next page</button>
+                </section>
+            </webc-container>
+        </webcat-card>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/9/Controller.js"></psk-code>
+        </webcat-section>
+
+        <!--                    <div slot="header" disable-binding>-->
+        <!--                        <div data-for="@headerItems">-->
+        <!--                            <span>{{ @name }}</span>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+        <!--                    <div slot="header">-->
+        <!--                        <div data-for="@headerItems">-->
+        <!--                            <span>{{ @name }}</span>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+
+
+        <!--        <webcat-section shadow header="Markup">-->
+<!--            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/2/markup.html"></psk-code>-->
+<!--        </webcat-section>-->
+
+<!--        <webcat-section shadow header="Styles">-->
+<!--            <psk-code language="CSS" file="pages/manual-tests/webc-datatable/2/styles.css"></psk-code>-->
+<!--        </webcat-section>-->
+    </main>
+</div>

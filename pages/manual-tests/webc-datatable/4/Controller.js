@@ -22,6 +22,7 @@ class PersonsDataSource extends DataSource {
      * @override
      */
     async getPageDataAsync(startOffset, dataLengthForCurrentPage) {
+        console.log('fetching data...');
         return await this.walletStorage.filterRecordsAsync(
             startOffset,
             dataLengthForCurrentPage
@@ -39,22 +40,20 @@ export default class extends Controller {
 
         const { datasource } = this.model;
 
-        let lastPageIndex = null;
-        let isDeleted = false;
-
-        this.onTagClick('clear-data', async () => {
-            if (!isDeleted) {
-                lastPageIndex = datasource.getCurrentPageIndex();
-                await datasource.clearPageDataAsync();
-                isDeleted = true;
-            }
+        this.onTagClick('data.clear', async () => {
+            await datasource.clearPageDataAsync();
         });
 
-        this.onTagClick('restore-data', () => {
-            if (isDeleted) {
-                datasource.goToPageByIndex(lastPageIndex);
-                isDeleted = false;
-            }
+        this.onTagClick('data.restore', async () => {
+            await datasource.forceUpdate();
+        });
+
+        this.onTagClick('loading.start', async () => {
+            await datasource.forceLoading();
+        });
+
+        this.onTagClick('loading.end', async () => {
+            await datasource.forceUpdate(false);
         });
     }
 }
