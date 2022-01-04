@@ -1,0 +1,74 @@
+<style>
+    .bwip-generator > section {
+        display: grid;
+        justify-content: center;
+        padding-top: 50px;
+    }
+
+    .bwip-generator button,
+    .bwip-generator input {
+        border: 1px solid var(--primary-color);
+        border-radius: 0.25rem;
+    }
+
+    .bwip-generator .input-area,
+    .bwip-generator .output-area {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .bwip-generator .output-area {
+        margin-top: 2.5rem;
+        gap: 2.5rem;
+        flex-direction: column;
+    }
+
+    .bwip-generator .input-area input {
+        min-width: 300px;
+    }
+
+    .bwip-generator .image-container {
+        padding: 1.5rem;
+        background: white;
+        border-radius: 0.5rem;
+    }
+</style>
+
+<div id="test-container">
+    <header>
+        <section>
+            <h1>Testing tool for generating DataMatrixe</h1>
+            <small>keywords: <code>bwip</code></small>
+        </section>
+    </header>
+    <main>
+        <webc-container class="bwip-generator" controller="../../pages/manual-tests/psk-barcode-scanner/bwip-generator/Controller">
+            <section>
+                <div class="input-area">
+                    <label for="code">Raw Code</label>
+                    <input type="text" id="code" value="@text">
+                    <button data-tag="generate">Generate</button>
+                </div>
+                <div class="output-area" data-if="@isVisible">
+                    <div slot="true" class="image-container">
+                        <img src="@src" alt="Code">
+                    </div>
+                    <div slot="true">
+                        <a href="@src" style="text-decoration: none">
+                            <button>View <strong>Data Matrix</strong> ›</button>
+                        </a>
+                        <a href="@src" download>
+                            <button>Download</button>
+                        </a>
+                    </div>
+                    <a slot="false" href="@link" target="_blank" style="text-decoration: none">
+                        <button style="border-color: darkred">View <strong>error</strong> ›</button>
+                    </a>
+                    <div slot="loading"></div>
+                </div>
+            </section>
+        </webc-container>
+    </main>
+</div>
+

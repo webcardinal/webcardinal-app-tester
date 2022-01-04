@@ -213,6 +213,10 @@
               "loader": "object"
             },
             {
+              "name": "BWip Generator",
+              "src": "bwip-generator/index.html"
+            },
+            {
               "name": "Frame user",
               "src": "./test-1/index.html",
               "path": "./test-1"
