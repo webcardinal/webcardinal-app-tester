@@ -1,5 +1,4 @@
 <style>
-    #test-container > main > header,
     #test-container > main > section {
         display: grid;
         justify-content: flex-start;
@@ -7,15 +6,12 @@
         gap: 1rem;
     }
 
-    #test-container > main > header {
+    #test-container > main > section:first-child {
         grid-template-columns: auto 1fr;
         padding-bottom: 1.5rem; margin-bottom: 1rem;
         border-bottom: 1px solid var(--primary-color);
     }
 
-    #test-container > main > header > code {
-        font-size: 0.9rem;
-    }
     #test-container > main > section > code {
         margin-top: 1.5rem;
         color: #5a5a5a;
@@ -23,48 +19,58 @@
         border-radius: 0.5rem;
     }
 
-    test-input {
+    .tm-webc-component test-input {
         display: flex;
         padding: 0.25rem 0;
     }
-    test-input input {
+
+    .tm-webc-component test-input input {
         border: 1px solid #cdcdcd;
     }
 </style>
 
-<webc-container id="test-container" controller="manual/webc-component/Controller.test1">
+<webc-container id="test-container" class="tm-webc-component" controller="manual/webc-component/Controller.test1">
     <header>
         <section>
-            <p>How to <code>define</code> a <strong>webc-component</strong> using <code>preload</code> script</p>
+            <h3>How to <code>define</code> a <strong>webc-component</strong> using <code>preload</code> script</h3>
         </section>
     </header>
     <main>
-        <h1>Code</h1>
-        <psk-code language="JavaScript">
-            const { define } = WebCardinal.components;
-            define('test-input');
-            define('test-squares');
+        <webcat-section header="Code">
+            <div>in <code>preload script</code></div>
+            <psk-code language="JavaScript">
+                const { define } = WebCardinal.components;
+                define('test-input');
+                define('test-squares');
 
-            // define(&lt;TAG_NAME&gt;) => /components/&lt;TAG_NAME&gt;/&lt;TAG_NAME&gt;.html
-            // define(&lt;TAG_NAME&gt;, &lt;COMPONENT_LOCATION&gt;) => /components/&lt;COMPONENT_LOCATION&gt;/&lt;TAG_NAME&gt;.html
-        </psk-code>
-        <psk-code language="JavaScript" file="components/test-input/test-input.html"></psk-code>
-        <psk-code language="JavaScript" file="scripts/controllers/manual/webc-component/Controller.test1.js"></psk-code>
+                // define(&lt;TAG_NAME&gt;) => /components/&lt;TAG_NAME&gt;/&lt;TAG_NAME&gt;.html
+                // define(&lt;TAG_NAME&gt;, &lt;COMPONENT_LOCATION&gt;) => /components/&lt;COMPONENT_LOCATION&gt;/&lt;TAG_NAME&gt;.html
+            </psk-code>
+        </webcat-section>
 
-        <h1>Results</h1>
-        <header>
-            <h2 style="grid-column: 1 / -1; padding-top: 1rem">Native</h2>
+        <webcat-section>
+            <div><code>test-input</code> component</div>
+            <psk-code language="JavaScript" file="components/test-input/test-input.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section>
+            <div><code>controller</code> code</div>
+            <psk-code language="JavaScript" file="scripts/controllers/manual/webc-component/Controller.test1.js"></psk-code>
+        </webcat-section>
+
+        <h3>Results</h3>
+        <section>
+            <h4 style="grid-column: 1 / -1; padding-top: 1rem">Native</h4>
             <code>&lt;span&gt;&#x2774;&#x2774; @input.value &#x2775;&#x2775;&lt;/span&gt;</code> <span>{{ @input.value }}</span>
             <code>&lt;input value="@input.value" type="@input.type"&gt;</code> <input value="@input.value" type="@input.type">
             <code>&lt;input value="@input.label" type="text"&gt;</code> <input value="@input.label" type="text">
             <code>&lt;input data-view-model="@input"&gt;</code> <input data-view-model="@input">
             <code>&lt;input value="@inputNumber.value" type="@inputNumber.type"&gt;</code> <input value="@inputNumber.value" type="@inputNumber.type">
             <code>&lt;input data-view-model="@inputNumber"&gt;</code> <input data-view-model="@inputNumber">
-        </header>
-
+        </section>
         <section>
-            <h2>WebCardinal Components</h2>
-            <h4>without <code>shadow-root</code></h4>
+            <h4>WebCardinal Components</h4>
+            <h5>without <code>shadow-root</code></h5>
 
             <code>&lt;test-input label="@input.label" value="@input.value" type="@input.type"&gt;</code>
             <test-input label="@input.label" value="@input.value" type="@input.type"></test-input>
@@ -78,7 +84,7 @@
             <code>&lt;test-input data-view-model="@inputNumber"&gt;</code>
             <test-input data-view-model="@inputNumber"></test-input>
 
-            <h4>with <code>shadow-root</code></h4>
+            <h5>with <code>shadow-root</code></h5>
 
             <code>&lt;test-squares shadow&gt; ... &lt;/test-squares&gt;</code>
             <test-squares shadow>
@@ -89,8 +95,5 @@
             </test-squares>
         </section>
 
-        <br>
-        <br>
-        <br>
     </main>
 </webc-container>

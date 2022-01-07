@@ -7,17 +7,6 @@
     </header>
     <main>
         <section>
-            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test1.js"></psk-code>
-            <psk-code language="HTML">
-                <div>
-                    <input min="0" max="10000" type="number" value="@number">
-                    <button data-tag="plus">➕</button>
-                    <button data-tag="minus">➖</button>
-                </div>
-                <div data-for="@items">
-                    <div>{{ @name }}</div>
-                </div>
-            </psk-code>
             <psk-example>
                 <style>
                     .test1 > div:first-child {
@@ -41,6 +30,19 @@
                     </div>
                 </webc-container>
             </psk-example>
+
+            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Controller.js"></psk-code>
+
+            <psk-code language="HTML">
+                <div>
+                    <input min="0" max="10000" type="number" value="@number">
+                    <button data-tag="plus">➕</button>
+                    <button data-tag="minus">➖</button>
+                </div>
+                <div data-for="@items">
+                    <div>{{ @name }}</div>
+                </div>
+            </psk-code>
         </section>
     </main>
 </webc-container>
