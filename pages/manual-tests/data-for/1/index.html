@@ -1,0 +1,46 @@
+<style>
+    .tm-for1 .my-family {
+        margin-top: 1.5rem;
+        border-top: 2px solid var(--primary-color);
+        padding-top: 1.5rem;
+        padding-left: 1rem;
+    }
+    .tm-for1 .my-family > * {
+        margin-top: 0.75rem;
+    }
+</style>
+
+<div id="test-container" class="tm-for1">
+    <header>
+        <section>
+            <h3>Basic example of <code>data-for</code></h3>
+            <div>keywords: <code>Array</code></div>
+        </section>
+    </header>
+    <main>
+        <webcat-card header="Result">
+            <webc-container controller="../../pages/manual-tests/data-for/1/Controller">
+                <!-- Strings / Numbers / Booleans -->
+                <div data-for="@arrayOfStrings">
+                    <code>{{ @ }}</code>
+                </div>
+
+                <!-- Objects -->
+                <div class="my-family">
+                    This is my family:
+                    <ol data-for="@arrayOfObjects">
+                        <li>It's {{ @role }}, <strong>{{ @name }}</strong>, {{ @age }} years old</li>
+                    </ol>
+                </div>
+            </webc-container>
+        </webcat-card>
+
+        <webcat-section header="Markup">
+            <psk-code language="HTML" file="pages/manual-tests/data-for/1/markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/data-for/1/Controller.js"></psk-code>
+        </webcat-section>
+    </main>
+</div>

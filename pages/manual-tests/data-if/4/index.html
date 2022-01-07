@@ -1,11 +1,11 @@
 <div id="test-container">
   <header>
     <section>
-      <h1>Backward compatibility of <code>data-if</code></h1>
+      <h3>Backward compatibility of <code>data-if</code></h3>
     </section>
   </header>
   <main>
-    <webcat-card shadow header="Result">
+    <webcat-card header="Result">
       <webc-container controller="../../pages/manual-tests/data-if/4/Controller">
         <div data-for="@people">
           <div data-if="@age">
@@ -16,11 +16,11 @@
       </webc-container>
     </webcat-card>
 
-    <webcat-section shadow header="Markup">
+    <webcat-section header="Markup">
       <psk-code language="HTML" file="pages/manual-tests/data-if/4/markup.html"></psk-code>
     </webcat-section>
 
-    <webcat-section shadow header="Controller">
+    <webcat-section header="Controller">
       <psk-code language="JavaScript" file="pages/manual-tests/data-if/4/Controller.js"></psk-code>
     </webcat-section>
   </main>

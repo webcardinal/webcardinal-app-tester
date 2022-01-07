@@ -1,0 +1,35 @@
+<style>
+  .barcode-scanner--container {
+    position: relative;
+    display: block;
+    max-width: max(30vw, 450px);
+    background: var(--webc-secondary-background);
+    height: 100%;
+    margin: 0 auto;
+  }
+
+  .button-container {
+    position: absolute;
+    top: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+    z-index: 1;
+  }
+  .button-container .button {
+    padding: 0.35rem 0.5rem;
+    width: 80px;
+  }
+</style>
+
+<!-- frames user -->
+<webc-container controller="../../pages/tests/psk-barcode-scanner/BarcodeController"
+                class="barcode-scanner--container">
+  <div class="button-container">
+    <button class="button button--previous" data-tag="previous">Previous</button>
+    <button class="button button--next" data-tag="next">Next</button>
+  </div>
+
+  <psk-barcode-scanner data="@data"></psk-barcode-scanner>
+</webc-container>

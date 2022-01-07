@@ -125,7 +125,29 @@
       "actions": [
         {
           "type": "execute",
+          "cmd": "node ./pages/automated-tests/tests"
+        }
+      ]
+    }
+  ],
+  "test-webcardinal-core": [
+    {
+      "name": "run-webcardinal-core-tests",
+      "actions": [
+        {
+          "type": "execute",
           "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
+        }
+      ]
+    }
+  ],
+  "test-cardinal-barcode": [
+    {
+      "name": "cardinal-barcode-tests",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "node ./pages/automated-tests/tests/cardinal-barcode"
         }
       ]
     }

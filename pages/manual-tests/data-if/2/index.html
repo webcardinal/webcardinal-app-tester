@@ -1,24 +1,24 @@
 <style>
-  .if2 .header {
+  .tm-if2 .header {
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--primary-color);
     margin-bottom: 1rem;
   }
-  .if2 code {
+  .tm-if2 code {
     margin-left: 0.25rem;
     margin-right: 0.25rem;
   }
 </style>
 
-<div id="test-container" class="if2">
+<div id="test-container" class="tm-if2">
   <header>
     <section>
-      <h1>Slots for <code>data-if</code></h1>
-      <small>slots: <code>loading</code>, <code>false</code>, <code>true</code>, <code>no-data</code></small>
+      <h3>Slots for <code>data-if</code></h3>
+      <div>slots: <code>loading</code>, <code>false</code>, <code>true</code>, <code>no-data</code></div>
     </section>
   </header>
   <main>
-    <webcat-card shadow header="Result">
+    <webcat-card header="Result">
       <webc-container controller="../../pages/manual-tests/data-if/2/Controller">
         <div class="header">
           <code>{{ @conditionString }}</code>
@@ -49,11 +49,11 @@
       </webc-container>
     </webcat-card>
 
-    <webcat-section shadow header="Markup">
+    <webcat-section header="Markup">
       <psk-code language="HTML" file="pages/manual-tests/data-if/2/markup.html"></psk-code>
     </webcat-section>
 
-    <webcat-section shadow header="Controller">
+    <webcat-section header="Controller">
       <psk-code language="JavaScript" file="pages/manual-tests/data-if/2/Controller.js"></psk-code>
     </webcat-section>
   </main>

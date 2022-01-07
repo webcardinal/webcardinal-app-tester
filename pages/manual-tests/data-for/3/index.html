@@ -1,32 +1,31 @@
-<webc-container id="test-container">
+<style>
+    .tm-for3 .state {
+        display: block;
+        border: 1px solid #cdcdcd;
+        padding: 1rem;
+    }
+    .tm-for3 .state > div {
+        padding-top: 1rem;
+    }
+    .tm-for3 .state > div > div {
+        border-bottom: 1px dotted #cdcdcd;
+    }
+    .tm-for3 .state > div > div:last-child {
+        border: none;
+    }
+</style>
+
+<webc-container id="test-container" class="tm-for1">
     <header>
         <section>
-            <h4><code>Array</code> assignment in <code>data-for</code></h4>
-            <div>Attribute: <code>data-for</code></div>
+            <h3><code>Array</code> assignment in <code>data-for</code></h3>
+            <div>Slots: <code>loading</code>, <code>no-data</code></div>
         </section>
     </header>
     <main>
         <section>
-            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test2.js"></psk-code>
-            <psk-code language="HTML" file="pages/manual-tests/data-for/test-2.markup.html"></psk-code>
-            <psk-example>
-                <style>
-                    .test2 {
-                        display: block;
-                        border: 1px solid #cdcdcd;
-                        padding: 1rem;
-                    }
-                    .test2 > div {
-                        padding-top: 1rem;
-                    }
-                    .test2 > div > div {
-                        border-bottom: 1px dotted #cdcdcd;
-                    }
-                    .test2 > div > div:last-child {
-                        border: none;
-                    }
-                </style>
-                <webc-container controller="manual/data-for/Test2" class="test2">
+            <webcat-card header="Result">
+                <webc-container controller="../../../pages/manual-tests/data-for/3/Controller" class="state">
                     <code>state: {{ @state }}, typeof @items: {{ @typeOfState }}</code>
                     <div data-for="@items">
                         <div>{{ @content }}</div>
@@ -34,7 +33,15 @@
                         <code slot="loading">Loading...</code>
                     </div>
                 </webc-container>
-            </psk-example>
+            </webcat-card>
+
+            <webcat-section header="Markup">
+                <psk-code language="HTML" file="pages/manual-tests/data-for/3/markup.html"></psk-code>
+            </webcat-section>
+
+            <webcat-section header="Controller">
+                <psk-code language="JavaScript" file="pages/manual-tests/data-for/3/Controller.js"></psk-code>
+            </webcat-section>
         </section>
     </main>
 </webc-container>

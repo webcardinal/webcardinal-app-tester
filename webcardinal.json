@@ -17,7 +17,7 @@
       "src": "automated-tests/index.html"
     },
     {
-      "name": "\uD83E\uDD19 Hand tests",
+      "name": "\uD83D\uDD90 Hand tests",
       "path": "tests/manual",
       "src": "manual-tests",
       "children": [
@@ -55,19 +55,29 @@
           "name": "data-for",
           "children": [
             {
-              "name": "Test 1"
+              "name": "Test 1 - Basics",
+              "path": "./1",
+              "src": "./1/index.html"
             },
             {
-              "name": "Test 2"
+              "name": "Test 2 - Variable length",
+              "path": "./2",
+              "src": "./2/index.html"
             },
             {
-              "name": "Test 3"
+              "name": "Test 3 - Slots",
+              "path": "./3",
+              "src": "./3/index.html"
             },
             {
-              "name": "Test 4"
+              "name": "Test 4 - Interactivity",
+              "path": "./4",
+              "src": "./4/index.html"
             },
             {
-              "name": "Test 5"
+              "name": "Test 5 - WebcComponent",
+              "path": "./5",
+              "src": "./5/index.html"
             }
           ]
         },
@@ -92,21 +102,26 @@
           "name": "webc-component",
           "children": [
             {
-              "name": "Test 1"
+              "name": "Test 1",
+              "path": "./1",
+              "src": "./1/index.html"
             },
             {
-              "name": "Test 2"
+              "name": "Test 2",
+              "indexed": false
             },
             {
               "name": "Test 3",
               "path": "./3",
-              "src": "./3/index.html"
+              "src": "./3/index.html",
+              "indexed": false
             },
             {
               "name": "Test 4",
               "path": "./4",
               "src": "./4/index.html",
-              "tag": "accordion"
+              "tag": "accordion",
+              "indexed": false
             }
           ]
         },
@@ -114,11 +129,15 @@
           "name": "webc-container",
           "children": [
             {
-              "name": "Test 1"
+              "name": "Test 1",
+              "path": "./1",
+              "src": "./1/index.html"
             },
             {
               "name": "Test 2",
-              "src": "./test-2/index.html"
+              "path": "./2",
+              "src": "./2/index.html",
+              "indexed": false
             }
           ]
         },
@@ -234,6 +253,7 @@
       "name": "⌛ Deprecated tests",
       "path": "tests/deprecated",
       "src": "deprecated-tests",
+      "indexed": false,
       "children": [
         {
           "name": "data-if"
@@ -247,10 +267,18 @@
       ]
     },
     {
-      "name": "webcardinal-core-test-results",
-      "tag": "webcardinal-core-test-results",
+      "name": "WebCardinal Main Tests Results",
+      "tag": "webcardinal/main-tests-results",
+      "path": "tests/automated/results",
       "src": "automated-tests/webcardinal-core/index.html",
-      "path": "tests/webcardinal-core",
+      "loader": "object",
+      "indexed": false
+    },
+    {
+      "name": "WebCardinal Main Testing Environment",
+      "path": "tests/automated/main-environment",
+      "tag": "webcardinal/main-testing-environment",
+      "src": "automated-tests/tests/environments/1/index.html",
       "loader": "object",
       "indexed": false
     }

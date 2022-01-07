@@ -13,10 +13,6 @@
 .tdb-1 .webc-datatable--container div:not(.webc-datatable--header) {
     border-bottom: 1px dashed var(--primary-color-transparent);
 }
-.tdb-1 .webc-datatable--container button {
-    padding: 0.65rem;
-    border: 1px solid dodgerblue; border-radius: 1rem;
-}
 
 /*
 Classes: .webc-datatable--header, .webc-datatable--container, .webc-datatable--scroll, .webc-datatable--loading

@@ -1,100 +1,103 @@
 <style>
-    webc-link.button a {
+    .ta_introduction webc-link a {
         text-decoration: none;
     }
-    webc-link.button button {
-        border-radius: 3px;
-        /*border: 1px solid var(--primary-color);*/
-    }
 
-    #test-container section:first-child {
-        margin-top: 0.75rem;
-    }
-    #test-container section {
-        margin-top: 2rem;
-        padding: 1rem 1.5rem;
+    .ta_introduction section {
+        margin: 3rem auto;
+        padding: 1rem 2rem;
         background: whitesmoke;
     }
-    #test-container section h2 {
-        padding-bottom: 1rem;
-    }
-    #test-container section a {
-        color: var(--primary-color);
-        font-weight: bolder;
-    }
-    #test-container section article {
-        padding: 0.5rem 0 1rem 0;
-    }
-    #test-container section ul,
-    #test-container section ol {
-        list-style-position: inside;
-    }
-    #test-container section article ol li {
-        padding: 0.25rem 0;
-    }
-    #test-container section article code {
-        font-size: 86%;
-    }
-    #test-container section article p {
-        padding: 0.25rem 0;
-    }
 </style>
-<div id="test-container">
+<div id="test-container" class="ta_introduction">
     <main>
         <section>
             <article>
-                <h2>How does it work</h2>
+                <h2>How does it work?</h2>
+
                 <ol>
                     <li>
-                        Initially, the repository <webc-link href="https://github.com/webcardinal/webcardinal-tests">webcardinal-tests</webc-link> is cloned inside <code>.dev/webcardinal-tests</code>.
+                        <del>
+                            Initially, the repository
+                            <webc-link href="https://github.com/webcardinal/webcardinal-tests">webcardinal-tests</webc-link>
+                            is cloned inside <code>.dev/webcardinal-tests</code>.
+                        </del>
                     </li>
                     <li>
-                        Then by <strong>octopus</strong> runner, tests are moved in the development root of the component library, in <code>test</code> directory.
-                        <br>
-                        (e.g <code>.dev/webcardinal/.webcardinal/components/webcardinal-core/test</code>).
+                        <del>
+                            Then by <strong>octopus</strong> runner, tests are moved in the development root of the
+                            component library, in <code>test</code> directory.
+                            <br>
+                            (e.g <code>.dev/webcardinal/.webcardinal/components/webcardinal-core/test</code>).
+                        </del>
                     </li>
                     <li>
-                        At that location <a href="https://www.npmjs.com/package/jest" target="_blank">jest</a> and <a href="https://www.npmjs.com/package/puppeteer" target="_blank">puppeteer</a> will be installed.
-                        <br>
-                        (currently are installed by octopus for <strong>webcardinal-core</strong>)
+                        At that location <a href="https://www.npmjs.com/package/jest" target="_blank">jest</a> and <a
+                            href="https://www.npmjs.com/package/puppeteer" target="_blank">puppeteer</a> will be
+                        installed (automatically by <a href="https://github.com/PrivateSky/octopus" target="_blank">octopus</a>).
                     </li>
                 </ol>
-                <p style="padding: 0.5rem 0">In a nutshell, a Chromium instance is used for E2E testing.</p>
-                <br>
-                <p>Related: <a href="https://stenciljs.com/docs/end-to-end-testing" target="_blank">StencilJS E2E testing</a></p>
-            </article>
-            <article>
-                <h2>What is an WebCardinal Testing Environment</h2>
-                <p>A test environment is a WebCardinal application designed specifically for testing.</p>
-                <p>An environment contains <b>pages</b>, <b>templates</b>, <b>controllers</b>, etc.</p>
-                <p>It should supplies auxiliary <code>methods</code> and <code>helpers</code>.</p>
-                <p>Currently only <strong>webcardinal-core</strong> offers a testing environment.</p>
+
+                <p>In a nutshell, a <strong>Chromium</strong> instance is used for E2E testing.</p>
             </article>
         </section>
+
         <section>
             <article>
-                <h2>How to run current tests</h2>
-                <p>From the root of this application run the following command: </p>
+                <h3>What is WebCardinal Testing Environment?</h3>
+                <p>
+                    A test environment is a WebCardinal application designed specifically for testing. It contains
+                    <strong>pages</strong>, <strong>templates</strong>, <strong>controllers</strong>, etc and it should supply auxiliary
+                    <strong>methods</strong> and <strong>helpers</strong>.<br>
+                </p>
+            </article>
+        </section>
+
+        <section>
+            <article>
+                <h3>How to run current tests</h3>
+                <span>From the root of this application run the following command:</span>
                 <psk-code language="bash">
                     npm run test
                     # npm t
                 </psk-code>
             </article>
         </section>
+
         <section>
             <article>
-                <h2>Testing Environments for Components</h2>
+                <h3>Testing Environment of WebCardinal</h3>
+
+                <webc-link tag="webcardinal/main-testing-environment">
+                    <button class="button-outline">Automated Environment ›</button>
+                </webc-link>
+                <webc-link tag="webcardinal/main-tests-results">
+                    <button style="margin-left: 1rem">View results ✔</button>
+                </webc-link>
+
+                <ul style="padding-top: 1em">
+                    <em>NOTES:</em>
+                    <li>
+                        <strong>Automated Environment</strong> will uses the <strong>same webcardinal bundle</strong> (<em>bundle-all</em>) as
+                        current workspace (<em>webcardinal-app-tester</em>).
+                    </li>
+                    <li>
+                        When tests are running Stencil creates a <strong>temporarily distribution</strong> (using <em>Stencil
+                        Dev Server ⚡</em>) .
+                    </li>
+                </ul>
+            </article>
+        </section>
+
+        <section>
+            <article>
+                <h3>References</h3>
                 <ul>
                     <li>
-                        <a href="/.dev/webcardinal/.webcardinal/components/webcardinal-core/test">webcardinal-core</a>
-                        <webc-link tag="webcardinal-core-test-results" class="button">
-                            <button style="margin-left: 1rem">View results ✔️</button>
-                        </webc-link>
-                        <br>
-                        <p>
-                            <br>
-                            <strong>NOTE:</strong> <em>Environment 1</em> will uses the <strong>same webcardinal bundle</strong> as current workspace (webcardinal-app-tester), when tests are running Stencil (<code>Stencil Dev Server ⚡)</code> creates a <strong>temporarily distribution</strong>.
-                        </p>
+                        <a href="https://stenciljs.com/docs/end-to-end-testing" target="_blank">StencilJS End-to-end Testing (https://stenciljs.com/docs/end-to-end-testing)</a>
+                    </li>
+                    <li>
+                        <a href="https://stenciljs.com/docs/unit-testing" target="_blank">Stencil Unit Testing  (https://stenciljs.com/docs/unit-testing)</a>
                     </li>
                 </ul>
             </article>

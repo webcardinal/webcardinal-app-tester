@@ -45,8 +45,8 @@ const preloadContext = {
 };
 
 // WebCardinal App Tester components
-define("webcat-section");
-define("webcat-card");
+define("webcat-section", { shadow: true });
+define("webcat-card", { shadow: true });
 
 // Testing components
 define("fa-icon");

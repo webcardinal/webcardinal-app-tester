@@ -1,0 +1,11 @@
+webc-app-container .app-container {
+  padding: 1rem;
+}
+
+hr {
+  margin: 1rem 0;
+}
+
+p {
+  margin-top: 0.5rem;
+}

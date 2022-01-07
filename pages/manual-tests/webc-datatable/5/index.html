@@ -3,6 +3,12 @@
     .webc-datatable--container {
         --demo-gap: 0.5rem;
     }
+
+    .test--container input,
+    .webc-datatable--container input {
+        width: auto;
+    }
+
     .test--container > div,
     .webc-datatable--container > div {
         padding: var(--demo-gap) 0;
@@ -25,8 +31,8 @@
 <webc-container id="test-container" controller="../../pages/manual-tests/webc-datatable/5/Controller">
     <header>
         <section>
-            <h1>DataTable with WebCardinal Components</h1>
-            <small>keywords: <code>preload script</code>, <code>WebCardinal.components</code></small>
+            <h3>DataTable with WebCardinal Components</h3>
+            <div>keywords: <code>preload script</code>, <code>WebCardinal.components</code></div>
         </section>
     </header>
     <main>
@@ -42,7 +48,7 @@
             <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/5/Controller.js"></psk-code>
         </webcat-section>
 
-        <webcat-card shadow header="Controller bindings">
+        <webcat-card header="Controller bindings">
             <section class="test--container">
                 Label: "{{ @test.label }}" --- Value: "{{ @test.value }}" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
                 <div>

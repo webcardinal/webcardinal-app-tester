@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>WebCardinal Test [1]</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <!-- WebCardinal dist -->
+  <script type="module" src="/webcardinal/webcardinal.js"></script>
+  <link rel="stylesheet" href="/webcardinal/webcardinal.css">
+
+  <!-- Test config -->
+  <base href="/pages/automated-tests/tests/environments/1/">
+
+  <!-- TODO -->
+  <!-- create a custom prop for psk-barcode-scanner if the location of zxing need to be different -->
+  <script src="/webcardinal/extended/cardinal-barcode/libs/zxing.min.js"></script>
+</head>
+<body>
+  <webc-app-root preload="scripts/config.js"></webc-app-root>
+</body>
+</html>

@@ -3,11 +3,11 @@
 <div id="test-container" class="tdb-9">
     <header>
         <section>
-            <h1>Wrapper over DataTable</h1>
+            <h3>Dynamic wrapper over DataTable</h3>
         </section>
     </header>
     <main>
-        <webcat-card shadow header="Result">
+        <webcat-card header="Result">
             <webc-container controller="../../pages/manual-tests/webc-datatable/9/Controller">
                 <webc-datatable datasource="@datasource">
                     <div slot="before">
@@ -29,35 +29,14 @@
                 </webc-datatable>
 
                 <section class="controls">
-                    <button data-tag="prev-page">Previous page</button>
-                    <button data-tag="next-page">Next page</button>
+                    <button data-tag="prev-page" class="button-outline">Previous page</button>
+                    <button data-tag="next-page" class="button-outline">Next page</button>
                 </section>
             </webc-container>
         </webcat-card>
 
-        <webcat-section shadow header="Controller">
+        <webcat-section header="Controller">
             <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/9/Controller.js"></psk-code>
         </webcat-section>
-
-        <!--                    <div slot="header" disable-binding>-->
-        <!--                        <div data-for="@headerItems">-->
-        <!--                            <span>{{ @name }}</span>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-
-        <!--                    <div slot="header">-->
-        <!--                        <div data-for="@headerItems">-->
-        <!--                            <span>{{ @name }}</span>-->
-        <!--                        </div>-->
-        <!--                    </div>-->
-
-
-        <!--        <webcat-section shadow header="Markup">-->
-<!--            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/2/markup.html"></psk-code>-->
-<!--        </webcat-section>-->
-
-<!--        <webcat-section shadow header="Styles">-->
-<!--            <psk-code language="CSS" file="pages/manual-tests/webc-datatable/2/styles.css"></psk-code>-->
-<!--        </webcat-section>-->
     </main>
 </div>

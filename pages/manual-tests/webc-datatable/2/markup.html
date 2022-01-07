@@ -10,6 +10,8 @@
   <div>{{ @date }}</div>
 </webc-datatable>
 
-<button data-tag="prev-page">Go to previous page</button>
-<button data-tag="next-page">Go to next page</button>
-<button data-tag="random-page" data-page="@randomPage">Go to page {{ @randomPage }}</button>
+<section class="controls">
+  <button data-tag="prev-page">‹ Previous page</button>
+  <button data-tag="random-page" data-page="@randomPage">Random page ({{ @randomPage }})</button>
+  <button data-tag="next-page">Next page ›</button>
+</section>

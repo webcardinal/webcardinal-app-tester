@@ -14,19 +14,39 @@
     z-index: 1;
 }
 
-#test-container > header section {
+#test-container > header > section {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 0;
 }
 
-#test-container > header section,
+#test-container > header > section,
 #test-container > main {
     margin: 0 auto;
+    padding: 0 2rem;
     max-width: 1000px;
     width: 100%;
-    padding: 0 1.5rem;
     overflow: hidden;
+}
+
+#test-container > header > section > h1,
+#test-container > header > section > h2,
+#test-container > header > section > h3,
+#test-container > header > section > h4,
+#test-container > header > section > h5,
+#test-container > header > section > h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#test-container > header > section > h1 code,
+#test-container > header > section > h2 code,
+#test-container > header > section > h3 code,
+#test-container > header > section > h4 code,
+#test-container > header > section > h5 code,
+#test-container > header > section > h6 code {
+    font-size: 0.8em;
 }
 
 #test-container > header code {
@@ -35,15 +55,6 @@
     padding: 0.4rem;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
-    font-size: 1.1rem;
-}
-#test-container > header > * code {
-    font-size: inherit;
-}
-
-#test-container > main psk-code pre {
-    border-radius: 1px;
-    font-size: 90%;
 }
 
 #test-container > main {
@@ -61,19 +72,15 @@
     padding-top: 0.75rem;
 }
 
+#test-container > main psk-code pre {
+    border-radius: 1px;
+    font-size: 90%;
+}
+
 #test-container > main psk-example {
     display: block;
     margin: 1.5rem 0;
     padding: 0 1rem 1rem 1rem;
     background: whitesmoke;
     border-radius: 1px
-}
-
-a,
-code {
-    color: var(--primary-color);
-}
-
-psk-page::part(page-title) {
-    color: var(--primary-color)
 }

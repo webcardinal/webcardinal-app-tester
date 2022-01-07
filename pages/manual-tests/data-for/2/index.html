@@ -1,48 +1,43 @@
-<webc-container id="test-container">
+<style>
+    .tm-for2 .control > div:first-child {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 1rem; padding-bottom: 1rem;
+    }
+    .tm-for2 .control > div:last-child {
+        border: 1px solid #cdcdcd; border-radius: 0.4rem;
+        padding: 1rem;
+    }
+</style>
+
+<webc-container id="test-container" class="tm-for2">
     <header>
         <section>
-            <h4>Variable length of an <code>Array</code> in <code>data-for</code></h4>
-            <div>Attribute: <code>data-for</code></div>
+            <h3>Variable length of an <code>Array</code> in <code>data-for</code></h3>
         </section>
     </header>
     <main>
         <section>
-            <psk-example>
-                <style>
-                    .test1 > div:first-child {
-                        display: grid;
-                        grid-template-columns: 1fr auto auto;
-                        gap: 1rem; padding-bottom: 1rem;
-                    }
-                    .test1 > div:last-child {
-                        border: 1px solid #cdcdcd;
-                        padding: 1rem;
-                    }
-                </style>
-                <webc-container controller="manual/data-for/Test1" class="test1">
+            <webcat-card header="Result">
+                <webc-container controller="../../../pages/manual-tests/data-for/2/Controller" class="control">
                     <div>
                         <input min="0" max="10000" type="number" value="@number">
-                        <button data-tag="plus">➕</button>
-                        <button data-tag="minus">➖</button>
+                        <button data-tag="plus" class="button-outline button-icon">➕</button>
+                        <button data-tag="minus" class="button-outline button-icon">➖</button>
                     </div>
                     <div data-for="@items">
                         <div>{{ @name }}</div>
                     </div>
                 </webc-container>
-            </psk-example>
+            </webcat-card>
 
-            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Controller.js"></psk-code>
+            <webcat-section header="Markup">
+                <psk-code language="HTML" file="pages/manual-tests/data-for/2/markup.html"></psk-code>
+            </webcat-section>
 
-            <psk-code language="HTML">
-                <div>
-                    <input min="0" max="10000" type="number" value="@number">
-                    <button data-tag="plus">➕</button>
-                    <button data-tag="minus">➖</button>
-                </div>
-                <div data-for="@items">
-                    <div>{{ @name }}</div>
-                </div>
-            </psk-code>
+            <webcat-section header="Controller">
+                <psk-code language="JavaScript" file="pages/manual-tests/data-for/2/Controller.js"></psk-code>
+            </webcat-section>
         </section>
     </main>
 </webc-container>

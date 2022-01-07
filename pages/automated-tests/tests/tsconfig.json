@@ -1,10 +1,11 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "sourceMap": true
-    },
-    "exclude": [
-        "node_modules"
+  "compilerOptions": {
+    "types": [
+      "../../../.dev/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@types/jest",
+      "../../../.dev/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@stencil/core/testing"
     ]
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }

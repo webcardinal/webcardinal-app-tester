@@ -3,14 +3,15 @@
   #test-container.rw > main {
     max-width: 700px;
   }
-  #test-container.rw > header section h1 {
+  #test-container.rw > header section h2 {
     display: flex;
     align-items: center;
     gap: 0.25em;
     margin: 0; padding: 1.2rem 0;
     font-weight: lighter;
+    font-size: 27px;
   }
-  #test-container.rw > header section h1 ion-icon {
+  #test-container.rw > header section h2 ion-icon {
     color: #69bb7b;
   }
 
@@ -37,7 +38,8 @@
   }
   .rw-datasource .rw-status {
     display: block;
-    padding: 1rem 0 1rem 1.1rem;
+    padding: 1rem 0;
+    background: transparent;
   }
   .rw-datasource .rw-wallpaper {
     max-height: 350px;
@@ -56,10 +58,10 @@
 <div id="test-container" class="rw">
   <header class="rw-header">
     <section>
-      <h1>
+      <h2>
         <ion-icon name="color-palette"></ion-icon>
         Highly customizable
-      </h1>
+      </h2>
     </section>
   </header>
 
@@ -79,7 +81,7 @@
         </ion-card>
 
         <img slot="before" class="rw-wallpaper" src="assets/svg/robots.svg" alt="Wallpaper">
-        <code slot="before" class="rw-status" >
+        <code slot="before" class="rw-status">
           Current: {{ @pageNumbers.current }}, Start: {{ @pageNumbers.start }}, End: {{ @pageNumbers.end }}
         </code>
 

@@ -15,6 +15,7 @@
     .bwip-generator .output-area {
         display: flex;
         align-items: center;
+        align-content: center;
         gap: 0.5rem;
     }
 
@@ -22,6 +23,14 @@
         margin-top: 2.5rem;
         gap: 2.5rem;
         flex-direction: column;
+    }
+
+    .bwip-generator .input-area > * {
+        margin: 0;
+    }
+
+    .bwip-generator .input-area label {
+        width: 100%;
     }
 
     .bwip-generator .input-area input {
@@ -38,8 +47,8 @@
 <div id="test-container">
     <header>
         <section>
-            <h1>Testing tool for generating DataMatrixe</h1>
-            <small>keywords: <code>bwip</code></small>
+            <h3>Testing tool for generating DataMatrixes</h3>
+            <div>keywords: <code>bwip</code></div>
         </section>
     </header>
     <main>

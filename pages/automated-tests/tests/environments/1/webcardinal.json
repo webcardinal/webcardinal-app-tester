@@ -1,0 +1,42 @@
+{
+  "pagesFallback": {
+    "name": "Home"
+  },
+  "pages": [
+    {
+      "name": "Home",
+      "path": "/"
+    },
+    {
+      "name": "Tests",
+      "children": [
+        {
+          "name": "webc-container",
+          "tag": "webc-container"
+        },
+        {
+          "name": "webc-template",
+          "tag": "webc-template"
+        },
+        {
+          "name": "data-if",
+          "tag": "data-if"
+        },
+        {
+          "name": "data-for",
+          "tag": "data-for"
+        },
+        {
+          "name": "zxing",
+          "tag": "zxing",
+          "loader": "object"
+        },
+        {
+          "name": "psk-barcode-scanner",
+          "src": "./psk-barcode-scanner/index.html",
+          "tag": "psk-barcode-scanner"
+        }
+      ]
+    }
+  ]
+}

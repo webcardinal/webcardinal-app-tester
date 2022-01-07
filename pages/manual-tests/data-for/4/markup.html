@@ -1,0 +1,20 @@
+<div>
+    <button data-tag="plus">➕</button>
+</div>
+<div data-for="@items">
+    {{@id}}
+    <div class="item-container">
+        <div class="item-name-container">
+            <span>{{@id}} {{ @name }}</span>
+            <button data-tag="minus">➖</button>
+        </div>
+        <div>
+            <input value="@inputValue" />
+            <span>You have entered: {{ @inputValue }}</span>
+        </div>
+    </div>
+</div>
+<div>
+    <p>Model:</p>
+    <pre>{{ @modelString }}</pre>
+</div>

@@ -1,0 +1,34 @@
+<h2>T1</h2>
+<webc-container controller="webc-container/T1">
+  <h1 data-test="01">{{ @title }}</h1>
+
+  <p data-test="02">Description: {{ @description }}</p>
+
+  <div data-test="03" class="@class">This div has a nice class!</div>
+
+  <div data-test="04" data-view-model="@dataViewModel"></div>
+</webc-container>
+
+<hr>
+
+<!--
+  Test scenario:
+
+  Initial state number is 0
+  Decrement is clicked, value is -1
+  Increment is clicked, value is 0
+  Increment is clicked again, value is 1
+  Decrement is clicked again, value is 0
+-->
+<h2>T2</h2>
+<webc-container controller="webc-container/T2">
+  <div data-test="01">
+    <code>Value: {{ @number }}</code>
+    <button data-tag="number-increment">+</button>
+    <button data-tag="number-decrement">-</button>
+  </div>
+</webc-container>
+
+<hr>
+
+

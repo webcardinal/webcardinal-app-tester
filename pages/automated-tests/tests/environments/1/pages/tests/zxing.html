@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="ZXing for JS">
+
+  <title>ZXing TypeScript | Decoding from image file</title>
+
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+        href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
+  <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null"
+        href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
+
+  <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest/umd/index.js"></script>
+</head>
+
+<body>
+
+<main class="wrapper" style="padding-top:2em">
+
+  <section class="container" id="demo-content">
+    <label>Controlls:</label>
+    <div>
+      <button class="button button-outline" id="previousButton" disabled>Previous</button>
+      <button class="button" id="decodeButton">Decode</button>
+      <button class="button button-outline" id="nextButton">Next</button>
+      <button class="button float-right" id="generateButton">Generate</button>
+    </div>
+
+    <div style="display: flex; background: #CDCDCD; margin: 1rem 0">
+      <img id="img" src="" style="max-height: 400px; margin: auto">
+    </div>
+
+    <label>Result:</label>
+    <pre><code id="output"></code></pre>
+    <div id="json"></div>
+  </section>
+</main>
+
+
+<script type="text/javascript">
+  const path = '../../assets/codes';
+  let currentFileIndex = 0;
+  const files = [
+    'E2_ELMS_2D_1.jpeg',
+    'E2_ELM_1D_2.jpeg',
+    'E2_ELS_2D_1.jpeg',
+    'E2_EL_2D_2_INV.jpeg',
+    'E2_GSEL_2D_13.jpeg',
+    'E2_GSEL_2D_13_INV.jpeg',
+    'E2_GSEL_2D_15_INV.jpeg',
+    'E2_GSEL_2D_20.jpeg',
+    'E2_GSEL_2D_31.jpeg',
+    'E2_GSEL_2D_56.jpeg',
+    'TEST_CN_0.jpg',
+    'TEST_CN_1.jpg',
+    'TEST_CN_2.jpg',
+    'TEST_DataMatrix_1.png',
+    'TEST_DataMatrix_2.png',
+    'TEST_DataMatrix_3.png',
+    'TEST_DataMatrix_3-crop.png',
+    'TEST_GS1-128_1.gif',
+    'TEST_GS1_COMPOSITE_1.jpg',
+    'TEST_RU_1.png',
+    'TEST_RU_2.png'
+  ];
+
+  const timeout = (time = 100) => new Promise(resolve => setTimeout(resolve), time);
+
+  window.addEventListener('load', () => {
+    const codeReader = new ZXing.BrowserMultiFormatReader();
+    let saveResults = false;
+    let results = [];
+
+    const image = document.getElementById('img');
+    const decodeButton = document.getElementById('decodeButton');
+    const generateButton = document.getElementById('generateButton');
+    const previousButton = document.getElementById('previousButton');
+    const nextButton = document.getElementById('nextButton');
+    const output = document.getElementById('output');
+
+    console.log('ZXing code reader initialized');
+
+    const setImage = () => {
+      if (currentFileIndex === 0) {
+        previousButton.disabled = true;
+        nextButton.disabled = false;
+      } else if (currentFileIndex === files.length - 1) {
+        previousButton.disabled = false;
+        nextButton.disabled = true;
+      } else {
+        previousButton.disabled = false;
+        nextButton.disabled = false;
+      }
+
+      image.src = [path, files[currentFileIndex]].join('/');
+      output.textContent = '';
+    };
+
+    const autoDecodeCallback = (e) => {
+      results.push(e.detail);
+
+      if (!nextButton.disabled) {
+        nextButton.click();
+        decodeButton.click();
+      } else {
+        saveResults = false;
+        output.textContent = JSON.stringify(results, null, 4);
+        decodeButton.removeEventListener('code', autoDecodeCallback);
+      }
+    }
+
+    setImage();
+
+    previousButton.addEventListener('click', () => {
+      currentFileIndex = currentFileIndex > 0 ? --currentFileIndex : 0;
+      setImage();
+    });
+
+    nextButton.addEventListener('click', () => {
+      const length = files.length - 1;
+      currentFileIndex = currentFileIndex < length ? ++currentFileIndex : length;
+      setImage();
+    });
+
+    decodeButton.addEventListener('click', () => {
+      const copyImage = new Image();
+      copyImage.src = image.src;
+      copyImage.addEventListener('load', () => {
+        codeReader.decodeFromImage(copyImage)
+          .then((result) => {
+            output.textContent = result.text;
+
+            if (saveResults) {
+              decodeButton.dispatchEvent(new CustomEvent('code', {
+                detail: {
+                  src: image.src.split('/').pop(),
+                  result
+                }
+              }));
+            } else {
+              console.log(result);
+            }
+          })
+          .catch((err) => {
+            output.textContent = err;
+
+            if (saveResults) {
+              decodeButton.dispatchEvent(new CustomEvent('code', {
+                detail: {
+                  src: image.src.split('/').pop(),
+                  err: err.message
+                }
+              }));
+            } else {
+              console.error(err);
+            }
+          });
+        console.log(`Started decode for image from ${image.src}`);
+      });
+    });
+
+    generateButton.addEventListener('click', async () => {
+      currentFileIndex = 0;
+      setImage();
+      saveResults = true;
+      results = [];
+
+      decodeButton.addEventListener('code', autoDecodeCallback);
+
+      decodeButton.click();
+    });
+  });
+</script>
+
+</body>
+
+</html>

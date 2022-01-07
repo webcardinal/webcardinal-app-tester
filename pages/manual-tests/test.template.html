@@ -1,0 +1,36 @@
+<template>
+  <style>
+    .tm- {
+
+    }
+  </style>
+
+  <div id="test-container" class="tm-">
+    <header>
+      <section>
+        <h3>Template for your test</h3>
+        <div>keywords: <code>keyword1</code>, <code>keyword2</code></div>
+      </section>
+    </header>
+
+    <main>
+      <webcat-card header="Result">
+        <webc-container controller="../../pages/manual-tests/">
+          <!-- Your code -->
+        </webc-container>
+      </webcat-card>
+
+      <webcat-section header="Markup">
+        <psk-code language="HTML" file="pages/manual-tests/"></psk-code>
+      </webcat-section>
+
+      <webcat-section header="Controller">
+        <psk-code language="JavaScript" file="pages/manual-tests/"></psk-code>
+      </webcat-section>
+
+      <webcat-section header="Styles">
+        <psk-code language="CSS" file="pages/manual-tests/"></psk-code>
+      </webcat-section>
+    </main>
+  </div>
+</template>

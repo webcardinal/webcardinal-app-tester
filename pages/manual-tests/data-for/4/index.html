@@ -1,59 +1,50 @@
-<webc-container id="test-container">
+<style>
+    .tm-for4 .control {
+        margin-bottom: 3rem;
+    }
+    .tm-for4 .control .item-container {
+        border-radius: 0.4rem;
+        background: white;
+        padding: 1.5rem;
+    }
+    .tm-for4 .control .item-name-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .tm-for4 .control > div:first-child {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+    }
+    .tm-for4 .control > div:last-child {
+        border: 1px solid #cdcdcd;
+        padding: 1rem;
+    }
+    .tm-for4 button[data-tag="plus"] {
+        grid-column: 1 / -1;
+    }
+</style>
+
+<webc-container id="test-container" class="tm-for4">
     <header>
         <section>
-            <h4>Variable length and interactions of an <code>Array</code> in <code>data-for</code></h4>
-            <div>Attribute: <code>data-for</code></div>
+            <h3>Variable length and interactions of an <code>Array</code> in <code>data-for</code></h3>
         </section>
     </header>
     <main>
         <section>
-            <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test3.js"></psk-code>
-            <psk-code language="HTML">
-                <div>
-                    <button data-tag="plus">➕</button>
-                </div>
-                <div data-for="@items">
+            <webc-container controller="../../../pages/manual-tests/data-for/4/Controller">
+                <div class="control">
                     <div>
-                        <span>{{@id}} {{ @name }}</span>
-                        <input value="@inputValue" />
-                        <span>You have entered: {{ inputValue }}</span>
-                        <button data-tag="minus">➖</button>
-                    </div>
-                </div>
-            </psk-code>
-            <psk-example>
-                <style>
-                    .test3 .item-container {
-                        border: 1px solid grey;
-                        border-radius: 4px;
-                        padding: 5px;
-                        margin: 5px 0;
-                    }
-                    .test3 .item-name-container {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    .test3 > div:first-child {
-                        display: grid;
-                        grid-template-columns: 1fr auto auto;
-                        gap: 1rem;
-                        padding-bottom: 1rem;
-                    }
-                    .test3 > div:last-child {
-                        border: 1px solid #cdcdcd;
-                        padding: 1rem;
-                    }
-                </style>
-                <webc-container controller="manual/data-for/Test3" class="test3">
-                    <div>
-                        <button data-tag="plus">➕</button>
+                        <button data-tag="plus" class="button-outline">➕</button>
                     </div>
                     <div data-for="@items">
-                        {{@id}}
+                        {{ @id }}
                         <div class="item-container">
                             <div class="item-name-container">
                                 <span>{{@id}} {{ @name }}</span>
-                                <button data-tag="minus">➖</button>
+                                <button data-tag="minus" class="button-outline button-icon">➖</button>
                             </div>
                             <div>
                                 <input value="@inputValue" />
@@ -61,12 +52,19 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <p>Model:</p>
-                        <pre>{{ @modelString }}</pre>
-                    </div>
-                </webc-container>
-            </psk-example>
+                </div>
+
+                <pre>{{ @modelString }}</pre>
+            </webc-container>
+
+
+            <webcat-section header="Markup">
+                <psk-code language="HTML" file="pages/manual-tests/data-for/4/markup.html"></psk-code>
+            </webcat-section>
+
+            <webcat-section header="Controller">
+                <psk-code language="JavaScript" file="pages/manual-tests/data-for/4/Controller.js"></psk-code>
+            </webcat-section>
         </section>
     </main>
 </webc-container>

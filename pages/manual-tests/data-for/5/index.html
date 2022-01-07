@@ -1,47 +1,43 @@
-<webc-container id="test-container">
+<style>
+    @import url("themes/clear-sky-theme/commons/fonts/font-awesome/font-awesome.min.css");
+
+    .tm-for5 fa-icon {
+        margin-right: 0.5rem;
+    }
+    .tm-for5 .control .item-container {
+        background: white;
+        border-radius: 4px;
+        padding: 5px;
+        margin: 5px 0;
+    }
+    .tm-for5 .control .item-name-container {
+        display: flex;
+        justify-content: space-between;
+    }
+    .tm-for5 .control > div:first-child {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        padding-bottom: 1rem;
+    }
+    .tm-for5 .control > div:last-child {
+        border: 1px solid #cdcdcd;
+        padding: 1rem;
+    }
+</style>
+
+<webc-container id="test-container" class="tm-for5">
     <header>
         <section>
-            <div>
-                <h4>Model as an <code>Array</code> with variable length and interactions in <code>data-if</code> and <code>data-for</code></h4>
-                <h4>WebcComponent used <code>fa-icon</code></h4>
-            </div>
-            <div>Attributes: <code>data-if</code>,<code>data-for</code></div>
+            <h3>Variable length of an <code>Array</code> with WebcComponents in <code>data-for</code></h3>
         </section>
     </header>
     <main>
         <section>
             <webcat-card shadow header="Result">
-                <style>
-                    @import url("themes/clear-sky-theme/commons/fonts/font-awesome/font-awesome.min.css");
-
-                    fa-icon {
-                        margin-right: 0.5rem;
-                    }
-
-                    .test5 .item-container {
-                        border: 1px solid grey;
-                        border-radius: 4px;
-                        padding: 5px;
-                        margin: 5px 0;
-                    }
-                    .test5 .item-name-container {
-                        display: flex;
-                        justify-content: space-between;
-                    }
-                    .test5 > div:first-child {
-                        display: grid;
-                        grid-template-columns: 1fr auto;
-                        gap: 1rem;
-                        padding-bottom: 1rem;
-                    }
-                    .test5 > div:last-child {
-                        border: 1px solid #cdcdcd;
-                        padding: 1rem;
-                    }
-                </style>
-                <webc-container controller="manual/data-for/Test5" class="test5">
+                <webc-container controller="../../../pages/manual-tests/data-for/5/Controller" class="control">
                     <div>
-                        <button disabled="@isDisabled" data-tag="plus">➕</button>
+                        <button disabled="@isDisabled" data-tag="plus" class="button-outline">➕</button>
                         <button data-tag="toggle-display">Toggle display</button>
                     </div>
 
@@ -57,7 +53,7 @@
                                     <fa-icon icon="@icon" color="@color"></fa-icon>
                                     {{ @name }}
                                 </span>
-                                    <button data-tag="minus">➖</button>
+                                    <button data-tag="minus" class="button-outline button-icon">➖</button>
                                 </div>
                             </div>
                         </div>
@@ -70,12 +66,12 @@
                 </webc-container>
             </webcat-card>
 
-            <webcat-section shadow header="Controller">
-                <psk-code language="JavaScript" file="scripts/controllers/manual/data-for/Test5.js"></psk-code>
+            <webcat-section header="Markup">
+                <psk-code language="HTML" file="pages/manual-tests/data-for/5/markup.html"></psk-code>
             </webcat-section>
 
-            <webcat-section shadow header="Markup">
-                <psk-code language="JavaScript" file="pages/manual-tests/data-for/test-5.markup.html"></psk-code>
+            <webcat-section header="Controller">
+                <psk-code language="JavaScript" file="pages/manual-tests/data-for/5/Controller.js"></psk-code>
             </webcat-section>
         </section>
     </main>

@@ -1,0 +1,43 @@
+<h2>T1</h2>
+
+<p>Testing templates: with no <code>data-view-model</code>, with <code>@</code> and within a <strong>scope</strong>.</p>
+
+<br>
+
+<webc-container controller="webc-template/T1">
+  <div><code data-test="00">isFirstModel: {{ @isFirstModel }}</code></div>
+
+  <br>
+
+  <div data-test="01" style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+    <h4>Only <code>data-view-model</code>:</h4>
+    <div>
+      <label data-view-model="@templateLabel"></label>
+      <input data-view-model="@templateInput" />
+    </div>
+  </div>
+
+  <webc-template data-test="02" template="input-with-model"></webc-template>
+  <webc-template data-test="03" template="input-with-model" data-view-model="@"></webc-template>
+  <webc-template data-test="04" template="input-with-model" data-view-model="@scoped"></webc-template>
+
+  <br>
+
+  <div data-test="05" style="display: flex; margin: 0.5rem 0; gap: 1.5rem; justify-content: space-between">
+    <h4>Only <code>bounded attributes</code>:</h4>
+    <div>
+      <label>{{ @templateLabel.text }}</label>
+      <input value="@templateInput.value" />
+    </div>
+  </div>
+
+  <webc-template data-test="06" template="input-with-attributes"></webc-template>
+  <webc-template data-test="07" template="input-with-attributes" data-view-model="@"></webc-template>
+  <webc-template data-test="08" template="input-with-attributes" data-view-model="@scoped"></webc-template>
+
+  <br>
+
+  <button data-tag="toggle">Toggle</button>
+</webc-container>
+
+<hr>
