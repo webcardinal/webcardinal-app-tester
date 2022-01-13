@@ -219,7 +219,7 @@
           ]
         },
         {
-          "name": "Model",
+          "name": "model",
           "children": [
             {
               "name": "Async initialization",
