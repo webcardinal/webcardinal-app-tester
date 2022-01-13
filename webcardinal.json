@@ -219,6 +219,16 @@
           ]
         },
         {
+          "name": "Model",
+          "children": [
+            {
+              "name": "Async initialization",
+              "path": "./1",
+              "src": "./1/index.html"
+            }
+          ]
+        },
+        {
           "name": "psk-barcode-scanner",
           "children": [
             {
