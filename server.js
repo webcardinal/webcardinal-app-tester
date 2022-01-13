@@ -33,7 +33,7 @@ async function start(base, options) {
 const options = {
     port: 8000,
     open: true, // When false, it won't load a new window of your browser.
-    // host: '192.168.1.110'
+    // host: '<YOUR_LOCAL_NETWORK>'
 
 };
 

@@ -1,5 +1,5 @@
 <style>
-  .barcode-scanner--container {
+  .barcode-container {
     position: relative;
     display: block;
     max-width: max(30vw, 450px);
@@ -8,7 +8,7 @@
     margin: 0 auto;
   }
 
-  .button-container {
+  .buttons-container {
     position: absolute;
     top: 1rem;
     display: flex;
@@ -17,7 +17,15 @@
     gap: 1rem;
     z-index: 1;
   }
-  .button-container .button {
+
+  .buttons-container.bottom {
+    top: unset;
+    bottom: 1rem;
+    left: 1rem;
+    justify-content: flex-start;
+  }
+
+  .buttons-container .button {
     padding: 0.35rem 0.5rem;
     width: 80px;
   }
@@ -25,11 +33,15 @@
 
 <!-- frames user -->
 <webc-container controller="../../pages/tests/psk-barcode-scanner/BarcodeController"
-                class="barcode-scanner--container">
-  <div class="button-container">
-    <button class="button button--previous" data-tag="previous">Previous</button>
-    <button class="button button--next" data-tag="next">Next</button>
+                class="barcode-container">
+  <div class="buttons-container">
+    <button class="button button--previous" data-tag="previous">‹ Previous</button>
+    <button class="button button--next" data-tag="next">Next ›</button>
+  </div>
+  <div class="buttons-container bottom">
+    <button class="button" data-tag="generate">Generate</button>
   </div>
 
-  <psk-barcode-scanner data="@data"></psk-barcode-scanner>
+<!--  <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
+<!--  <img src="@results.frame" alt="">-->
 </webc-container>
