@@ -150,13 +150,13 @@ export default class ScannerController extends Controller {
       if (shouldDownload) {
         this.shouldGoNext(false);
 
-        this.buttons.manual.disabled = false;
-        this.buttons.auto.disabled = false;
-
         const data = this.injectPercentage(this.model.scannedData);
         console.log(data);
         this.downloadJSON(data);
         this.triggerClassname();
+
+        this.buttons.manual.disabled = false;
+        this.buttons.auto.disabled = true;
       }
     });
   }
