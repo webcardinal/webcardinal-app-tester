@@ -1,11 +1,32 @@
 <style>
+  .barcode-fullscreen psk-barcode-scanner::part(done) {
+    transform: unset;
+    left: unset;
+    right: 0.75rem;
+  }
+
+  .barcode-fullscreen {
+    width: 100%;
+    height: 100%;
+    background: #424242;
+  }
+
   .barcode-container {
     position: relative;
+    margin: 0 auto;
+    box-sizing: border-box;
     display: block;
     max-width: max(30vw, 450px);
-    background: var(--webc-secondary-background);
+    background: rgba(255, 255, 255, .35);
+    border: 4px solid #2F2F2F;
     height: 100%;
-    margin: 0 auto;
+  }
+
+  .barcode-container.success {
+    border-color: #48D960;
+  }
+  .barcode-container.fail {
+    border-color: #FA113D;
   }
 
   .buttons-container {
@@ -14,34 +35,40 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.5rem;
     z-index: 1;
   }
 
-  .buttons-container.bottom {
+  .buttons-container.modes {
+    display: flex;
+    align-items: center;
     top: unset;
     bottom: 1rem;
-    left: 1rem;
+    left: 0.75rem;
     justify-content: flex-start;
   }
 
-  .buttons-container .button {
+  .buttons-container button {
     padding: 0.35rem 0.5rem;
-    width: 80px;
+    cursor: pointer;
   }
 </style>
 
-<!-- frames user -->
-<webc-container controller="../../pages/tests/psk-barcode-scanner/BarcodeController"
-                class="barcode-container">
-  <div class="buttons-container">
-    <button class="button button--previous" data-tag="previous">‹ Previous</button>
-    <button class="button button--next" data-tag="next">Next ›</button>
-  </div>
-  <div class="buttons-container bottom">
-    <button class="button" data-tag="generate">Generate</button>
-  </div>
+<main class="barcode-fullscreen">
+  <webc-container controller="../../pages/tests/psk-barcode-scanner/BarcodeController"
+                  class="barcode-container">
+    <div class="buttons-container">
+      <button data-tag="scan" hidden="@isAuto">Next scan ›</button>
+      <input type="number" data-view-model="@input">
+    </div>
+    <div class="buttons-container modes">
+      Change to:
+      <button data-tag="auto">Auto</button>
+      <button data-tag="manual">Manual</button>
+    </div>
 
-<!--  <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
-<!--  <img src="@results.frame" alt="">-->
-</webc-container>
+    <!--  <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
+    <!--  <img src="@results.frame" alt="">-->
+  </webc-container>
+</main>
+
