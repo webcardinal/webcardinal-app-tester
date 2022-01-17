@@ -28896,8 +28896,8 @@ function createElement(name, props) {
   element.innerHTML = text;
   return element;
 }
-function getStream(video, frameRate = 30) {
-  return video.captureStream(frameRate);
+function getStream(canvas, frameRate = 30) {
+  return canvas.captureStream(frameRate);
 }
 async function getVideoDevices() {
   try {
@@ -29151,7 +29151,38 @@ const PskBarcodeScanner = class {
         this.overlay.removeOverlays();
       }
     };
-    // Inverted Symbols
+    // filter: Default
+    this.drawDefaultFrame = (video, canvas) => {
+      // for infinite loops of the recursion
+      if (this.status === STATUS.DONE) {
+        return;
+      }
+      const canvasContext = canvas.getContext("2d");
+      // scale video according to screen dimensions
+      const [x, y, w, h] = computeElementScalingAccordingToScreen({
+        width: video.videoWidth,
+        height: video.videoHeight,
+      }, canvas);
+      canvasContext.drawImage(video, x, y, w, h);
+      setTimeout(() => {
+        this.drawDefaultFrame(video, canvas);
+      }, INTERVAL_BETWEEN_SCANS);
+    };
+    this.getDefaultStream = async (video, frameRate) => {
+      return new Promise(async (resolve) => {
+        const interval = setInterval(async () => {
+          if (isElementVisibleInViewport(video)) {
+            const defaultCanvas = this.createCanvasElement("defaultCanvas");
+            const defaultStream = getStream(defaultCanvas, frameRate);
+            await video.play();
+            this.drawDefaultFrame(video, defaultCanvas);
+            resolve(defaultStream);
+          }
+          clearInterval(interval);
+        }, 300);
+      });
+    };
+    // filter: Inverted Symbols
     this.drawInvertedSymbolsFrame = (video, canvas) => {
       // for infinite loops of the recursion
       if (this.status === STATUS.DONE) {
@@ -29193,7 +29224,7 @@ const PskBarcodeScanner = class {
     this.scanUsingFrames = (videoElements, decodeCallback) => {
       window.requestAnimationFrame(async () => {
         const { video, invertedSymbolsVideo } = videoElements;
-        const defaultStream = getStream(video, INTERVAL_BETWEEN_SCANS);
+        const defaultStream = await this.getDefaultStream(video, INTERVAL_BETWEEN_SCANS);
         this.scanners.default.controls = await this.scanners.default.reader.decodeFromStream(defaultStream, video, decodeCallback);
         const invertedStream = await this.getInvertedSymbolsStream(video, INTERVAL_BETWEEN_INVERTED_SCANS);
         this.scanners.invertedSymbols.controls = await this.scanners.default.reader.decodeFromStream(invertedStream, invertedSymbolsVideo, decodeCallback);

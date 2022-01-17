@@ -4,15 +4,23 @@ const PATH = "./assets/psk-barcode-codes";
 const MAX_DURATION_FOR_A_PICTURE = 1500;
 const DELAY_BEFORE_NEXT = 200;
 const FILES = [
-  "datamatrix/0.jpg",
-  "datamatrix/1.jpg",
-  "datamatrix/2.jpg",
-  "datamatrix/3.jpg",
-  "datamatrix/4.png",
-  "datamatrix/5.jpg",
-  "datamatrix/6.jpg",
-  "datamatrix/7.jpg",
-  "datamatrix/8.jpg",
+  "barcode/00.gif",
+  "barcode/01.gif",
+  "barcode/02.jpg",
+  "stacked-datamatrix/00.jpg",
+  "stacked-datamatrix/01.jpg",
+  "datamatrix/00.jpg",
+  "datamatrix/01.jpg",
+  "datamatrix/02.jpg",
+  "datamatrix/03.jpg",
+  "datamatrix/04.png",
+  "datamatrix/05.jpg",
+  "datamatrix/06.jpg",
+  "datamatrix/07.jpg",
+  "datamatrix/08.jpg",
+  "datamatrix/09.jpg",
+  "datamatrix/10.jpg",
+  "datamatrix/11.jpg",
   "stress-codes/A.Setup-Label.jpg",
   "stress-codes/A.Setup_Label-blur.jpg",
   "stress-codes/A.Setup_Label-complex.jpg",
@@ -56,7 +64,8 @@ export default class ScannerController extends Controller {
 
     // psk-barcode-scanner options
     this.useFrames = true;
-    this.useVideo = false;
+    this.useVideoFrames = false;
+    this.saveFrame = false;
     this.snapVideo = true;
 
     this.model = {
@@ -84,7 +93,10 @@ export default class ScannerController extends Controller {
     });
 
     this.model.onChange("results", async () => {
-      // console.log(this.model.results);
+      if (this.saveFrame) {
+        this.screenshot.hidden = false;
+        this.screenshot.src = this.model.results.frame;
+      }
     });
 
     this.model.onChange("fileIndex", () => {
@@ -171,13 +183,28 @@ export default class ScannerController extends Controller {
     this.scanner.setAttribute("disable-some-slots", "");
     this.scanner.useFrames = this.useFrames;
     this.scanner.snapVideo = this.snapVideo;
+
+    if (this.saveFrame) {
+      const active = this.createElement('div',  { slot: 'active' });
+      const done = this.createElement('div',  { slot: 'done' });
+      this.scanner.append(active, done);
+      this.screenshot = this.createElement('img', { alt: "saved-frame", hidden: true } )
+    }
+
     this.element.append(this.scanner);
+
+    if (this.saveFrame) {
+      this.element.append(this.screenshot);
+    }
   };
 
   removeScanner = () => {
-    this.scanner = this.querySelector("psk-barcode-scanner");
     if (this.scanner) {
       this.scanner.remove();
+    }
+
+    if (this.screenshot) {
+      this.screenshot.remove();
     }
   };
 
@@ -212,7 +239,7 @@ export default class ScannerController extends Controller {
       return;
     }
 
-    if (this.useVideo) {
+    if (this.useVideoFrames) {
       const file = await fetch(
           `./pages/tests/psk-barcode-scanner/frames-deny-b.json`
       );
@@ -313,7 +340,7 @@ export default class ScannerController extends Controller {
 //
 //     // psk-barcode-scanner options
 //     this.useFrames = true;
-//     this.useVideo = false;
+//     this.useVideoFrames = false;
 //     this.snapVideo = true;
 //
 //     this.model = {
@@ -439,7 +466,7 @@ export default class ScannerController extends Controller {
 //       return;
 //     }
 //
-//     if (this.useVideo) {
+//     if (this.useVideoFrames) {
 //       const file = await fetch(
 //         `./pages/tests/psk-barcode-scanner/frames-deny-b.json`
 //       );

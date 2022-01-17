@@ -1,7 +1,7 @@
 <style>
-.card{
-    padding: 2rem;
-}
+    .card {
+        padding: 2rem;
+    }
 </style>
 
 <div id="test-container" class="tm-if1">
@@ -12,57 +12,50 @@
         </section>
     </header>
     <main>
-
         <webcat-section header="Controller">
-            <psk-code language="JavaScript" file="scripts/controllers/manual/model/AsyncModelLoadController.js"></psk-code>
+            <psk-code language="JavaScript"
+                      file="scripts/controllers/manual/model/AsyncModelLoadController.js"></psk-code>
         </webcat-section>
 
         <webcat-section header="HTML">
-                <psk-code language="HTML" file="pages/manual-tests/model/1/markup1.html"></psk-code>
+            <psk-code language="HTML" file="pages/manual-tests/model/1/markup1.html"></psk-code>
         </webcat-section>
 
         <webcat-card header="Result">
-
             <webc-container controller="manual/model/AsyncModelLoadController">
-
-
-
                 <div class="card" style="background: paleturquoise">
                     <div class="card-body">
-                            <h5 class="card-title">Sync model initialization</h5>
-                            <div class="form-group">
-                                <label>data-view-model</label>
-                                <input class="form-control" data-view-model="@form.input1">
-                            </div>
+                        <h5 class="card-title">Sync model initialization</h5>
+                        <div class="form-group">
+                            <label>data-view-model</label>
+                            <input class="form-control" data-view-model="@form.input1">
+                        </div>
 
-                            <div class="form-group">
-                                <label>individual-attributes</label>
-                                <input class="form-control" value="@form.input1.value"
-                                       placeholder="@form.input1.placeholder" type="@form.input1.type">
-                            </div>
-
+                        <div class="form-group">
+                            <label>individual-attributes</label>
+                            <input class="form-control" value="@form.input1.value"
+                                   placeholder="@form.input1.placeholder" type="@form.input1.type">
+                        </div>
                     </div>
                 </div>
-
 
                 <div class="card" style="background: palegoldenrod">
                     <div class="card-body">
                         <h5 class="card-title">Async model initialization</h5>
                         <div class="form-group">
                             <label>data-view-model</label>
-                            <input class="form-control" data-view-model="@form.input2">
+                            <input data-view-model="@form.input2" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label>individual-attributes</label>
-                            <input class="form-control" value="@form.input2.value"
-                                   placeholder="@form.input2.placeholder" type="@form.input2.type">
+                            <input value="@form.input2.value"
+                                   placeholder="@form.input2.placeholder"
+                                   type="@form.input2.type"
+                                   class="form-control">
                         </div>
-
                     </div>
                 </div>
-
-
             </webc-container>
         </webcat-card>
     </main>

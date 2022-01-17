@@ -6,18 +6,19 @@ export default class AsyncModelLoadController extends WebcController {
         this.model.form = {};
 
         this.model.form.input1 = {
-            type:"text",
-            placeholder:"Enter some data in input #1",
-            value:""
+            type: "text",
+            placeholder: "Enter some data in input #1",
+            value: ""
         }
 
-        setTimeout(()=>{
-            this.model.form.input2 = {
-                type:"text",
-                placeholder:"Enter some data in input #2",
-                value:""
-            }
-        },10)
+        this.model.form.input2 = {};
 
+        setTimeout(() => {
+            this.model.form.input2 = {
+                type: "text",
+                placeholder: "Enter some data in input #2",
+                value: ""
+            }
+        }, 10)
     }
 }
