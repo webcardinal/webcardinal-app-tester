@@ -28878,6 +28878,32 @@ function isElementVisibleInViewport(element) {
     rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth));
 }
+function drawFrameOnCanvas(video, canvas) {
+  const context = canvas.getContext("2d");
+  // scale video according to screen dimensions
+  const [x, y, w, h] = computeElementScalingAccordingToScreen({ width: video.videoWidth, height: video.videoHeight }, canvas);
+  context.drawImage(video, x, y, w, h);
+}
+function waitUntilElementIsInVisibleInViewport(element, delay) {
+  return new Promise((resolve) => {
+    if (isElementVisibleInViewport(element)) {
+      resolve();
+      return;
+    }
+    const interval = setInterval(() => {
+      if (isElementVisibleInViewport(element)) {
+        resolve();
+        clearInterval(interval);
+        return;
+      }
+    }, delay);
+  });
+}
+function waitUntilAnimationFrameIsPossible() {
+  return new Promise((resolve) => {
+    window.requestAnimationFrame(resolve);
+  });
+}
 function createElement(name, props) {
   if (!props) {
     props = {};
@@ -28886,13 +28912,13 @@ function createElement(name, props) {
     props.style = {};
   }
   if (!props.text) {
-    props.text = '';
+    props.text = "";
   }
   const { style, text } = props;
   delete props.style;
   delete props.text;
   const element = Object.assign(document.createElement(name), props);
-  Object.keys(style).forEach(rule => element.style[rule] = style[rule]);
+  Object.keys(style).forEach((rule) => (element.style[rule] = style[rule]));
   element.innerHTML = text;
   return element;
 }
@@ -28905,11 +28931,11 @@ async function getVideoDevices() {
     const videoDevices = [];
     for (const device of devices) {
       // @ts-ignore
-      const kind = device.kind === 'video' ? 'videoinput' : device.kind;
-      if (kind !== 'videoinput') {
+      const kind = device.kind === "video" ? "videoinput" : device.kind;
+      if (kind !== "videoinput") {
         continue;
       }
-      const deviceId = device.deviceId || device['id'];
+      const deviceId = device.deviceId || device["id"];
       const label = device.label || `Video device ${videoDevices.length + 1}`;
       const groupId = device.groupId;
       const videoDevice = { deviceId, label, kind, groupId };
@@ -28938,51 +28964,75 @@ function snapFrame(video) {
   video.parentElement.insertBefore(canvas, video);
 }
 function captureFrame(video) {
-  const canvas = document.createElement('canvas');
+  const canvas = document.createElement("canvas");
   canvas.width = video.clientWidth;
   canvas.height = video.clientHeight;
   const [x, y, w, h] = computeElementScalingAccordingToScreen({
     width: video.videoWidth,
-    height: video.videoHeight
+    height: video.videoHeight,
   }, canvas);
-  const context = canvas.getContext('2d');
+  const context = canvas.getContext("2d");
   context.drawImage(video, x, y, w, h);
-  return canvas.toDataURL('image/jpeg');
+  return canvas.toDataURL("image/jpeg");
 }
 const style = {
   base: {
-    display: 'grid', gridTemplateRows: '1fr',
-    width: '100%', height: '100%'
+    display: "grid",
+    gridTemplateRows: "1fr",
+    width: "100%",
+    height: "100%",
   },
   container: {
-    position: 'relative',
-    display: 'grid', gridTemplateRows: '1fr',
-    overflow: 'hidden',
-    minHeight: '350px',
-    padding: '0', margin: '0'
+    position: "relative",
+    display: "grid",
+    gridTemplateRows: "1fr",
+    overflow: "hidden",
+    minHeight: "350px",
+    padding: "0",
+    margin: "0",
   },
   video: {
-    height: '100%', width: '100%',
-    objectFit: 'cover'
-  },
-  invertedSymbolsVideo: {
-    height: '100%', width: '100%',
-    objectFit: 'cover',
-    position: 'absolute',
-    top: '0'
+    height: "100%",
+    width: "100%",
+    objectFit: "cover",
+    position: "absolute",
+    top: "0",
   },
   input: {
-    display: 'none'
+    display: "none",
   },
   button: {
-    position: 'absolute', zIndex: '1',
-    padding: '0.3em 0.6em',
-    bottom: '1em', left: '50%', transform: 'translateX(-50%)',
-    color: '#FFFFFF', background: 'transparent',
-    borderRadius: '2px', border: '2px solid rgba(255, 255, 255, 0.75)',
-    fontSize: '15px',
-    textAlign: 'center',
-  }
+    position: "absolute",
+    zIndex: "1",
+    padding: "0.3em 0.6em",
+    bottom: "1em",
+    left: "50%",
+    transform: "translateX(-50%)",
+    color: "#FFFFFF",
+    background: "transparent",
+    borderRadius: "2px",
+    border: "2px solid rgba(255, 255, 255, 0.75)",
+    fontSize: "15px",
+    textAlign: "center",
+  },
+};
+
+const filters = {
+  invertedSymbolsFilter: (filterProps) => {
+    const { video, canvas } = filterProps;
+    // scale video according to screen dimensions
+    const [x, y, w, h] = computeElementScalingAccordingToScreen({ width: video.videoWidth, height: video.videoHeight }, canvas);
+    const context = canvas.getContext("2d");
+    context.drawImage(video, x, y, w, h);
+    // invert colors of the current frame
+    const image = context.getImageData(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < image.data.length; i += 4) {
+      image.data[i] = image.data[i] ^ 255;
+      image.data[i + 1] = image.data[i + 1] ^ 255;
+      image.data[i + 2] = image.data[i + 2] ^ 255;
+    }
+    context.putImageData(image, 0, 0);
+  },
 };
 
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -28996,7 +29046,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
   return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 const INTERVAL_BETWEEN_SCANS = 1000;
-const INTERVAL_BETWEEN_INVERTED_SCANS = 1000;
 var STATUS;
 (function (STATUS) {
   STATUS["INIT"] = "Initializing component...";
@@ -29051,32 +29100,40 @@ const PskBarcodeScanner = class {
      */
     this.useFrames = false;
     this.status = STATUS.INIT;
+    this.intervals = new Set();
     this.devices = [];
-    this.scanners = {
-      default: {
-        reader: undefined,
-        controls: undefined,
-      },
-      invertedSymbols: {
-        reader: undefined,
-        controls: undefined,
-      },
-    };
     this.useFramesContext = {
       canvas: undefined,
       context: undefined,
       stream: undefined,
     };
     // Pre-rendering...
-    this.createCustomizedElement = (name) => {
+    this.createSlotElement = (name) => {
       if (this.host.querySelector(`[slot=${name}]`)) {
         return createElement("slot", { name });
       }
       templates[name].part = name;
       return templates[name];
     };
+    this.createVideoElement = () => {
+      const container = this.host.shadowRoot.querySelector("#container");
+      if (!container) {
+        console.error("[psk-barcode-scanner] Component can not render #container");
+        return;
+      }
+      this.container = container;
+      this.video = createElement("video", {
+        id: "video",
+        muted: true,
+        autoplay: true,
+        playsinline: true,
+        hidden: true,
+        style: style.video,
+      });
+      this.container.append(this.video);
+    };
     this.createCanvasElement = (id) => {
-      const scannerContainer = this.host.shadowRoot.querySelector("#container");
+      const scannerContainer = this.container;
       if (!lastDimensions.width) {
         lastDimensions.width = scannerContainer.offsetWidth;
         lastDimensions.height = scannerContainer.offsetHeight;
@@ -29101,30 +29158,30 @@ const PskBarcodeScanner = class {
       let element;
       switch (this.status) {
         case STATUS.INIT:
-          element = this.createCustomizedElement("init");
+          element = this.createSlotElement("init");
           break;
         case STATUS.NO_DETECTION:
-          element = this.createCustomizedElement("error");
+          element = this.createSlotElement("error");
           break;
         case STATUS.DONE:
-          element = this.createCustomizedElement("done");
+          element = this.createSlotElement("done");
           break;
         case STATUS.LOAD_CAMERAS:
-          if (this.host.hasAttribute('disable-some-slots')) {
-            element = '';
+          if (this.host.hasAttribute("disable-some-slots")) {
+            element = "";
             return;
           }
-          element = this.createCustomizedElement("feedback");
+          element = this.createSlotElement("feedback");
           break;
         case STATUS.ACCESS_DENIED:
-          element = this.createCustomizedElement("access_denied");
+          element = this.createSlotElement("access_denied");
           break;
         default: {
-          if (this.host.hasAttribute('disable-some-slots')) {
-            element = '';
+          if (this.host.hasAttribute("disable-some-slots")) {
+            element = "";
             return;
           }
-          element = this.createCustomizedElement("active");
+          element = this.createSlotElement("active");
         }
       }
       const t = createElement("div");
@@ -29151,97 +29208,109 @@ const PskBarcodeScanner = class {
         this.overlay.removeOverlays();
       }
     };
-    // filter: Default
-    this.drawDefaultFrame = (video, canvas) => {
-      // for infinite loops of the recursion
-      if (this.status === STATUS.DONE) {
+    // Decoding...
+    this.decodeCallback = (error, result) => {
+      if (result && this.status === STATUS.IN_PROGRESS) {
+        this.stopScanning();
+        if (!this.noLogs) {
+          console.log("[psk-barcode-scanner] Scanned data:", result);
+        }
+        if (this.modelHandler) {
+          this.status = STATUS.DONE;
+          audio.play();
+          if (this.overlay) {
+            this.overlay.drawOverlay(result.resultPoints);
+          }
+          if (this.snapVideo) {
+            snapFrame(this.video);
+          }
+          if (this.host.hasAttribute("results")) {
+            result.frame = captureFrame(this.video);
+            this.modelHandler.updateModel("results", result);
+          }
+          this.modelHandler.updateModel("data", result.text);
+          if (!this.snapVideo) {
+            this.cleanupOverlays();
+          }
+        }
+        this.stopVideoStream();
         return;
       }
-      const canvasContext = canvas.getContext("2d");
-      // scale video according to screen dimensions
-      const [x, y, w, h] = computeElementScalingAccordingToScreen({
-        width: video.videoWidth,
-        height: video.videoHeight,
-      }, canvas);
-      canvasContext.drawImage(video, x, y, w, h);
-      setTimeout(() => {
-        this.drawDefaultFrame(video, canvas);
-      }, INTERVAL_BETWEEN_SCANS);
+      if (error && error.message !== "No MultiFormat Readers were able to detect the code.") {
+        console.error("[psk-barcode-scanner] Error while decoding", error);
+        return;
+      }
     };
-    this.getDefaultStream = async (video, frameRate) => {
-      return new Promise(async (resolve) => {
-        const interval = setInterval(async () => {
-          if (isElementVisibleInViewport(video)) {
-            const defaultCanvas = this.createCanvasElement("defaultCanvas");
-            const defaultStream = getStream(defaultCanvas, frameRate);
-            await video.play();
-            this.drawDefaultFrame(video, defaultCanvas);
-            resolve(defaultStream);
-          }
+    this.decodeFromFilter = async (filterId, filterAction, intervalBetweenScans) => {
+      const video = this.video;
+      const canvas = this.createCanvasElement(`${filterId}Canvas`);
+      drawFrameOnCanvas(video, canvas);
+      const hints = new Map();
+      hints.set(3, true); // TRY_HARDER
+      const scanner = {
+        reader: new BrowserMultiFormatReader$1(hints),
+        controls: undefined,
+      };
+      const decodeFromCanvas = async () => {
+        if (typeof filterAction === "function") {
+          // filtered scanning
+          const filterProps = { video, canvas };
+          await filterAction(filterProps);
+        }
+        try {
+          const result = scanner.reader.decodeFromCanvas(canvas);
+          this.decodeCallback(undefined, result);
+          return true;
+        }
+        catch (error) {
+          return false;
+        }
+      };
+      if (await decodeFromCanvas()) {
+        return;
+      }
+      const interval = setInterval(async () => {
+        if (this.status === STATUS.DONE) {
           clearInterval(interval);
-        }, 300);
-      });
-    };
-    // filter: Inverted Symbols
-    this.drawInvertedSymbolsFrame = (video, canvas) => {
-      // for infinite loops of the recursion
-      if (this.status === STATUS.DONE) {
-        return;
-      }
-      const canvasContext = canvas.getContext("2d");
-      // scale video according to screen dimensions
-      const [x, y, w, h] = computeElementScalingAccordingToScreen({
-        width: video.videoWidth,
-        height: video.videoHeight,
-      }, canvas);
-      canvasContext.drawImage(video, x, y, w, h);
-      // invert colors of the current frame
-      const image = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < image.data.length; i += 4) {
-        image.data[i] = image.data[i] ^ 255;
-        image.data[i + 1] = image.data[i + 1] ^ 255;
-        image.data[i + 2] = image.data[i + 2] ^ 255;
-      }
-      canvasContext.putImageData(image, 0, 0);
-      setTimeout(() => {
-        this.drawInvertedSymbolsFrame(video, canvas);
-      }, INTERVAL_BETWEEN_INVERTED_SCANS);
-    };
-    this.getInvertedSymbolsStream = async (video, frameRate) => {
-      return new Promise((resolve) => {
-        const interval = setInterval(() => {
-          if (isElementVisibleInViewport(video)) {
-            const invertedSymbolsCanvas = this.createCanvasElement("invertedCanvas");
-            const invertedStream = getStream(invertedSymbolsCanvas, frameRate);
-            this.drawInvertedSymbolsFrame(video, invertedSymbolsCanvas);
-            resolve(invertedStream);
-            clearInterval(interval);
-          }
-        }, 300);
-      });
+          this.intervals.delete(interval);
+          return;
+        }
+        if (await decodeFromCanvas()) {
+          clearInterval(interval);
+          this.intervals.delete(interval);
+          return;
+        }
+      }, intervalBetweenScans);
+      this.intervals.add(interval);
     };
     // Scanning...
-    this.scanUsingFrames = (videoElements, decodeCallback) => {
-      window.requestAnimationFrame(async () => {
-        const { video, invertedSymbolsVideo } = videoElements;
-        const defaultStream = await this.getDefaultStream(video, INTERVAL_BETWEEN_SCANS);
-        this.scanners.default.controls = await this.scanners.default.reader.decodeFromStream(defaultStream, video, decodeCallback);
-        const invertedStream = await this.getInvertedSymbolsStream(video, INTERVAL_BETWEEN_INVERTED_SCANS);
-        this.scanners.invertedSymbols.controls = await this.scanners.default.reader.decodeFromStream(invertedStream, invertedSymbolsVideo, decodeCallback);
-      });
+    this.scanUsingFilters = async () => {
+      // default filter
+      await this.decodeFromFilter("default", undefined, INTERVAL_BETWEEN_SCANS);
+      // invertedSymbols filter
+      await this.decodeFromFilter("invertedSymbols", filters.invertedSymbolsFilter, INTERVAL_BETWEEN_SCANS);
     };
-    this.scanUsingNavigator = (videoElements, deviceId, decodeCallback) => {
-      const { video, invertedSymbolsVideo } = videoElements;
+    this.startVideoStream = async () => {
+      const video = this.video;
+      try {
+        await video.play();
+      }
+      catch (error) {
+        console.error("[psk-barcode-scanner] Error while playing video", error);
+      }
+    };
+    this.startScanningUsingFrames = async () => {
+      await this.startVideoStream();
+      await this.scanUsingFilters();
+    };
+    this.startScanningUsingNavigator = async (deviceId) => {
+      const video = this.video;
       const constraints = {
-        video: {
-          facingMode: "environment",
-        },
+        video: { facingMode: "environment" },
       };
       if (deviceId && deviceId !== "no-camera") {
         delete constraints.video.facingMode;
-        constraints.video["deviceId"] = {
-          exact: deviceId,
-        };
+        constraints.video["deviceId"] = { exact: deviceId };
       }
       video.onplay = async () => {
         this.status = STATUS.IN_PROGRESS;
@@ -29249,82 +29318,48 @@ const PskBarcodeScanner = class {
         await this.drawOverlays();
         video.removeAttribute("hidden");
       };
-      // Since ZXing's "decodeFromConstraints" throws a DOM error
-      // the following call is made only for the error case
-      // in order to update the current status of the component
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then(async (stream) => {
-        // If there is no error, camera access is guaranteed
-        // but the same stream will be again requested by ZXing in "decodeFromConstraints"
-        // in some browsers (e.g. Chrome) same instance will be returned each time,
-        // but in other browsers (e.g. Safari) a new MediaStream instance will be created,
-        // if all the tracks from the previous stream aren't stopped the "camera" will be locked in record state
-        stream.getTracks().forEach((track) => track.stop());
-        this.scanners.default.controls = await this.scanners.default.reader.decodeFromConstraints(constraints, video, decodeCallback);
-        const invertedSymbolsStream = await this.getInvertedSymbolsStream(video, INTERVAL_BETWEEN_INVERTED_SCANS);
-        this.scanners.invertedSymbols.controls = await this.scanners.invertedSymbols.reader.decodeFromStream(invertedSymbolsStream, invertedSymbolsVideo, decodeCallback);
-      })
-        .catch((error) => {
+      try {
+        video.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
+      }
+      catch (error) {
         this.status = STATUS.ACCESS_DENIED;
         console.error("[psk-barcode-scanner] Error while getting userMedia", error);
-      });
+      }
+      await this.startScanningUsingFrames();
     };
-    this.startScanning = (deviceId) => {
+    this.startScanning = async (deviceId) => {
       switch (this.status) {
         case STATUS.LOAD_CAMERAS:
         case STATUS.CHANGE_CAMERA: {
-          const videoElements = {
-            video: this.host.shadowRoot.querySelector("#video"),
-            invertedSymbolsVideo: this.host.shadowRoot.querySelector("#invertedSymbolsVideo"),
-          };
-          if (this.status === STATUS.CHANGE_CAMERA) {
-            this.stopScanning();
-          }
-          const decodeCallback = (result, err) => {
-            if (result && this.status === STATUS.IN_PROGRESS) {
-              if (!this.noLogs) {
-                console.log("[psk-barcode-scanner] Scanned data:", result);
-              }
-              if (this.modelHandler) {
-                this.status = STATUS.DONE;
-                audio.play();
-                if (this.overlay) {
-                  this.overlay.drawOverlay(result.resultPoints);
-                }
-                if (this.snapVideo) {
-                  snapFrame(videoElements.video);
-                }
-                if (this.host.hasAttribute("results")) {
-                  result.frame = captureFrame(videoElements.video);
-                  this.modelHandler.updateModel("results", result);
-                }
-                this.modelHandler.updateModel("data", result.text);
-                this.stopScanning();
-                if (!this.snapVideo) {
-                  this.cleanupOverlays();
-                }
-              }
-            }
-            if (err && err.message !== "No MultiFormat Readers were able to detect the code.") {
-              console.error("[psk-barcode-scanner] Error while decoding", err);
-            }
-          };
+          this.createVideoElement();
+          // if (this.status === STATUS.CHANGE_CAMERA) {
+          //     this.stopScanning();
+          // }
+          // wait until video is in viewport
+          await waitUntilElementIsInVisibleInViewport(this.video, 50);
+          // request an animation frame
+          await waitUntilAnimationFrameIsPossible();
+          // start scanning...
           if (this.useFrames) {
-            this.scanUsingFrames(videoElements, decodeCallback);
+            await this.startScanningUsingFrames();
           }
           else {
-            this.scanUsingNavigator(videoElements, deviceId, decodeCallback);
+            await this.startScanningUsingNavigator(deviceId);
           }
           break;
         }
       }
     };
+    this.stopVideoStream = () => {
+      const stream = this.video.srcObject;
+      const tracks = stream.getTracks();
+      tracks.forEach((track) => track.stop());
+      this.video.srcObject = null;
+    };
     this.stopScanning = () => {
-      for (const key of Object.keys(this.scanners)) {
-        if (this.scanners[key].controls) {
-          this.scanners[key].controls.stop();
-        }
+      // stop async decode processes started by each filter
+      for (const interval of Array.from(this.intervals)) {
+        clearInterval(interval);
       }
     };
     window.addEventListener("resize", () => {
@@ -29390,37 +29425,38 @@ const PskBarcodeScanner = class {
     if (!this.host.isConnected) {
       return;
     }
-    const hints = new Map();
-    hints.set(3, true); // TRY_HARDER
-    this.scanners.default.reader = new BrowserMultiFormatReader$1(hints);
-    this.scanners.invertedSymbols.reader = new BrowserMultiFormatReader$1(hints);
     this.status = STATUS.LOAD_CAMERAS;
   }
   async componentWillRender() {
     if (this.useFrames) {
       return;
     }
-    if (this.devices.length === 0 || !this.activeDeviceId) {
-      try {
-        this.devices = await BrowserMultiFormatReader$1.listVideoInputDevices();
-      }
-      catch (error) {
-        console.error("[psk-barcode-scanner] Error while getting video devices", error);
-      }
-      if (this.devices.length === 0) {
-        this.status = STATUS.NO_DETECTION;
-      }
+    if (this.activeDeviceId) {
+      return;
+    }
+    if (this.devices.length !== 0) {
+      return;
+    }
+    try {
+      this.devices = await BrowserMultiFormatReader$1.listVideoInputDevices();
+    }
+    catch (error) {
+      console.error("[psk-barcode-scanner] Error while getting video devices", error);
+    }
+    if (this.devices.length === 0) {
+      this.status = STATUS.NO_DETECTION;
     }
   }
   async componentDidRender() {
-    this.startScanning(this.activeDeviceId);
+    await this.startScanning(this.activeDeviceId);
     this.attachOnClickForChangeCamera();
   }
   async disconnectedCallback() {
     this.stopScanning();
+    this.stopVideoStream();
   }
   render() {
-    return (h("div", { part: "base", style: style.base }, h("div", { id: "container", part: "container", style: style.container }, h("input", { type: "file", accept: "video/*", capture: "environment", style: style.input }), h("video", { id: "video", part: "video", muted: true, autoplay: true, playsinline: true, hidden: true, style: style.video }), h("video", { id: "invertedSymbolsVideo", muted: true, autoplay: true, playsinline: true, hidden: true, style: style.invertedSymbolsVideo }), h("div", { id: "content", part: "content", innerHTML: this.renderContent() }))));
+    return (h("div", { part: "base", style: style.base }, h("div", { id: "container", part: "container", style: style.container }, h("input", { type: "file", accept: "video/*", capture: "environment", style: style.input }), h("div", { id: "content", part: "content", innerHTML: this.renderContent() }))));
   }
   get host() { return getElement(this); }
 };
