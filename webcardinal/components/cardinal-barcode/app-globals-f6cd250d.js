@@ -1,4 +1,4 @@
-import { e as cardinalInternalsGlobalScript } from './index-f1c4ce5f.js';
+import { e as cardinalInternalsGlobalScript } from './index-7ff93b01.js';
 
 const globalScripts = () => {
   cardinalInternalsGlobalScript();

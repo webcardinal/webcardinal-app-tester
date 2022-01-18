@@ -20,11 +20,11 @@ export default class _ extends Controller {
             alert(JSON.stringify(this.model.data, null, '2'));
         });
 
-        setTimeout(async () => {
-            const file = await fetch(`./pages/manual-tests/psk-barcode-scanner/test-1/${this.model.framesJSON}`);
-            const frames = await file.json();
-            await this.applyFrames(frames);
-        });
+        // setTimeout(async () => {
+        //     const file = await fetch(`./pages/manual-tests/psk-barcode-scanner/test-1/${this.model.framesJSON}`);
+        //     const frames = await file.json();
+        //     await this.applyFrames(frames);
+        // });
     }
 
     async applyFrames(frames) {
