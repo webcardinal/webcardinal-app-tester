@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="./pages/tools/psk-barcode-scanner-checker/styles.css">
+
+<main class="barcode-fullscreen">
+  <webc-container controller="../../pages/tools/psk-barcode-scanner-checker/ScannerController" class="barcode-container">
+    <div class="buttons-container">
+      <button data-tag="scan" hidden="@isAuto">Next scan ›</button>
+      <input type="number" data-view-model="@input">
+    </div>
+    <div class="buttons-container modes">
+      <span>Mode:</span>
+      <button data-tag="auto">Auto</button>
+      <button data-tag="manual">Manual</button>
+    </div>
+
+    <!-- injected automatically -->
+    <!-- <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
+    <!-- <img alt="saved-frame">-->
+
+    <div data-tag="automatic-output"></div>
+  </webc-container>
+</main>
+

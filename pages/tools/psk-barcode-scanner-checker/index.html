@@ -1,0 +1,20 @@
+<main class="barcode-fullscreen">
+  <webc-container controller="../../pages/tests/psk-barcode-scanner/BarcodeController" class="barcode-container">
+    <div class="buttons-container">
+      <button data-tag="scan" hidden="@isAuto">Next scan ›</button>
+      <input type="number" data-view-model="@input">
+    </div>
+    <div class="buttons-container modes">
+      Change to:
+      <button data-tag="auto">Auto</button>
+      <button data-tag="manual">Manual</button>
+    </div>
+
+    <!-- injected automatically -->
+    <!-- <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
+    <!-- <img alt="saved-frame">-->
+
+    <div data-tag="automatic-output"></div>
+  </webc-container>
+</main>
+
