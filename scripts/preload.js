@@ -1,6 +1,6 @@
 // Path: scripts/preload.js
 
-const { setConfig, getConfig, addHook, setSkin } = WebCardinal.preload;
+const { setConfig, getConfig, addHook, setSkin, navigateToUrl, navigateToPageTag } = WebCardinal.preload;
 const { define } = WebCardinal.components;
 
 async function initializeWebCardinalConfig() {
@@ -66,6 +66,10 @@ define("rw-pagination", { shadow: true });
 define("scanner-options");
 define("scanner-data");
 define("scanner-modal", { shadow: true });
+
+addHook("beforePageLoads", "404", async () => {
+  await navigateToUrl("/webcardinal-app-tester");
+});
 
 // Testing setSkin
 addHook("beforePageLoads", "translations-test-2", () => {

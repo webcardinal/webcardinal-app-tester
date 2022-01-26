@@ -3,13 +3,15 @@
     "email": " "
   },
   "pagesFallback": {
-    "name": "404"
+    "name": "404",
+    "tag": "404"
   },
   "pages": [
     {
-      "path": "/",
+      "path": "./",
       "name": "\uD83C\uDFE0 Homepage",
-      "src": "home.html"
+      "src": "home.html",
+      "tag": "homepage"
     },
     {
       "name": "⚙️ Automated tests",
