@@ -1,6 +1,6 @@
 {
   "identity": {
-    "email": "Playground"
+    "email": " "
   },
   "pagesFallback": {
     "name": "404"
@@ -277,10 +277,30 @@
       ]
     },
     {
+      "name": "\uD83D\uDD27 Tools",
+      "path": "./tools",
+      "src": "./tools",
+      "children": [
+        {
+          "name": "Scanner",
+          "src": "./psk-barcode-scanner/index.html",
+          "indexed": false
+        },
+        {
+          "name": "Scanner Downloader",
+          "src": "./psk-barcode-scanner-downloader/index.html"
+        },
+        {
+          "name": "Scanner Auto-Checker",
+          "src": "./psk-barcode-scanner-checker/index.html"
+        }
+      ]
+    },
+    {
       "name": "WebCardinal Main Tests Results",
       "tag": "webcardinal/main-tests-results",
       "path": "tests/automated/results",
-      "src": "automated-tests/webcardinal-core/index.html",
+      "src": "automated-tests/results/reports.html",
       "loader": "object",
       "indexed": false
     },
@@ -293,11 +313,5 @@
       "indexed": false
     }
   ],
-  "theme": "clear-sky-theme",
-  "leaflet": {
-    "devOptions": {
-      "disabled": ["useFrames"],
-      "useFrames": false
-    }
-  }
+  "theme": "clear-sky-theme"
 }

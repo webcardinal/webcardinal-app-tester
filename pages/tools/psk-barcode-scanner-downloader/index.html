@@ -1,22 +1,17 @@
-<link rel="stylesheet" href="./pages/tools/psk-barcode-scanner-checker/styles.css">
+<link rel="stylesheet" href="./pages/tools/psk-barcode-scanner-downloader/styles.css">
 
 <main class="barcode-fullscreen">
-  <webc-container controller="../../pages/tools/psk-barcode-scanner-checker/ScannerController" class="barcode-container">
-    <div class="buttons-container">
-      <button data-tag="scan" hidden="@isAuto">Next scan ›</button>
-      <input type="number" data-view-model="@input">
-    </div>
+  <webc-container controller="../../pages/tools/psk-barcode-scanner-downloader/ScannerController" class="barcode-container">
     <div class="buttons-container modes">
-      <span>Mode:</span>
-      <button data-tag="auto">Auto</button>
-      <button data-tag="manual">Manual</button>
+      <button data-tag="mode" class="button-outline">{{ @mode }}</button>
+      <button data-tag="download">Download frame</button>
     </div>
+
+    <button data-tag="retry" class="button-retry">Retry</button>
 
     <!-- injected automatically -->
     <!-- <psk-barcode-scanner data="@data" results="@results"></psk-barcode-scanner>-->
     <!-- <img alt="saved-frame">-->
-
-    <div data-tag="automatic-output"></div>
   </webc-container>
 </main>
 

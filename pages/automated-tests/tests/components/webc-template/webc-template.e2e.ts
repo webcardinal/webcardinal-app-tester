@@ -1,3 +1,4 @@
+// @ts-ignore
 import { E2EElement } from '@stencil/core/testing';
 import { HYDRATED_CLASS, initTest } from '../../utils';
 import environment from '../../environments/1';

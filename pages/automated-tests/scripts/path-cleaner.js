@@ -1,43 +1,93 @@
-const readline = require("readline");
-const { exec } = require("child_process");
+const fs = require('fs');
+const path = require('path');
+const { promisify } = require('util');
+const constants = require('./constants');
+const jsdom = require('jsdom');
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+function filterPaths(document, reportsJSON) {
+    const keyword = '.dev/webcardinal/.webcardinal/components/webcardinal-core/test';
 
-const LEGENDA = `
-Legenda:
-  "all" or ""
-  "webcardinal-core" or "1"
-  "cardinal-barcode" or "2"
-`
+    reportsJSON.testResults = reportsJSON.testResults.map(testResult => {
+        const index = testResult.testFilePath.indexOf(keyword);
+        console.log(index);
+        if (index < 0) {
+            return;
+        }
 
-rl.question(`[WebCardinal] What library of components?${LEGENDA}`, (answer) => {
-  answer = answer.trim().toLowerCase();
+        testResult.testFilePath = testResult.testFilePath.slice(index + keyword.length);
+        return testResult;
+    });
 
-  const testCallback = (err, stdout, stderr) => {
-    if (err) {
-      console.error(err.message);
+    console.log(reportsJSON.testResults);
+
+    let rawTestResults = JSON.stringify(reportsJSON, null, 2);
+    rawTestResults = rawTestResults.replace(/"/g, '&quot;');
+    rawTestResults = rawTestResults.replace(/\//g, '&#x2F;');
+
+    const testResultsElement = document.getElementById('test-results');
+    testResultsElement.innerHTML = rawTestResults;
+}
+
+function injectVisualAdjustments(document) {
+    const [liHome, liCoverage] = document.querySelectorAll('#navbarCollapse .nav-item');
+    liHome.remove();
+    liCoverage.remove();
+
+    const hr = document.querySelector('body > hr');
+    const footer = document.querySelector('body > footer');
+    hr.remove();
+    footer.remove();
+}
+
+async function run() {
+    const pathToHTML = path.join(process.cwd(), constants.TEST_REPORTS_PATH, 'reports.html');
+    const pathToJSON = path.join(process.cwd(), constants.TEST_REPORTS_PATH, 'reports.json');
+
+    let reportsJSON;
+    let rawHTML;
+
+    console.log('[WebCardinal] [testing-workflow] Looking in...', path.join(process.cwd(), constants.TEST_REPORTS_PATH));
+
+    try {
+        reportsJSON = require(pathToJSON);
+    } catch (error) {
+        console.error('[WebCardinal] [testing-workflow] can no read reports.html!', error);
+        return;
     }
 
-    if (stderr) {
-      console.error(stderr);
+    try {
+        rawHTML = await promisify(fs.readFile)(pathToHTML, { encoding: 'UTF-8' });
+        rawHTML = rawHTML.replace(/<!--(.*?)-->/gs, '');
+    } catch (error) {
+        console.error('[WebCardinal] [testing-workflow] can no read reports.html!', error);
+        return;
     }
 
-    console.log(stdout);
-    rl.close();
-  };
+    const dom = new jsdom.JSDOM(rawHTML);
+    const { document } = dom.window;
 
-  switch (answer) {
-    case "cardinal-barcode":
-    case "2":
-      exec(
-        `node node_modules/octopus/scripts/run test-cardinal-barcode devmode`,
-        testCallback
-      );
-      return;
-    default:
-      rl.close();
-  }
-});
+    try {
+        filterPaths(document, reportsJSON);
+    } catch (error) {
+        console.error('[WebCardinal] [testing-workflow] can not be modify testResults!', error);
+        return;
+    }
+
+    try {
+        injectVisualAdjustments(document, reportsJSON);
+    } catch (error) {
+        console.warn('[WebCardinal] [testing-workflow] can not apply visual adjustments', error);
+        // do not return
+    }
+
+    try {
+        const pathToHTML = path.join(constants.TEST_REPORTS_PATH, 'reports.html');
+        await promisify(fs.writeFile)(pathToHTML, dom.serialize(), { encoding: 'UTF-8' });
+    } catch (error) {
+        console.error('[WebCardinal] [testing-workflow] can not write in reports.html!', error);
+    }
+}
+
+module.exports = {
+    run
+};

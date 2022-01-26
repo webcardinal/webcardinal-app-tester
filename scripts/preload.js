@@ -63,6 +63,9 @@ define("test-multiple-bindings-component");
 define("test-container");
 define("test-container-scoped", "test-container/test-container-scoped");
 define("rw-pagination", { shadow: true });
+define("scanner-options");
+define("scanner-data");
+define("scanner-modal", { shadow: true });
 
 // Testing setSkin
 addHook("beforePageLoads", "translations-test-2", () => {

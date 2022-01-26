@@ -20,22 +20,8 @@
       "name": "webcardinal-tests",
       "actions": [
         {
-          "type": "smartClone",
-          "src": "https://github.com/webcardinal/webcardinal-tests",
-          "target": "./.dev",
-          "collectLog": false
-        },
-        {
-          "type": "move",
-          "src": "./.dev/webcardinal-tests/webcardinal-core",
-          "target": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
-          "options": {
-            "overwrite": true
-          }
-        },
-        {
           "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare"
+          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare dom-parser"
         }
       ]
     },
@@ -47,6 +33,45 @@
           "src": "https://github.com/PrivateSky/clear-sky-theme.git",
           "target": "./.dev/themes",
           "collectLog": false
+        }
+      ]
+    }
+  ],
+  "test": [
+    {
+      "name": "run-automated-tests",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "rm -rf ./.dev/webcardinal/.webcardinal/components/webcardinal-core/test"
+        },
+        {
+          "type": "execute",
+          "cmd": "rm -rf ./pages/automated-tests/results"
+        },
+        {
+          "type": "copy",
+          "src": "./pages/automated-tests/tests",
+          "target": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
+          "options": {
+            "overwrite": true
+          }
+        },
+        {
+          "type": "execute",
+          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
+        },
+        {
+          "type": "execute",
+          "cmd": "node ./pages/automated-tests/scripts"
+        },
+        {
+          "type": "move",
+          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
+          "target": "./pages/automated-tests/results",
+          "options": {
+            "overwrite": true
+          }
         }
       ]
     }
@@ -89,69 +114,6 @@
       ]
     }
   ],
-  "commit-tests": [
-    {
-      "name": "commit-webcardinal-tests",
-      "actions": [
-        {
-          "type": "copy",
-          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
-          "target": "./.dev/webcardinal-tests/webcardinal-core",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    }
-  ],
-  "save-test-results": [
-    {
-      "name": "save-webcardinal-tests",
-      "actions": [
-        {
-          "type": "copy",
-          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test-results",
-          "target": "./pages/automated-tests/webcardinal-core",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    }
-  ],
-  "test": [
-    {
-      "name": "run-webcardinal-tests",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "node ./pages/automated-tests/tests"
-        }
-      ]
-    }
-  ],
-  "test-webcardinal-core": [
-    {
-      "name": "run-webcardinal-core-tests",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
-        }
-      ]
-    }
-  ],
-  "test-cardinal-barcode": [
-    {
-      "name": "cardinal-barcode-tests",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "node ./pages/automated-tests/tests/cardinal-barcode"
-        }
-      ]
-    }
-  ],
   "dev": [
     {
       "name": "build-webcardinal-components",
@@ -165,6 +127,36 @@
             "devComponents": [
               "cardinal-barcode"
             ]
+          }
+        }
+      ]
+    }
+  ],
+  "create-local-test": [
+    {
+      "name": "create-local-test",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./pages/automated-tests/tests",
+          "target": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    }
+  ],
+  "commit-local-test": [
+    {
+      "name": "commit-local-test",
+      "actions": [
+        {
+          "type": "move",
+          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
+          "target": "./pages/automated-tests/results",
+          "options": {
+            "overwrite": true
           }
         }
       ]
