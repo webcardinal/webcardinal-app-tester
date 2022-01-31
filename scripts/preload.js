@@ -6,8 +6,6 @@ const { define } = WebCardinal.components;
 async function initializeWebCardinalConfig() {
   const config = getConfig();
   // config.translations = false;
-  console.log(config);
-
   return config;
 }
 
@@ -66,6 +64,8 @@ define("rw-pagination", { shadow: true });
 define("scanner-options");
 define("scanner-data");
 define("scanner-modal", { shadow: true });
+define("scanner-downloader-options", "scanner-options/scanner-downloader-options");
+define("scanner-checker-options", "scanner-options/scanner-checker-options");
 
 addHook("beforePageLoads", "404", async () => {
   await navigateToUrl("/webcardinal-app-tester");

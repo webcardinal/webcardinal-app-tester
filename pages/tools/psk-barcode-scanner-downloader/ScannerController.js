@@ -1,6 +1,6 @@
-const { WebcController } = WebCardinal.controllers;
+const { Controller } = WebCardinal.controllers;
 
-export default class ScannerController extends WebcController {
+export default class ScannerController extends Controller {
   constructor(...props) {
     super(...props);
 
@@ -12,6 +12,7 @@ export default class ScannerController extends WebcController {
     this.model = {
       data: {},
       devLogs: {},
+      frames: {},
       metadata: "{}",
       mode: "Options",
       downloadOnSuccess: false,
@@ -37,17 +38,28 @@ export default class ScannerController extends WebcController {
         ":scope > canvas"
       );
       const now = new Date();
-      const prefix = now.toISOString().split(".")[0];
+      const prefix = now.toISOString()
+          .split(".")[0]
+          .split('T').join('.')
 
-      for (const canvas of canvases) {
-        const data = canvas.toDataURL("image/jpeg");
-        const name = ["code", prefix, canvas.id].join(".");
-        this.downloadImage(data, name);
+      if (this.model.frames && this.model.frames.png && this.model.frames.jpg) {
+        const name = ["code", prefix, "result"].join(".");
+        const { jpg, png } = this.model.frames;
+        this.downloadImage(jpg, name, 'jpg');
+        this.downloadImage(png, name, 'png');
+      } else {
+        for (const canvas of canvases) {
+          const jpg = canvas.toDataURL("image/jpeg");
+          const png = canvas.toDataURL("image/png");
+          const name = ["code", prefix, `${canvas.id}`].join(".");
+          this.downloadImage(jpg, name, 'jpg');
+          this.downloadImage(png, name, 'png');
+        }
       }
 
       const results = JSON.parse(this.model.metadata);
       if (Object.keys(results).length > 0) {
-        const name = ["code", prefix, "results"].join(".");
+        const name = ["code", prefix, "result"].join(".");
         this.downloadJSON(results, name);
       }
     });
@@ -72,6 +84,9 @@ export default class ScannerController extends WebcController {
 
       const metadata = JSON.parse(JSON.stringify(this.model.devLogs));
       delete metadata.frame;
+      this.model.frames = metadata.frames;
+
+      delete metadata.frames;
 
       this.model.metadata = JSON.stringify(metadata, null, 2);
 
@@ -83,6 +98,7 @@ export default class ScannerController extends WebcController {
     this.removeScanner();
     this.model.mode = "Options";
     this.model.metadata = "{}";
+    this.model.frames = {};
     this.buttons.retry.hidden = true;
 
     this.scanner = this.createElement("psk-barcode-scanner");
@@ -102,9 +118,9 @@ export default class ScannerController extends WebcController {
 
   showOptionsModal = async () => {
     const modalElement = this.createElement("scanner-modal");
-    const optionsElement = this.createElement("scanner-options");
+    const optionsElement = this.createElement("scanner-downloader-options");
 
-    modalElement.setAttribute("header", "Options");
+    modalElement.setAttribute("header", "Downloader Options");
     this.element.append(modalElement);
 
     await modalElement.componentOnReady();
@@ -129,10 +145,10 @@ export default class ScannerController extends WebcController {
     button.onclick = () => modalElement.remove();
   };
 
-  downloadImage = (data, name) => {
+  downloadImage = (data, name, format = 'png') => {
     const anchor = document.createElement("a");
     anchor.setAttribute("href", data);
-    anchor.setAttribute("download", `${name}.jpg`);
+    anchor.setAttribute("download", `${name}.${format}`);
     anchor.click();
   };
 

@@ -18,11 +18,13 @@ export default class ScannerController extends Controller {
     this.useVideoFrames = false;
     this.saveFrame = false;
     this.snapVideo = true;
+    this.logs = true;
 
     this.model = {
       fileIndex: 0,
       scannedData: {},
       isAuto: false,
+      stopInternalCropping: true,
       input: {
         min: '0',
         value: '0',
@@ -122,6 +124,10 @@ export default class ScannerController extends Controller {
         this.buttons.auto.disabled = true;
       }
     });
+
+    this.onTagEvent('mode', 'click', async () => {
+      await this.showOptionsModal();
+    })
   }
 
   createScanner = () => {
@@ -132,8 +138,11 @@ export default class ScannerController extends Controller {
     this.scanner.setAttribute('data', '@data');
     this.scanner.setAttribute('results', '@results');
     this.scanner.setAttribute('dev-disable-some-slots', '');
+    this.scanner.setAttribute('dev-activate-internal-canvases', '');
+    this.scanner.noLogs = !this.logs;
     this.scanner.useFrames = this.useFrames;
     this.scanner.snapVideo = this.snapVideo;
+    this.scanner.stopInternalCropping = this.model.stopInternalCropping;
 
     if (this.saveFrame) {
       const active = this.createElement('div', { slot: 'active' });
@@ -299,5 +308,21 @@ export default class ScannerController extends Controller {
     if (!this.model.scannedData[fileName]) {
       this.model.scannedData[fileName] = data;
     }
+  };
+
+  showOptionsModal = async () => {
+    const modalElement = this.createElement("scanner-modal");
+    const optionsElement = this.createElement("scanner-checker-options");
+
+    modalElement.setAttribute("header", "Checker Options");
+    this.element.append(modalElement);
+
+    await modalElement.componentOnReady();
+
+    modalElement.append(optionsElement);
+    const closeButton = modalElement.shadowRoot.querySelector("header > button");
+    closeButton.onclick = () => modalElement.remove();
+
+    await optionsElement.componentOnReady();
   };
 }

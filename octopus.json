@@ -125,7 +125,7 @@
           "options": {
             "DEV": true,
             "devComponents": [
-              "webcardinal-core"
+              "cardinal-barcode"
             ]
           }
         }

@@ -107,8 +107,13 @@ scanner-modal .option {
 
 scanner-modal .option.bottom {
     position: absolute;
-    bottom: 3.75em;
+    bottom: 0.75em;
     left: 0.5em;
+    right: 0.5em;
+}
+
+scanner-modal .option.bottom > button {
+    width: 100%;
 }
 
 scanner-modal psk-code pre {
