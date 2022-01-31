@@ -1,4 +1,4 @@
-import { r as registerInstance, s as stringToBoolean, h, g as getElement, f as BindModel, i as CustomTheme, T as TableOfContentProperty } from './index-cac30108.js';
+import { r as registerInstance, s as stringToBoolean, h, g as getElement, f as BindModel, i as CustomTheme, T as TableOfContentProperty } from './index-a0d964a7.js';
 
 // This file is part of the bwip-js project available at:
 //

@@ -1,5 +1,5 @@
-import { B as BUILD, c as consoleDevInfo, p as plt, w as win, H, d as doc, N as NAMESPACE, a as promiseResolve, b as bootstrapLazy } from './index-cac30108.js';
-import { g as globalScripts } from './app-globals-a8d77a37.js';
+import { B as BUILD, c as consoleDevInfo, p as plt, w as win, H, d as doc, N as NAMESPACE, a as promiseResolve, b as bootstrapLazy } from './index-a0d964a7.js';
+import { g as globalScripts } from './app-globals-d6063341.js';
 
 /*
  Stencil Client Patch Browser v2.12.1 | MIT Licensed | https://stenciljs.com
@@ -121,5 +121,5 @@ const patchCloneNodeFix = (HTMLElementPrototype) => {
 
 patchBrowser().then(options => {
   globalScripts();
-  return bootstrapLazy([["psk-barcode-generator",[[0,"psk-barcode-generator",{"data":[8],"type":[1],"title":[1],"size":[8],"includeText":[4,"include-text"],"isLoaded":[32]}]]],["psk-barcode-scanner",[[1,"psk-barcode-scanner",{"data":[1025],"snapVideo":[4,"snap-video"],"noLogs":[4,"no-logs"],"useFrames":[516,"use-frames"],"status":[32],"activeDeviceId":[32],"switchCamera":[64],"setFrame":[64]}]]]], options);
+  return bootstrapLazy([["psk-barcode-generator",[[0,"psk-barcode-generator",{"data":[8],"type":[1],"title":[1],"size":[8],"includeText":[4,"include-text"],"isLoaded":[32]}]]],["psk-barcode-scanner",[[1,"psk-barcode-scanner",{"data":[1025],"snapVideo":[516,"snap-video"],"useFrames":[516,"use-frames"],"stopInternalCropping":[516,"stop-internal-cropping"],"noLogs":[4,"no-logs"],"activeDeviceId":[32],"switchCamera":[64],"setFrame":[64]}]]]], options);
 });
