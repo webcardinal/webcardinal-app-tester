@@ -1,20 +1,18 @@
 const { setConfig, getConfig, addHook, navigateToPageTag } = WebCardinal.preload;
 
-addHook('afterAppLoads', async () => {
-    console.log('beforeAppLoads');
-
-    const params = (new URL(window.top.location)).searchParams;
-    if (params.has('redirect')) {
-        switch (params.get('redirect')) {
-            case "psk-barcode-scanner":
-                window.top.history.pushState(undefined, "WebCardinal Main Environment", window.top.location.pathname);
-                await navigateToPageTag('psk-barcode-scanner');
-                break;
-            default:
-                break;
-        }
-    }
-});
+// addHook('afterAppLoads', async () => {
+//     const params = (new URL(window.top.location)).searchParams;
+//     if (params.has('redirect')) {
+//         switch (params.get('redirect')) {
+//             case "psk-barcode-scanner":
+//                 window.top.history.pushState(undefined, "WebCardinal Main Environment", window.top.location.pathname);
+//                 await navigateToPageTag('psk-barcode-scanner');
+//                 break;
+//             default:
+//                 break;
+//         }
+//     }
+// });
 
 setConfig(
   (() => {
