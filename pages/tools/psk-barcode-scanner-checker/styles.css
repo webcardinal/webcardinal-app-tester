@@ -101,3 +101,8 @@ scanner-modal .option {
     align-items: center;
     gap: 0.75em;
 }
+
+scanner-checker-options {
+    display: grid;
+    gap: 0.5em;
+}

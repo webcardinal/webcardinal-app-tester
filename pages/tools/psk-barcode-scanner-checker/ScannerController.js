@@ -1,9 +1,9 @@
-import FILES from './codes/index.js';
-import { timeout } from './utils.js'
+import FILES from "./codes/index.js";
+import { timeout } from "./utils.js";
 
 const { Controller } = WebCardinal.controllers;
 
-const PATH = './pages/tools/psk-barcode-scanner-checker/codes';
+const PATH = "./pages/tools/psk-barcode-scanner-checker/codes";
 const MAX_DURATION_FOR_A_PICTURE = 1500;
 const DELAY_BEFORE_NEXT = 200;
 
@@ -11,7 +11,7 @@ export default class ScannerController extends Controller {
   constructor(...props) {
     super(...props);
 
-    console.log('ScannerController');
+    console.log("ScannerController: initialized");
 
     // psk-barcode-scanner options
     this.useFrames = true;
@@ -20,43 +20,55 @@ export default class ScannerController extends Controller {
     this.snapVideo = true;
     this.logs = true;
 
+    this.files = FILES;
+
     this.model = {
       fileIndex: 0,
       scannedData: {},
       isAuto: false,
       stopInternalCropping: true,
+      ignoreFormats: {
+        jpg: true,
+        png: false,
+        gif: false,
+      },
       input: {
-        min: '0',
-        value: '0',
-        max: `${FILES.length - 1}`
-      }
+        min: "0",
+        value: "0",
+        max: `${this.files.length - 1}`,
+      },
     };
 
     this.setControls();
+    this.filterCodes();
 
-    this.model.onChange('data', async () => {
+    this.model.onChange("data", async () => {
       this.saveResult();
       this.shouldGoNext(true);
       this.triggerClassname(true);
 
-      if (this.model.isAuto && this.model.fileIndex < FILES.length) {
+      if (this.model.isAuto && this.model.fileIndex < this.files.length) {
         await timeout(DELAY_BEFORE_NEXT);
         this.buttons.scan.click();
       }
     });
 
-    this.model.onChange('results', async () => {
+    this.model.onChange("results", async () => {
       if (this.saveFrame) {
         this.screenshot.hidden = false;
         this.screenshot.src = this.model.results.frame;
       }
     });
 
-    this.model.onChange('fileIndex', () => {
+    this.model.onChange("fileIndex", () => {
       this.model.input.value = `${this.model.fileIndex}`;
     });
 
-    this.onTagEvent('manual', 'click', () => {
+    for (let format of Object.keys(this.model.ignoreFormats)) {
+      this.model.onChange(`ignoreFormats.${format}`, this.filterCodes);
+    }
+
+    this.onTagEvent("manual", "click", () => {
       this.model.isAuto = false;
       this.input.disabled = false;
       this.buttons.scan.disabled = false;
@@ -64,7 +76,7 @@ export default class ScannerController extends Controller {
       this.buttons.manual.disabled = true;
     });
 
-    this.onTagEvent('auto', 'click', async () => {
+    this.onTagEvent("auto", "click", async () => {
       this.buttons.manual.disabled = true;
       this.buttons.auto.disabled = true;
 
@@ -76,7 +88,7 @@ export default class ScannerController extends Controller {
       this.buttons.scan.click();
     });
 
-    this.onTagEvent('scan', 'click', async () => {
+    this.onTagEvent("scan", "click", async () => {
       // create a new psk-barcode-scanner element
       this.createScanner();
       this.shouldGoNext(false);
@@ -86,8 +98,8 @@ export default class ScannerController extends Controller {
 
       // store current test code
       const fileIndex = this.model.fileIndex;
-      const fileName = FILES[fileIndex];
-      const shouldStop = fileIndex >= FILES.length - 1;
+      const fileName = this.files[fileIndex];
+      const shouldStop = fileIndex >= this.files.length - 1;
       let shouldDownload = false;
 
       if (shouldStop) {
@@ -98,14 +110,17 @@ export default class ScannerController extends Controller {
       await timeout(MAX_DURATION_FOR_A_PICTURE);
 
       // if there is no code saved, scanning produced has already failed
-      if (!this.model.scannedData[fileName] || this.model.scannedData[fileName] === 'NO DATA') {
+      if (
+        !this.model.scannedData[fileName] ||
+        this.model.scannedData[fileName] === "NO DATA"
+      ) {
         this.shouldGoNext(true);
         this.triggerClassname(false);
-        this.model.scannedData[fileName] = 'NO DATA';
+        this.model.scannedData[fileName] = "NO DATA";
 
         // if failed, go to the following test
         // otherwise see the code from on "data"
-        if (this.model.isAuto && fileIndex < FILES.length) {
+        if (this.model.isAuto && fileIndex < this.files.length) {
           await timeout(DELAY_BEFORE_NEXT);
           this.buttons.scan.click();
         }
@@ -125,30 +140,33 @@ export default class ScannerController extends Controller {
       }
     });
 
-    this.onTagEvent('mode', 'click', async () => {
+    this.onTagEvent("mode", "click", async () => {
       await this.showOptionsModal();
-    })
+    });
   }
 
   createScanner = () => {
     this.triggerClassname();
     this.removeScanner();
 
-    this.scanner = this.createElement('psk-barcode-scanner');
-    this.scanner.setAttribute('data', '@data');
-    this.scanner.setAttribute('results', '@results');
-    this.scanner.setAttribute('dev-disable-some-slots', '');
-    this.scanner.setAttribute('dev-activate-internal-canvases', '');
+    this.scanner = this.createElement("psk-barcode-scanner");
+    this.scanner.setAttribute("data", "@data");
+    this.scanner.setAttribute("results", "@results");
+    this.scanner.setAttribute("dev-disable-some-slots", "");
+    this.scanner.setAttribute("dev-activate-internal-canvases", "");
     this.scanner.noLogs = !this.logs;
     this.scanner.useFrames = this.useFrames;
     this.scanner.snapVideo = this.snapVideo;
     this.scanner.stopInternalCropping = this.model.stopInternalCropping;
 
     if (this.saveFrame) {
-      const active = this.createElement('div', { slot: 'active' });
-      const done = this.createElement('div', { slot: 'done' });
+      const active = this.createElement("div", { slot: "active" });
+      const done = this.createElement("div", { slot: "done" });
       this.scanner.append(active, done);
-      this.screenshot = this.createElement('img', { alt: 'saved-frame', hidden: true });
+      this.screenshot = this.createElement("img", {
+        alt: "saved-frame",
+        hidden: true,
+      });
     }
 
     this.element.append(this.scanner);
@@ -172,7 +190,10 @@ export default class ScannerController extends Controller {
     if (goNext) {
       this.buttons.scan.disabled = false;
       this.input.disabled = false;
-      this.model.fileIndex = this.model.fileIndex < FILES.length - 1 ? this.model.fileIndex + 1 : 0;
+      this.model.fileIndex =
+        this.model.fileIndex < this.files.length - 1
+          ? this.model.fileIndex + 1
+          : 0;
       return;
     }
 
@@ -181,17 +202,15 @@ export default class ScannerController extends Controller {
   };
 
   setControls = () => {
-    this.element.value = FILES;
-
     this.buttons = {
-      auto: this.getElementByTag('auto'),
-      manual: this.getElementByTag('manual'),
-      scan: this.getElementByTag('scan')
+      auto: this.getElementByTag("auto"),
+      manual: this.getElementByTag("manual"),
+      scan: this.getElementByTag("scan"),
     };
     this.buttons.manual.disabled = true;
 
-    this.input = this.querySelector('.buttons-container input');
-    this.input.addEventListener('input', (e) => {
+    this.input = this.querySelector(".buttons-container input");
+    this.input.addEventListener("input", (e) => {
       this.model.fileIndex = Number.parseInt(e.target.value);
     });
   };
@@ -210,14 +229,14 @@ export default class ScannerController extends Controller {
       return;
     }
 
-    let frame = FILES[this.model.fileIndex];
-    if (frame.startsWith('http')) {
-      console.log(frame);
+    let frame = this.files[this.model.fileIndex];
+    if (frame.startsWith("http")) {
       await this.scanner.setFrame(frame);
       return;
     }
 
-    frame = [PATH, frame].join('/');
+    frame = [PATH, frame].join("/");
+
     await this.scanner.setFrame(frame);
   };
 
@@ -245,42 +264,42 @@ export default class ScannerController extends Controller {
       // stencil router does not have a removeListener for history
     };
 
-    this.model.onChange('data', clearFrameInterval);
+    this.model.onChange("data", clearFrameInterval);
     this.history.listen(clearFrameInterval);
   };
 
   downloadJSON = (data) => {
     const json =
-      'data:text/json;charset=utf-8,' +
+      "data:text/json;charset=utf-8," +
       encodeURIComponent(JSON.stringify(data, null, 2));
-    const anchor = document.createElement('a');
-    anchor.setAttribute('href', json);
-    anchor.setAttribute('download', 'psk-barcode-scanner.results.json');
+    const anchor = document.createElement("a");
+    anchor.setAttribute("href", json);
+    anchor.setAttribute("download", "psk-barcode-scanner.results.json");
     anchor.click();
   };
 
   triggerClassname = (isSuccessful) => {
     if (isSuccessful === true) {
-      this.element.classList.add('success');
-      this.element.classList.remove('fail');
+      this.element.classList.add("success");
+      this.element.classList.remove("fail");
       return;
     }
 
     if (isSuccessful === false) {
-      this.element.classList.remove('success');
-      this.element.classList.add('fail');
+      this.element.classList.remove("success");
+      this.element.classList.add("fail");
       return;
     }
 
-    this.element.classList.remove('success');
-    this.element.classList.remove('fail');
+    this.element.classList.remove("success");
+    this.element.classList.remove("fail");
   };
 
   injectPercentage = (data) => {
     let positiveLength = 0;
     const totalLength = Object.keys(data).length;
     for (const key of Object.keys(data)) {
-      if (this.model.scannedData[key] !== 'NO DATA') {
+      if (this.model.scannedData[key] !== "NO DATA") {
         positiveLength++;
       }
     }
@@ -289,20 +308,20 @@ export default class ScannerController extends Controller {
       percentage: `${positiveLength}/${totalLength} (${
         (positiveLength * 100) / totalLength
       }%)`,
-      data: { ...data }
+      data: { ...data },
     };
   };
 
   saveResult = () => {
-    const fileName = FILES[this.model.fileIndex];
+    const fileName = this.files[this.model.fileIndex];
     const { data } = this.model;
 
-    if (this.element.hasAttribute('is-automatic-processing')) {
-      const output = this.getElementByTag('automatic-output');
-      output.innerHTML = '';
+    if (this.element.hasAttribute("is-automatic-processing")) {
+      const output = this.getElementByTag("automatic-output");
+      output.innerHTML = "";
       output.append(JSON.stringify({ fileName, data }, null, 2));
 
-      this.element.setAttribute('is-automatic-processing', 'true');
+      this.element.setAttribute("is-automatic-processing", "true");
     }
 
     if (!this.model.scannedData[fileName]) {
@@ -320,9 +339,39 @@ export default class ScannerController extends Controller {
     await modalElement.componentOnReady();
 
     modalElement.append(optionsElement);
-    const closeButton = modalElement.shadowRoot.querySelector("header > button");
+    const closeButton = modalElement.shadowRoot.querySelector(
+      "header > button"
+    );
     closeButton.onclick = () => modalElement.remove();
 
     await optionsElement.componentOnReady();
+  };
+
+  filterCodes = () => {
+    this.files = FILES;
+
+    if (this.model.ignoreFormats.jpg) {
+      this.files = this.files.filter((file) => {
+        file = file.toLowerCase();
+        return !file.endsWith("jpg") && !file.endsWith("jpeg");
+      });
+    }
+
+    if (this.model.ignoreFormats.png) {
+      this.files = this.files.filter(
+        (file) => !file.toLowerCase().endsWith("png")
+      );
+    }
+
+    if (this.model.ignoreFormats.gif) {
+      this.files = this.files.filter(
+        (file) => !file.toLowerCase().endsWith("gif")
+      );
+    }
+
+    this.model.fileIndex = 0;
+    this.model.input.max = `${this.files.length - 1}`;
+    
+    console.log(`ScannerController, now scanning: ${this.files.length} codes`);
   };
 }
