@@ -301,16 +301,16 @@
     {
       "name": "WebCardinal Main Tests Results",
       "tag": "webcardinal/main-tests-results",
-      "path": "tests/automated/results",
-      "src": "automated-tests/results/reports.html",
+      "path": "./tests/automated/results",
+      "src": "./automated-tests/results/reports.html",
       "loader": "object",
       "indexed": false
     },
     {
       "name": "WebCardinal Main Testing Environment",
-      "path": "tests/automated/main-environment",
       "tag": "webcardinal/main-testing-environment",
-      "src": "automated-tests/tests/environments/1/index.html",
+      "path": "./tests/automated/main-environment",
+      "src": "./automated-tests/tests/environments/1/index.html",
       "loader": "object",
       "indexed": false
     }
