@@ -1,7 +1,4 @@
 {
-  "identity": {
-    "email": " "
-  },
   "pagesFallback": {
     "name": "404",
     "tag": "404"

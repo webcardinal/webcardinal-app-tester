@@ -17,24 +17,16 @@
 
                 <ol>
                     <li>
-                        <del>
-                            Initially, the repository
-                            <webc-link href="https://github.com/webcardinal/webcardinal-tests">webcardinal-tests</webc-link>
-                            is cloned inside <code>.dev/webcardinal-tests</code>.
-                        </del>
+                        Initially, tests are moved from <code>/pages/automated-tests</code> to development root of the <a target="_blank" href="https://github.com/webcardinal/webcardinal-core">webcardinal-core</a>
+                        component library, in <code>/src/test</code> directory.
                     </li>
                     <li>
-                        <del>
-                            Then by <strong>octopus</strong> runner, tests are moved in the development root of the
-                            component library, in <code>test</code> directory.
-                            <br>
-                            (e.g <code>.dev/webcardinal/.webcardinal/components/webcardinal-core/test</code>).
-                        </del>
+                        Tests are run using the Stencil E2E mechanism, where <a href="https://jestjs.io" target="_blank">jest</a> and <a
+                            href="https://pptr.dev/" target="_blank">puppeteer</a> are
+                        installed (automatically by <a href="https://github.com/PrivateSky/octopus" target="_blank">octopus</a> task-runner).
                     </li>
                     <li>
-                        At that location <a href="https://www.npmjs.com/package/jest" target="_blank">jest</a> and <a
-                            href="https://www.npmjs.com/package/puppeteer" target="_blank">puppeteer</a> will be
-                        installed (automatically by <a href="https://github.com/PrivateSky/octopus" target="_blank">octopus</a>).
+                        After running all the tests, a report is generated and saved.
                     </li>
                 </ol>
 
@@ -50,17 +42,9 @@
                     <strong>pages</strong>, <strong>templates</strong>, <strong>controllers</strong>, etc and it should supply auxiliary
                     <strong>methods</strong> and <strong>helpers</strong>.<br>
                 </p>
-            </article>
-        </section>
 
-        <section>
-            <article>
-                <h3>How to run current tests</h3>
-                <span>From the root of this application run the following command:</span>
-                <psk-code language="bash">
-                    npm run test
-                    # npm t
-                </psk-code>
+                <p>More precise, all the test listed below are rolled in an application, called <strong>Automated Environment</strong> (<a
+                        href="https://github.com/webcardinal/webcardinal-app-tester/tree/master/pages/automated-tests/tests/environments/1" target="_blank">source code</a>).</p>
             </article>
         </section>
 
@@ -86,6 +70,26 @@
                         Dev Server ⚡</em>) .
                     </li>
                 </ul>
+            </article>
+        </section>
+
+        <section>
+            <article>
+                <h3>How to run current tests</h3>
+                <span>From the root of this application run the following command:</span>
+                <psk-code language="bash">
+                    npm test
+                </psk-code>
+            </article>
+
+            <br>
+
+            <article>
+                <h6>Useful flags for <code>test</code> command from <code>octopus.json</code></h6>
+                <psk-code language="bash">
+                    --devtools # open Chromium Dev Tools
+                    --screenshot # for Screenshot visual diff testing
+                </psk-code>
             </article>
         </section>
 

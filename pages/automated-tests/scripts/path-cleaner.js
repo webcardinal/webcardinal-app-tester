@@ -9,7 +9,6 @@ function filterPaths(document, reportsJSON) {
 
     reportsJSON.testResults = reportsJSON.testResults.map(testResult => {
         const index = testResult.testFilePath.indexOf(keyword);
-        console.log(index);
         if (index < 0) {
             return;
         }
@@ -17,8 +16,6 @@ function filterPaths(document, reportsJSON) {
         testResult.testFilePath = testResult.testFilePath.slice(index + keyword.length);
         return testResult;
     });
-
-    console.log(reportsJSON.testResults);
 
     let rawTestResults = JSON.stringify(reportsJSON, null, 2);
     rawTestResults = rawTestResults.replace(/"/g, '&quot;');

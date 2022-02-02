@@ -1,5 +1,4 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css");
-
+@import 'css/parts/miligram.css';
 @import 'css/parts/variables.css';
 @import 'css/parts/classes.css';
 @import 'css/parts/page.css';
@@ -16,7 +15,7 @@ body {
 }
 
 webc-app-identity {
-    --name-font-size: 2.5rem;
+    --name-font-size: 2.85rem;
 }
 
 webc-app-identity::part(email) {

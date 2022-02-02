@@ -73,6 +73,7 @@ addHook("beforePageLoads", "404", async () => {
 
 // Testing setSkin
 addHook("beforePageLoads", "translations-test-2", () => {
+
   setSkin("ro");
 });
 
