@@ -1,3 +1,10 @@
+<div data-if="@gs1FieldsJSON">
+    <div slot="true">
+        <h4>Fields</h4>
+        <psk-code language="JSON">{{ @gs1FieldsJSON }}</psk-code>
+    </div>
+</div>
+
 <h4>Data</h4>
 <psk-code>{{ @data }}</psk-code>
 
