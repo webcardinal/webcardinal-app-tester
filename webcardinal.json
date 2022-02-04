@@ -231,6 +231,12 @@
           "name": "psk-barcode-scanner",
           "children": [
             {
+              "name": "Component",
+              "src": "./final/index.html",
+              "path": "./",
+              "tag": "psk-barcode-scanner"
+            },
+            {
               "name": "ZXing Video",
               "src": "zxing-video.html",
               "loader": "object"
@@ -247,7 +253,8 @@
             {
               "name": "Frame user",
               "src": "./test-1/index.html",
-              "path": "./test-1"
+              "path": "./test-1",
+              "indexed": false
             },
             {
               "name": "Frame creator",
