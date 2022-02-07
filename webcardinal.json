@@ -251,7 +251,7 @@
               "src": "bwip-generator/index.html"
             },
             {
-              "name": "Frame user",
+              "name": "Frame viewer",
               "src": "./test-1/index.html",
               "path": "./test-1",
               "indexed": false

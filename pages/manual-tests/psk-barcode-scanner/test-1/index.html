@@ -21,25 +21,5 @@
 <!-- frames user -->
 <webc-container controller="../../pages/manual-tests/psk-barcode-scanner/test-1/BarcodeController"
                 class="barcode-scanner--container">
-  <psk-barcode-scanner data="@data"></psk-barcode-scanner>
+  <psk-barcode-scanner data="@data" use-frames dev-activate-internal-canvases></psk-barcode-scanner>
 </webc-container>
-
-
-
-<!--someArry:{-->
-<!--[-->
-<!--{name:"Nume1", age:8},-->
-<!--{name:"Nume2"},-->
-<!--{name:"Nume3, age:9}-->
-<!--]-->
-<!--}-->
-
-<!--<div data-for="someArray">-->
-<!--  <div data-if="@age">-->
-<!--    <span slot="true">{{@age}}</span>-->
-<!--    <span slot="false">Nu este varsa disponibila</span>-->
-<!--    <div slot="empty"></div> &#45;&#45; null, [],-->
-<!--    <div slot="defined"></div> &#45;&#45; NaN-->
-<!--    <div slot="undefined"></div> || <div slot="loading"></div>-->
-<!--  </div>-->
-<!--</div>-->

@@ -10,28 +10,34 @@ export default class _ extends Controller {
 
         this.onTagClick('store-frames', async () => {
             const videoElement = this.querySelector('video');
-            const frames = await this.recordFrames(videoElement);
+            const frames = await this.recordFrames(videoElement, 20, 10);
             this.downloadJSON(frames, 'frames.json');
         });
     }
 
     async recordFrames(
         videoElement,
-        frameRate = 1,
         duration = videoElement.duration,
-        frames = []
+        frameRate = 1,
+        frames = [],
+        shouldStartPlaying = true
     ) {
         if (duration <= 0) {
+            videoElement.pause();
             return frames;
         }
 
-        if (duration === videoElement.duration) {
+        if (shouldStartPlaying) {
+            frameRate = 1 / frameRate;
             videoElement.play();
+            shouldStartPlaying = false;
         }
 
         frames.push(this.getFrame(videoElement));
+
         await timeout(frameRate * 1000);
-        return await this.recordFrames(videoElement, frameRate, duration - frameRate, frames);
+
+        return await this.recordFrames(videoElement, duration - frameRate, frameRate, frames, shouldStartPlaying);
     }
 
     getFrame(videoElement, quality = 0.5) {
