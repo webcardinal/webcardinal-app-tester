@@ -1,3 +1,5 @@
+import interpretScan from './interpret.js'
+
 const { Controller } = WebCardinal.controllers;
 
 export default class ScannerController extends Controller {
@@ -14,6 +16,8 @@ export default class ScannerController extends Controller {
       devLogs: {},
       frames: {},
       metadata: "{}",
+      useWebWorker: true,
+      gs1FieldsJSON: "",
       mode: "Options",
       downloadOnSuccess: false,
     };
@@ -82,6 +86,8 @@ export default class ScannerController extends Controller {
     this.model.onChange("devLogs", async () => {
       console.log("[ScannerController] logs", this.model.devLogs);
 
+      this.parseGS1Code(this.model.devLogs.text);
+
       const metadata = JSON.parse(JSON.stringify(this.model.devLogs));
       delete metadata.frame;
       this.model.frames = metadata.frames;
@@ -107,6 +113,7 @@ export default class ScannerController extends Controller {
     this.scanner.setAttribute("dev-disable-some-slots", "");
     this.scanner.setAttribute("dev-activate-internal-canvases", "");
     this.scanner.snapVideo = this.snapVideo;
+    this.scanner.useWebWorker = this.model.useWebWorker;
     this.element.append(this.scanner);
   };
 
@@ -161,4 +168,36 @@ export default class ScannerController extends Controller {
     anchor.setAttribute("download", `${name}.json`);
     anchor.click();
   };
+
+  parseGS1Code(scannedBarcode) {
+    let gs1FormatFields;
+
+    try {
+      gs1FormatFields = interpretScan(scannedBarcode);
+    } catch (e) {
+      this.parseGS1Fields(e.dlOrderedAIlist);
+      return;
+    }
+
+    return this.parseGS1Fields(gs1FormatFields.ol);
+  }
+
+  parseGS1Fields(orderedList) {
+    const gs1Fields = {};
+    const fieldsConfig = {
+      "GTIN": "gtin",
+      "BATCH/LOT": "batchNumber",
+      "SERIAL": "serialNumber",
+      "USE BY OR EXPIRY": "expiry"
+    };
+
+    orderedList.map(el => {
+      let fieldName = fieldsConfig[el.label];
+      gs1Fields[fieldName] = el.value;
+    })
+
+    this.model.gs1FieldsJSON = JSON.stringify(gs1Fields, null, 2)
+
+    return gs1Fields;
+  }
 }
