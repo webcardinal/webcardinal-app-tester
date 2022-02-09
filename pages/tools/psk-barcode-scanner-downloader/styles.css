@@ -119,3 +119,8 @@ scanner-modal .option.bottom > button {
 scanner-modal psk-code pre {
     max-height: 50vh;
 }
+
+scanner-downloader-options {
+    display: grid;
+    gap: 0.5em;
+}

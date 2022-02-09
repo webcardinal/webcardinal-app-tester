@@ -26,7 +26,8 @@ export default class ScannerController extends Controller {
       fileIndex: 0,
       scannedData: {},
       isAuto: false,
-      stopInternalCropping: true,
+      useInternalCropping: false,
+      useWebWorker: true,
       ignoreFormats: {
         jpg: true,
         png: false,
@@ -157,7 +158,8 @@ export default class ScannerController extends Controller {
     this.scanner.noLogs = !this.logs;
     this.scanner.useFrames = this.useFrames;
     this.scanner.snapVideo = this.snapVideo;
-    this.scanner.stopInternalCropping = this.model.stopInternalCropping;
+    this.scanner.stopInternalCropping = !this.model.useInternalCropping;
+    this.scanner.useWebWorker = this.model.useWebWorker;
 
     if (this.saveFrame) {
       const active = this.createElement("div", { slot: "active" });

@@ -1,4 +1,4 @@
-import interpretScan from './interpret.js'
+import interpretScan from "./interpret.js";
 
 const { Controller } = WebCardinal.controllers;
 
@@ -8,7 +8,6 @@ export default class ScannerController extends Controller {
 
     console.log("[ScannerController] Downloader");
 
-    // psk-barcode-scanner options
     this.snapVideo = true;
 
     this.model = {
@@ -42,22 +41,20 @@ export default class ScannerController extends Controller {
         ":scope > canvas"
       );
       const now = new Date();
-      const prefix = now.toISOString()
-          .split(".")[0]
-          .split('T').join('.')
+      const prefix = now.toISOString().split(".")[0].split("T").join(".");
 
       if (this.model.frames && this.model.frames.png && this.model.frames.jpg) {
         const name = ["code", prefix, "result"].join(".");
         const { jpg, png } = this.model.frames;
-        this.downloadImage(jpg, name, 'jpg');
-        this.downloadImage(png, name, 'png');
+        this.downloadImage(jpg, name, "jpg");
+        this.downloadImage(png, name, "png");
       } else {
         for (const canvas of canvases) {
           const jpg = canvas.toDataURL("image/jpeg");
           const png = canvas.toDataURL("image/png");
           const name = ["code", prefix, `${canvas.id}`].join(".");
-          this.downloadImage(jpg, name, 'jpg');
-          this.downloadImage(png, name, 'png');
+          this.downloadImage(jpg, name, "jpg");
+          this.downloadImage(png, name, "png");
         }
       }
 
@@ -98,6 +95,11 @@ export default class ScannerController extends Controller {
 
       await this.showScannedDataModal();
     });
+
+    this.model.onChange("useWebWorker", async () => {
+      console.log("[ScannerController] useWebWorker", this.model.useWebWorker);
+      this.createScanner();
+    });
   }
 
   createScanner = () => {
@@ -133,13 +135,17 @@ export default class ScannerController extends Controller {
     await modalElement.componentOnReady();
 
     modalElement.append(optionsElement);
-    const closeButton = modalElement.shadowRoot.querySelector("header > button");
+    const closeButton = modalElement.shadowRoot.querySelector(
+      "header > button"
+    );
     closeButton.onclick = () => modalElement.remove();
 
     await optionsElement.componentOnReady();
 
-    const cameraButton = optionsElement.querySelector('[data-tag="change-camera"]');
-    cameraButton.onclick = async () => await this.scanner.switchCamera()
+    const cameraButton = optionsElement.querySelector(
+      '[data-tag="change-camera"]'
+    );
+    cameraButton.onclick = async () => await this.scanner.switchCamera();
   };
 
   showScannedDataModal = async () => {
@@ -152,7 +158,7 @@ export default class ScannerController extends Controller {
     button.onclick = () => modalElement.remove();
   };
 
-  downloadImage = (data, name, format = 'png') => {
+  downloadImage = (data, name, format = "png") => {
     const anchor = document.createElement("a");
     anchor.setAttribute("href", data);
     anchor.setAttribute("download", `${name}.${format}`);
@@ -168,6 +174,9 @@ export default class ScannerController extends Controller {
     anchor.setAttribute("download", `${name}.json`);
     anchor.click();
   };
+
+  // dev-ref:
+  // https://github.com/PharmaLedger-IMI/leaflet-ssapp/blob/master/code/scripts/controllers/ScanController.js
 
   parseGS1Code(scannedBarcode) {
     let gs1FormatFields;
@@ -185,18 +194,18 @@ export default class ScannerController extends Controller {
   parseGS1Fields(orderedList) {
     const gs1Fields = {};
     const fieldsConfig = {
-      "GTIN": "gtin",
+      GTIN: "gtin",
       "BATCH/LOT": "batchNumber",
-      "SERIAL": "serialNumber",
-      "USE BY OR EXPIRY": "expiry"
+      SERIAL: "serialNumber",
+      "USE BY OR EXPIRY": "expiry",
     };
 
-    orderedList.map(el => {
+    orderedList.map((el) => {
       let fieldName = fieldsConfig[el.label];
       gs1Fields[fieldName] = el.value;
-    })
+    });
 
-    this.model.gs1FieldsJSON = JSON.stringify(gs1Fields, null, 2)
+    this.model.gs1FieldsJSON = JSON.stringify(gs1Fields, null, 2);
 
     return gs1Fields;
   }
