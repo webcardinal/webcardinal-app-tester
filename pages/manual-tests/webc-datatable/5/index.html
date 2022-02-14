@@ -54,6 +54,10 @@
                 <div>
                     Label: "<span>{{ @test.label }}</span>" --- Value: "<span>{{ @test.value }}</span>" ⇜ <input type="text" value="@test.label"> --- <input type="@test.type" value="@test.value">
                 </div>
+
+                <!-- TODO -->
+                <!-- ref: check bindings here -->
+                <!-- remove webcat-card component -->
                 <test-input-with-dashes value="@test.value" label="@test.label"></test-input-with-dashes>
                 <test-input-with-dashes data-view-model="@test"></test-input-with-dashes>
             </section>
