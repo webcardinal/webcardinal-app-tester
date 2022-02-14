@@ -46,14 +46,14 @@ export default class ScannerController extends Controller {
       if (this.model.frames && this.model.frames.png && this.model.frames.jpg) {
         const name = ["code", prefix, "result"].join(".");
         const { jpg, png } = this.model.frames;
-        this.downloadImage(jpg, name, "jpg");
+        // this.downloadImage(jpg, name, "jpg");
         this.downloadImage(png, name, "png");
       } else {
         for (const canvas of canvases) {
-          const jpg = canvas.toDataURL("image/jpeg");
+          // const jpg = canvas.toDataURL("image/jpeg");
           const png = canvas.toDataURL("image/png");
           const name = ["code", prefix, `${canvas.id}`].join(".");
-          this.downloadImage(jpg, name, "jpg");
+          // this.downloadImage(jpg, name, "jpg");
           this.downloadImage(png, name, "png");
         }
       }
