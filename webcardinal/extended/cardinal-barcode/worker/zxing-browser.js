@@ -3835,14 +3835,14 @@
           return __awaiter(this, void 0, void 0, function () {
               return __generator(this, function (_a) {
                   switch (_a.label) {
-                      case 0: 
+                      case 0:
                       // plays the video
                       return [4 /*yield*/, this.playVideoOnLoadAsync(videoElement)];
                       case 1:
                           // plays the video
                           _a.sent();
                           return [4 /*yield*/, this.decodeOnce(videoElement)];
-                      case 2: 
+                      case 2:
                       // starts decoding after played the video
                       return [2 /*return*/, _a.sent()];
                   }
@@ -3853,7 +3853,7 @@
           return __awaiter(this, void 0, void 0, function () {
               return __generator(this, function (_a) {
                   switch (_a.label) {
-                      case 0: 
+                      case 0:
                       // plays the video
                       return [4 /*yield*/, this.playVideoOnLoadAsync(videoElement)];
                       case 1:
@@ -8323,7 +8323,7 @@
       }
       // See ITFWriter.PATTERNS
       /*
-    
+
       /!**
        * Patterns of Wide / Narrow lines to indicate each digit
        *!/
@@ -17907,13 +17907,13 @@
        * width of each, measuring along the axis between their centers.</p>
        */
       Detector.prototype.calculateModuleSizeOneWay = function (pattern, otherPattern) {
-          var moduleSizeEst1 = this.sizeOfBlackWhiteBlackRunBothWays(/*(int) */ Math.floor(pattern.getX()), 
-          /*(int) */ Math.floor(pattern.getY()), 
-          /*(int) */ Math.floor(otherPattern.getX()), 
+          var moduleSizeEst1 = this.sizeOfBlackWhiteBlackRunBothWays(/*(int) */ Math.floor(pattern.getX()),
+          /*(int) */ Math.floor(pattern.getY()),
+          /*(int) */ Math.floor(otherPattern.getX()),
           /*(int) */ Math.floor(otherPattern.getY()));
-          var moduleSizeEst2 = this.sizeOfBlackWhiteBlackRunBothWays(/*(int) */ Math.floor(otherPattern.getX()), 
-          /*(int) */ Math.floor(otherPattern.getY()), 
-          /*(int) */ Math.floor(pattern.getX()), 
+          var moduleSizeEst2 = this.sizeOfBlackWhiteBlackRunBothWays(/*(int) */ Math.floor(otherPattern.getX()),
+          /*(int) */ Math.floor(otherPattern.getY()),
+          /*(int) */ Math.floor(pattern.getX()),
           /*(int) */ Math.floor(pattern.getY()));
           if (isNaN(moduleSizeEst1)) {
               return moduleSizeEst2 / 7.0;
@@ -19288,13 +19288,13 @@
         if (other.isZero()) {
           throw new IllegalArgumentException("Divide by 0");
         }
-    
+
         let quotient: ModulusPoly = field.getZero();
         let remainder: ModulusPoly = this;
-    
+
         let denominatorLeadingTerm: /*int/ number = other.getCoefficient(other.getDegree());
         let inverseDenominatorLeadingTerm: /*int/ number = field.inverse(denominatorLeadingTerm);
-    
+
         while (remainder.getDegree() >= other.getDegree() && !remainder.isZero()) {
           let degreeDifference: /*int/ number = remainder.getDegree() - other.getDegree();
           let scale: /*int/ number = field.multiply(remainder.getCoefficient(remainder.getDegree()), inverseDenominatorLeadingTerm);
@@ -19303,7 +19303,7 @@
           quotient = quotient.add(iterationQuotient);
           remainder = remainder.subtract(term);
         }
-    
+
         return new ModulusPoly[] { quotient, remainder };
       }
       */

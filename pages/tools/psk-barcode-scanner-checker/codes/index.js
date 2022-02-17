@@ -1,4 +1,8 @@
 export default [
+  "submitted/Redmi/grade_c_2.png",
+  "submitted/Redmi/grade_c_2.jpeg",
+  "submitted/Realme/grade_c_2.png",
+  "submitted/Realme/grade_d_1.png",
   "stress-codes-v2/code.2022-01-27.12_51_18.result.jpg",
   "stress-codes-v2/code.2022-01-27.12_51_18.result.png",
   "stress-codes-v2/code.2022-01-27.12_52_07.result.jpg",
