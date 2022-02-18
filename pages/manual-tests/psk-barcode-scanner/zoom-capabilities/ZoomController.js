@@ -165,6 +165,17 @@ class ZoomController extends Controller {
       }
     }
 
+    const capabilities = device.getCapabilities();
+
+    await device.applyConstraints({
+      width: capabilities.width.max,
+      height: capabilities.height.max,
+      advanced: [{
+        width: capabilities.width.max,
+        height: capabilities.height.max,
+      }]
+    });
+
     return [stream, device];
   };
 
