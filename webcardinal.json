@@ -260,6 +260,11 @@
               "name": "Frame creator",
               "src": "./test-2/index.html",
               "path": "./test-2"
+            },
+            {
+              "name": "Camera Inspector",
+              "src": "./zoom-capabilities/index.html",
+              "path": "./camera-inspector"
             }
           ]
         }
