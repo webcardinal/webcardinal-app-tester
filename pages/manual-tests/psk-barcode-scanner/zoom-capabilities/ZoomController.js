@@ -40,15 +40,21 @@ class ZoomController extends Controller {
     }
 
     try {
+      this.attachContainerCheckbox();
+    } catch (error) {
+      console.log("ZoomController [container options]", error);
+    }
+
+    try {
       this.attachVideoSelect(devices);
     } catch (error) {
       console.log("ZoomController [video select]", error);
     }
 
     try {
-      this.attachZoomInput(stream, track)
+      this.attachVideoControls(track)
     } catch (error) {
-      console.log("ZoomController [video zoom]", error);
+      console.log("ZoomController [video controls]", error);
     }
 
     try {
@@ -67,7 +73,9 @@ class ZoomController extends Controller {
     try {
       await this.attachMetadata(
         "media-internals",
-        `Don't forget to check: "chrome://media-internals"`
+        [`Don't forget to check: "chrome://media-internals"`,
+
+          'Or use the following flag: --use-fake-device-for-media-stream, for Chromium base browsers'].join('\n')
       );
     } catch (error) {
       console.log("ZoomController [media-internals metadata]", error);
@@ -249,36 +257,104 @@ class ZoomController extends Controller {
   /**
    * @param track {MediaStreamTrack}
    */
-  attachZoomInput = (stream, track) => {
+  attachVideoControls = (track) => {
+    this.removeRef('zoom-pan-tilt');
+
     const settings = track.getSettings();
-
-    if (!("zoom" in settings)) {
-      throw Error(`Zoom is not supported by ${track.label}!`);
-    }
-
-    this.removeRef("pan-tilt-zoom");
-
     const capabilities = track.getCapabilities();
 
-    const zoomInputRange = this.createElement("input", {
-      type: "range",
-      min: capabilities.zoom.min,
-      max: capabilities.zoom.max,
-      step: capabilities.zoom.step,
-      value: settings.zoom,
-    });
-    zoomInputRange.oninput = async (e) => {
-      try {
-        await track.applyConstraints({ advanced: [{ zoom: e.target.value }] });
-      } catch (error) {
-        console.error("ZoomController [zoom constrains]", error);
-      }
-    };
+    const advancedControls = this.createElement('div', {
+      className: 'zoom-pan-tilt--container'
+    })
 
-    this.element.append(zoomInputRange);
+    if ("zoom" in settings) {
+      const zoomText = this.createElement('span', { innerText: 'Zoom' })
+      const zoomInputRange = this.createElement("input", {
+        type: "range",
+        min: capabilities.zoom.min,
+        max: capabilities.zoom.max,
+        step: capabilities.zoom.step,
+        value: settings.zoom,
+      });
+      zoomInputRange.oninput = async (e) => {
+        try {
+          await track.applyConstraints({ advanced: [{ zoom: e.target.value }] });
+        } catch (error) {
+          console.error("ZoomController [zoom constrains]", error);
+        }
+      };
+      advancedControls.append(zoomText, zoomInputRange);
+    }
 
-    this.addRef("pan-tilt-zoom", zoomInputRange);
+    if ("pan" in settings) {
+      const panText = this.createElement('span', { innerText: 'Pan' })
+      const panInputRange = this.createElement("input", {
+        type: "range",
+        min: capabilities.pan.min,
+        max: capabilities.pan.max,
+        step: capabilities.pan.step,
+        value: settings.pan,
+      });
+      panInputRange.oninput = async (e) => {
+        try {
+          await track.applyConstraints({ advanced: [{ pan: e.target.value }] });
+        } catch (error) {
+          console.error("ZoomController [pan constrains]", error);
+        }
+      };
+      advancedControls.append(panText, panInputRange);
+    }
+
+    if ("tilt" in settings) {
+      const tiltText = this.createElement('span', { innerText: 'Tilt' })
+      const tiltInputRange = this.createElement("input", {
+        type: "range",
+        min: capabilities.tilt.min,
+        max: capabilities.tilt.max,
+        step: capabilities.tilt.step,
+        value: settings.tilt,
+      });
+      tiltInputRange.oninput = async (e) => {
+        try {
+          await track.applyConstraints({ advanced: [{ tilt: e.target.value }] });
+        } catch (error) {
+          console.error("ZoomController [tilt constrains]", error);
+        }
+      };
+      advancedControls.append(tiltText, tiltInputRange);
+    }
+
+    if (advancedControls.children.length > 0) {
+      this.element.append(advancedControls);
+    }
+
+
+    this.addRef("zoom-pan-tilt", advancedControls);
   };
+
+  attachContainerCheckbox = () => {
+    this.removeRef('container-max-width');
+
+    const container = this.createElement('div', {
+      className: 'max-width--container'
+    })
+
+    container.innerHTML = `
+        <div class="option">
+          <input type="checkbox" ${this.element.classList.contains('max-width') ? 'checked' : ''} id="max-width" name="max-width">
+          <label for="max-width"><code>max-width</code>of container</label>
+        </div>
+      `
+
+    const checkbox = container.querySelector('input[type=checkbox]')
+    checkbox.addEventListener('change', () => {
+      this.element.classList.toggle('max-width');
+    })
+
+    this.element.append(container)
+
+    this.addRef("container-max-width", container);
+  }
 
   addRef = (id, htmlElement) => {
     this.refs[id] = htmlElement;
