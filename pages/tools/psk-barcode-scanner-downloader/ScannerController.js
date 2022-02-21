@@ -19,10 +19,15 @@ export default class ScannerController extends Controller {
       gs1FieldsJSON: "",
       mode: "Options",
       downloadOnSuccess: false,
+      zoomLevel: 1
     };
 
     this.buttons = {
       retry: this.getElementByTag("retry"),
+      zoom: {
+        in: this.getElementByTag("zoom-in"),
+        out: this.getElementByTag("zoom-out")
+      }
     };
 
     this.createScanner();
@@ -69,6 +74,32 @@ export default class ScannerController extends Controller {
       this.createScanner();
     });
 
+    this.onTagClick("zoom-in", async (model, target) => {
+      const level = this.model.zoomLevel + 0.1;
+      this.buttons.zoom.out.disabled = false;
+
+      if (level > 5) {
+        target.disabled = true;
+        return;
+      }
+
+      target.disabled = false;
+      this.model.zoomLevel = level;
+    })
+
+    this.onTagClick("zoom-out", async (model, target) => {
+      const level = this.model.zoomLevel - 0.1;
+      this.buttons.zoom.in.disabled = false;
+
+      if (level < 1) {
+        target.disabled = true;
+        return;
+      }
+
+      target.disabled = false;
+      this.model.zoomLevel = level;
+    })
+
     this.model.onChange("data", async () => {
       console.log("[ScannerController] data", this.model.data);
 
@@ -100,6 +131,11 @@ export default class ScannerController extends Controller {
       console.log("[ScannerController] useWebWorker", this.model.useWebWorker);
       this.createScanner();
     });
+
+    this.model.addExpression("zoomValue", () => {
+      this.scanner.zoomLevel = this.model.zoomLevel;
+      return this.model.zoomLevel.toFixed(1)
+    }, 'zoomLevel')
   }
 
   createScanner = () => {

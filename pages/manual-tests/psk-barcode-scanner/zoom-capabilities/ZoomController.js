@@ -277,7 +277,7 @@ class ZoomController extends Controller {
         step: capabilities.zoom.step,
         value: settings.zoom,
       });
-      zoomInputRange.oninput = async (e) => {
+      zoomInputRange.onchange = async (e) => {
         try {
           await track.applyConstraints({ advanced: [{ zoom: e.target.value }] });
         } catch (error) {
@@ -296,7 +296,7 @@ class ZoomController extends Controller {
         step: capabilities.pan.step,
         value: settings.pan,
       });
-      panInputRange.oninput = async (e) => {
+      panInputRange.onchange = async (e) => {
         try {
           await track.applyConstraints({ advanced: [{ pan: e.target.value }] });
         } catch (error) {
@@ -315,7 +315,7 @@ class ZoomController extends Controller {
         step: capabilities.tilt.step,
         value: settings.tilt,
       });
-      tiltInputRange.oninput = async (e) => {
+      tiltInputRange.onchange = async (e) => {
         try {
           await track.applyConstraints({ advanced: [{ tilt: e.target.value }] });
         } catch (error) {

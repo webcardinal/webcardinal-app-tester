@@ -3,8 +3,13 @@
 <main class="barcode-fullscreen">
   <webc-container controller="../../pages/tools/psk-barcode-scanner-downloader/ScannerController" class="barcode-container">
     <div class="buttons-container modes">
-      <button data-tag="download">Download frame</button>
+      <button data-tag="download">Download</button>
       <button data-tag="mode" class="button-clear">{{ @mode }}</button>
+      <div class="zoom-container">
+        <button class="zoom-button" data-tag="zoom-out" disabled>-</button>
+        <input value="@zoomValue" readonly>
+        <button class="zoom-button" data-tag="zoom-in">+</button>
+      </div>
     </div>
 
     <button data-tag="retry" class="button-retry">Retry</button>

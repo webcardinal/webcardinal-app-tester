@@ -48,12 +48,13 @@
 }
 
 .buttons-container.modes {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
     align-items: center;
     top: unset;
     bottom: 1rem;
-    left: 0.75rem;
-    justify-content: flex-start;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
 }
 
 .buttons-container.modes span {
@@ -72,6 +73,23 @@
     z-index: 1;
     padding: 1.5em;
     font-size: 2em;
+}
+
+.barcode-container .zoom-container {
+    display: flex;
+    gap: 0.25em;
+    justify-content: flex-end;
+}
+
+.barcode-container .zoom-container input {
+    width: 50px;
+    background: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    cursor: default;
+}
+
+.barcode-container .zoom-container button {
+    width: 30px;
 }
 
 scanner-modal {
@@ -124,3 +142,4 @@ scanner-downloader-options {
     display: grid;
     gap: 0.5em;
 }
+
