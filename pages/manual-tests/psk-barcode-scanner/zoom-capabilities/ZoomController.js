@@ -73,9 +73,10 @@ class ZoomController extends Controller {
     try {
       await this.attachMetadata(
         "media-internals",
-        [`Don't forget to check: "chrome://media-internals"`,
-
-          'Or use the following flag: --use-fake-device-for-media-stream, for Chromium base browsers'].join('\n')
+        [
+          `Don't forget to check: "chrome://media-internals"`,
+          'Or use the following flag: --use-fake-device-for-media-stream, for Chromium base browsers'
+        ].join('\n')
       );
     } catch (error) {
       console.log("ZoomController [media-internals metadata]", error);
