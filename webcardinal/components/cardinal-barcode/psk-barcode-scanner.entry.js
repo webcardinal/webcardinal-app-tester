@@ -185,7 +185,7 @@ function waitUntilElementIsVisibleInViewport(element, delay) {
 }
 function waitUntilAnimationFrameIsPossible() {
   return new Promise((resolve) => {
-    window.requestAnimationFrame(resolve);
+    setTimeout(resolve, 30);
   });
 }
 function waitUntilVideoMetadataIsLoaded(video) {
@@ -859,7 +859,8 @@ const PskBarcodeScanner = class {
         const capabilities = track.getCapabilities();
         await track.applyConstraints({
           width: { ideal: capabilities.width.max },
-          height: { ideal: capabilities.height.max }
+          height: { ideal: capabilities.height.max },
+          advanced:[ {zoomMode: "continuos"} ]
         });
         console.log('[1] Stream', stream);
         console.log('[1] Track', track);
