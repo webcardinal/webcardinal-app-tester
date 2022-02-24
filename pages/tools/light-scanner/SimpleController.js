@@ -4,6 +4,9 @@ const WORKER_SCRIPT_PATH = "webcardinal/extended/cardinal-barcode/worker/scan-wo
 export default class SimpleController extends Controller {
 	constructor(...props) {
 		super(...props);
+		this.canvas = this.element.querySelector("#scene");
+		this.context = this.canvas.getContext("2d");
+		this.context.imageSmoothingEnabled = false;
 
 		this.setup();
 	}
@@ -19,11 +22,9 @@ export default class SimpleController extends Controller {
 	scanning = async () => {
 		let result;
 		while(!result){
-			let frame = this.captureFrame();
-			let {width, height} =  this.element.querySelector("#userFeedback").srcObject.getVideoTracks()[0].getConstraints();
-			this.debugFrame(frame);
-
-			//frame = this.grabPhoto();
+			let frame = await this.captureFrame();
+			let {width, height} =  this.getVideoResolution();
+			//this.debugFrame(frame);
 
 			result = await this.decode(frame);
 			//console.log("Decoding finished", result, new Date().getTime());
@@ -31,16 +32,21 @@ export default class SimpleController extends Controller {
 
 		if(result){
 			console.log("Got:", result);
-			alert(`Got your code ${JSON.stringify(result)}`);
+			//alert(`Got your code ${JSON.stringify(result)}`);
 		}else{
 			alert(`Trouble in paradise!`);
 		}
 		this.scanning();
 	}
 
+	getVideoResolution = () => {
+		return this.videoStream.getVideoTracks()[0].getConstraints();
+	}
+
 	getCenterArea = () =>{
-		let size = 400;
-		const points = [(1920-size)/2, (1080-size)/2, size, size];
+		let size = 250;
+		let {width, height} = this.getVideoResolution();
+		const points = [(width-size)/2, (height-size)/2, size, size];
 		return points;
 	}
 
@@ -143,26 +149,27 @@ export default class SimpleController extends Controller {
 			});
 			video.addEventListener("error", reject);
 
+			this.videoStream = stream;
+
+			this.canvas.width = constraints.video.width;
+			this.canvas.height = constraints.video.height;
+
 			video.srcObject = stream;
 		});
 	}
 
-	captureFrame = () =>{
-		let canvas = this.element.querySelector("#scene");
-		let context = canvas.getContext("2d");
+	captureFrame = async () =>{
 
-		let video = this.element.querySelector("#userFeedback");
+		let context = this.context;
 
-		let {width, height} = video.srcObject.getVideoTracks()[0].getConstraints();
+		let {width, height} = this.getVideoResolution();
 
-		canvas.width = width;
-		canvas.height = height;
+
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
-		context.drawImage(video, 0, 0, width, height);
+		context.drawImage(await this.grabFrame(), 0, 0, width, height);
 
 		this.drawCenterArea(context);
 
-		context.imageSmoothingEnabled = false;
 		//let frameAsImageData = context.getImageData(0, 0, width, height);
 		let frameAsImageData = context.getImageData(...this.getCenterArea());
 
@@ -170,33 +177,9 @@ export default class SimpleController extends Controller {
 	}
 
 	grabFrame = () => {
-		let video = this.element.querySelector("#userFeedback");
-
-		const track = video.srcObject.getVideoTracks()[0];
+		const track = this.videoStream.getVideoTracks()[0];
 		const imageCapture = new ImageCapture(track);
 
 		return imageCapture.grabFrame();
-	}
-
-	grabPhoto = () => {
-		let canvas = this.element.querySelector("#scene");
-		let context = canvas.getContext("2d");
-
-		let video = this.element.querySelector("#userFeedback");
-
-		let {width, height} = video.srcObject.getVideoTracks()[0].getConstraints();
-		//let width = video.videoWidth;
-		//let height = video.videoHeight;
-		canvas.width = width;
-		canvas.height = height;
-		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
-		context.filter = 'grayscale(1)';
-		context.drawImage(video, 0, 0, width, height);
-		//this.sharpen(context, width, height,  0.9);
-
-		context.imageSmoothingEnabled = false;
-		let frameAsBase64 = canvas.toDataURL("image/png");
-
-		return frameAsBase64;
 	}
 }
