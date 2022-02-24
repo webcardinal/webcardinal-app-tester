@@ -50,7 +50,9 @@ export default class SimpleController extends Controller {
 		return points;
 	}
 
-	drawCenterArea = (context) => {
+	drawCenterArea = () => {
+		const context = this.context;
+
 		context.lineWidth = 3;
 		const centerAreaPoints = this.getCenterArea();
 		context.strokeRect(...centerAreaPoints);
@@ -115,7 +117,7 @@ export default class SimpleController extends Controller {
 		return promise;
 	}
 
-	drawBlur = (size) => {
+	drawOverlay = (size) => {
 		const { width, height } = this.canvas;
 
 		const x = (width - size) / 2;
@@ -152,6 +154,19 @@ export default class SimpleController extends Controller {
 
 		context.fillStyle = 'rgba(0, 0, 0, 0.5)'
 		context.fill();
+	}
+
+	drawBlur = (frame, size) => {
+		const context = this.context;
+
+		const x = (frame.width - size) / 2;
+		const y = (frame.height - size) / 2;
+
+		context.filter = 'blur(20px)'
+		context.drawImage(frame, 0, 0, frame.width, frame.height);
+
+		context.filter = 'none'
+		context.drawImage(frame, x, y, size, size, x, y, size, size)
 	}
 
 	connectCamera = async () => {
@@ -205,10 +220,18 @@ export default class SimpleController extends Controller {
 
 
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
-		context.drawImage(await this.grabFrame(), 0, 0, width, height);
 
-		this.drawCenterArea(context);
-		this.drawBlur(250);
+		const frame = await this.grabFrame();
+
+		// v1
+		// context.drawImage(frame, 0, 0, width, height);
+		// this.drawCenterArea();
+		// this.drawOverlay(250);
+
+		// v2
+		this.drawBlur(frame, 250);
+		this.drawCenterArea();
+
 		//let frameAsImageData = context.getImageData(0, 0, width, height);
 		let frameAsImageData = context.getImageData(...this.getCenterArea());
 
