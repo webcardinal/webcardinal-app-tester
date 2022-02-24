@@ -51,7 +51,7 @@ export default class SimpleController extends Controller {
 	}
 
 	drawCenterArea = (context) => {
-		context.lineWidth = 10;
+		context.lineWidth = 3;
 		const centerAreaPoints = this.getCenterArea();
 		context.strokeRect(...centerAreaPoints);
 	}
@@ -115,6 +115,45 @@ export default class SimpleController extends Controller {
 		return promise;
 	}
 
+	drawBlur = (size) => {
+		const { width, height } = this.canvas;
+
+		const x = (width - size) / 2;
+		const y = (height - size) / 2;
+
+		const backgroundPoints = [
+			{ x: width, y: 0 },
+			{ x: width, y: height },
+			{ x: 0, y: height },
+			{ x: 0, y: 0 },
+		];
+
+		const holePoints = [
+			{ x, y: y + size },
+			{ x: x + size, y: y + size },
+			{ x: x + size, y },
+			{ x, y }
+		];
+
+		let context = this.context;
+		context.beginPath();
+
+		context.moveTo(backgroundPoints[0].x, backgroundPoints[0].y);
+		for (let i = 0; i < 4; i++) {
+			context.lineTo(backgroundPoints[i].x, backgroundPoints[i].y);
+		}
+
+		context.moveTo(holePoints[0].x, holePoints[0].y);
+		for (let i = 0; i < 4; i++) {
+			context.lineTo(holePoints[i].x, holePoints[i].y);
+		}
+
+		context.closePath();
+
+		context.fillStyle = 'rgba(0, 0, 0, 0.5)'
+		context.fill();
+	}
+
 	connectCamera = async () => {
 		return new Promise(async (resolve, reject)=>{
 			let stream;
@@ -169,7 +208,7 @@ export default class SimpleController extends Controller {
 		context.drawImage(await this.grabFrame(), 0, 0, width, height);
 
 		this.drawCenterArea(context);
-
+		this.drawBlur(250);
 		//let frameAsImageData = context.getImageData(0, 0, width, height);
 		let frameAsImageData = context.getImageData(...this.getCenterArea());
 
