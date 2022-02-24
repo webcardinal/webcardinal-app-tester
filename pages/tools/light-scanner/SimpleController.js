@@ -15,7 +15,7 @@ export default class SimpleController extends Controller {
 		let cameraIsOn = await this.connectCamera();
 
 		if(cameraIsOn){
-			this.scanning();
+			await this.scanning();
 		}
 	}
 
@@ -36,7 +36,7 @@ export default class SimpleController extends Controller {
 		}else{
 			alert(`Trouble in paradise!`);
 		}
-		this.scanning();
+		await this.scanning();
 	}
 
 	getVideoResolution = () => {
