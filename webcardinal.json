@@ -304,6 +304,10 @@
         {
           "name": "Scanner Auto-Checker",
           "src": "./psk-barcode-scanner-checker/index.html"
+        },
+        {
+          "name": "Light Scanner",
+          "src": "./light-scanner/index.html"
         }
       ]
     },

@@ -1,8 +1,8 @@
-importScripts("zxing-browser.js");
+importScripts("zxing.min.js");
+
 importScripts("scan-filters.js");
 
-
-const { BrowserMultiFormatReader, MultiFormatReader, HTMLCanvasElementLuminanceSource, HybridBinarizer, BinaryBitmap, BarcodeFormat, DecodeHintType } = ZXingBrowser;
+const { BrowserMultiFormatReader, MultiFormatReader, HTMLCanvasElementLuminanceSource, BinaryBitmap, BarcodeFormat, DecodeHintType, GlobalHistogramBinarizer, HybridBinarizer} = ZXing;
 
 const hints = new Map();
 const formats = [BarcodeFormat.DATA_MATRIX];
@@ -29,8 +29,10 @@ addEventListener("message", async (e) => {
     };
 
     try {
-        const bitmap = BrowserMultiFormatReader.createBinaryBitmapFromCanvas(canvasMock);
-        const scanner = new BrowserMultiFormatReader(hints, 10);
+        //const bitmap = BrowserMultiFormatReader.createBinaryBitmapFromCanvas(canvasMock);
+        const luminanceSource = new HTMLCanvasElementLuminanceSource(canvasMock, imageData.width, imageData.height);
+        const bitmap = new BinaryBitmap(new HybridBinarizer(luminanceSource));
+        const scanner = new BrowserMultiFormatReader(hints);
         const result = scanner.decodeBitmap(bitmap);
 
         if (!sendImageData) {
@@ -43,7 +45,7 @@ addEventListener("message", async (e) => {
             data: { result },
         });
     } catch (error) {
-        if(error.name === "NotFoundException"){
+        if(error.name === "R"){
             //console.log("failed decoding")
             postMessage({
                 message: "failed decoding",
