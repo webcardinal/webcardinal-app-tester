@@ -1,7 +1,11 @@
 const { Controller } = WebCardinal.controllers;
 
-async function timeout(time) {
-    return new Promise(resolve => setTimeout(() => resolve(), time));
+async function loadFrame(src) {
+    return new Promise((resolve) => {
+        const image = new Image();
+        image.addEventListener("load", () => resolve(image));
+        image.src = src;
+    });
 }
 
 export default class _ extends Controller {
@@ -34,6 +38,11 @@ export default class _ extends Controller {
         let i = 0;
         let increment = true;
 
+        const image = await loadFrame(frames[0]);
+        const { width, height } = image;
+        const canvas = this.createElement('canvas', { width, height })
+        const ctx = canvas.getContext('2d')
+
         const interval = setInterval(async () => {
             if (i === 0) {
                 increment = true;
@@ -41,7 +50,24 @@ export default class _ extends Controller {
             if (i === frames.length - 1) {
                 increment = false;
             }
-            await barcodeScanner.setFrame(frames[i]);
+
+            /** Test base64 **/
+            // await barcodeScanner.setFrame(frames[i]);
+
+            // @Costin
+            // const response = await fetch(frames[i]);
+            // const frameBlob = await response.blob();
+            // const arrayBuffer = await frameBlob.arrayBuffer();
+            // const imageBuffer = new Uint8ClampedArray(arrayBuffer);
+            // const imageData = new ImageData(imageBuffer, width, height);
+            // await barcodeScanner.setFrame(imageData);
+
+            /** Test image data */
+            const image = await loadFrame(frames[i]);
+            ctx.drawImage(image, 0, 0, width, height)
+            const imageData = ctx.getImageData(0, 0, width, height)
+            await barcodeScanner.setFrame(imageData);
+
             increment ? i++ : i--;
         }, 100);
 

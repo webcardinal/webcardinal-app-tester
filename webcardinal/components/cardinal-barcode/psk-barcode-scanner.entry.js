@@ -124,13 +124,10 @@ function drawFrameOnCanvas(source, canvas, options) {
   }
   const context = canvas.getContext("2d");
   context.imageSmoothingEnabled = false;
-  if (options.points && options.points.length === 6) {
+  if (options.points && options.points.length === 8) {
     const [sx, sy, sw, sh, dx, dy, dw, dh] = options.points;
     context.imageSmoothingEnabled = false;
-    // context.drawImage(source, sx, sy, sw, sh, dx, dy, dw, dh);
-    const x = (canvas.width - sw * options.zoomLevel) / 2 + dx;
-    const y = (canvas.height - sw * options.zoomLevel) / 2 + dy;
-    context.drawImage(source, sx, sy, sw, sh, x, y, dw * options.zoomLevel, dh * options.zoomLevel);
+    context.drawImage(source, sx, sy, sw, sh, dx, dy, dw, dh);
     return options.points;
   }
   const inputDimensions = {
@@ -860,7 +857,8 @@ const PskBarcodeScanner = class {
         await track.applyConstraints({
           width: { ideal: capabilities.width.max },
           height: { ideal: capabilities.height.max },
-          advanced:[ {zoomMode: "continuos"} ]
+          // @ts-ignore
+          advanced: [{ focusMode: "continuous" }]
         });
         console.log('[1] Stream', stream);
         console.log('[1] Track', track);
@@ -959,16 +957,27 @@ const PskBarcodeScanner = class {
     return this.activeDeviceId;
   }
   async setFrame(src) {
+    if (!this.host) {
+      return;
+    }
+    // if (this.host || typeof this.host.componentOnReady === 'function') {
+    //     await this.host.componentOnReady();
+    // }
     if (!this.useFrames) {
       console.error("[psk-barcode-scanner] Set useFrames accordingly in order to use setFrame");
       return;
     }
-    if (!this.host || !this.host.shadowRoot) {
-      await this.host.componentOnReady();
+    let image;
+    if (typeof src === 'string') {
+      image = await loadFrame(src);
     }
-    const image = await loadFrame(src);
-    if (!this.frame.canvas) {
+    else {
+      image = await createImageBitmap(src);
+    }
+    if (!this.frame || !this.frame.source) {
       const canvas = this.host.shadowRoot.querySelector("#frame");
+      canvas.width = this.container.offsetWidth;
+      canvas.height = this.container.offsetHeight;
       const points = drawFrameOnCanvas(image, canvas, { stopInternalCropping: this.stopInternalCropping });
       this.frame = new Frame(canvas, points);
       this.frame.source = image;

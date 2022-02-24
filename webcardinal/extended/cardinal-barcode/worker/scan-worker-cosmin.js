@@ -1,15 +1,19 @@
-importScripts("zxing-browser.min.js");
+importScripts("zxing-browser.js");
 importScripts("scan-filters.js");
 
-const hints = new Map();
-hints.set(3, true); // TRY_HARDER
 
-const { BrowserMultiFormatReader } = ZXingBrowser;
-const scanner = new BrowserMultiFormatReader(hints);
+const { BrowserMultiFormatReader, MultiFormatReader, HTMLCanvasElementLuminanceSource, HybridBinarizer, BinaryBitmap, BarcodeFormat, DecodeHintType } = ZXingBrowser;
+
+const hints = new Map();
+const formats = [BarcodeFormat.DATA_MATRIX];
+
+hints.set(2, formats);
+hints.set(3, true);
+
 
 console.log("Scan Worker!");
 
-addEventListener("message", (e) => {
+addEventListener("message", async (e) => {
     const { filterId, sendImageData } = e.data;
     let { imageData } = e.data;
 
@@ -26,6 +30,7 @@ addEventListener("message", (e) => {
 
     try {
         const bitmap = BrowserMultiFormatReader.createBinaryBitmapFromCanvas(canvasMock);
+        const scanner = new BrowserMultiFormatReader(hints, 10);
         const result = scanner.decodeBitmap(bitmap);
 
         if (!sendImageData) {
@@ -38,10 +43,15 @@ addEventListener("message", (e) => {
             data: { result },
         });
     } catch (error) {
-        postMessage({
-            message: "failed decoding",
-            feedback: { filterId, imageData },
-            error: { message: error.message },
-        });
+        if(error.name === "NotFoundException"){
+            //console.log("failed decoding")
+            postMessage({
+                message: "failed decoding",
+                feedback: { filterId, imageData },
+                error: { message: error.message },
+            });
+        }else{
+            console.log(error);
+        }
     }
 });
