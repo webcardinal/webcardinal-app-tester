@@ -14,28 +14,10 @@ export default class SimpleController extends Controller {
 
 	setup = async () => {
 		let cameraIsOn = await this.connectCamera();
-		if(!this.gotFullSupport()){
-			//this method is needed by safari to enable video playback
-			this.requestUserAuthorization();
-		}
 
 		if (cameraIsOn) {
 			await this.scanning();
 		}
-	}
-
-	requestUserAuthorization = () =>{
-		let button = document.createElement("button");
-		button.innerText = "Start scanning";
-		button.style = "position: absolute;\n" +
-			"    top: 50%;\n" +
-			"    left: 50%;\n" +
-			"    transform: translate(-50%, 50%);";
-		button.onclick = ()=>{
-			this.videoTag.play();
-			button.remove();
-		}
-		this.element.append(button);
 	}
 
 	scanning = async () => {
