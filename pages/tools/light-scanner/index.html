@@ -1,23 +1,9 @@
 <webc-container controller="../../pages/tools/light-scanner/SimpleController">
   <style>
-    body webc-app-container{
+    body webc-app-container {
       overflow: hidden;
     }
   </style>
-  <canvas id="scene" style="position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);" ></canvas>
-  <video id="userFeedback"
-         style="width: 100vw;
-                height: 100vh;
-                object-fit: cover;
-                position: fixed;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;"
-         autoplay playsinline hidden>
-  </video>
+  <canvas id="scene" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></canvas>
   <canvas id="debug" width="1920" height="1080" hidden></canvas>
 </webc-container>

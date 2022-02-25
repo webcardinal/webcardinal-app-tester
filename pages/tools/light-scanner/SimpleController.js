@@ -201,11 +201,22 @@ export default class SimpleController extends Controller {
 				return false;
 			}
 
-			let video = this.querySelector("#userFeedback");
+			let video = this.createElement('video', {
+				autoplay: true,
+				playsinline: true,
+				hidden: true
+			});
+			video.style.position = 'fixed';
+			video.style.top = '0px';
+			video.style.bottom = '0px';
+			video.style.left = '0px'
+			video.style.right = '0px'
+
 			video.addEventListener("loadeddata", (...args)=>{
 				console.log(args);
 				resolve(true);
 			});
+
 			video.addEventListener("error", reject);
 
 			this.videoStream = stream;
