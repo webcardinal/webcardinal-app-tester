@@ -87,7 +87,6 @@ export default class SimpleController extends Controller {
 						default:
 							console.log("Caught a strange message");
 							result = payload;
-						//
 					}
 
 					this.worker.removeEventListener("message", waitFor);
@@ -152,22 +151,27 @@ export default class SimpleController extends Controller {
 
 		context.closePath();
 
-		context.fillStyle = 'rgba(0, 0, 0, 0.5)'
+		context.fillStyle = 'rgba(0, 0, 0, 0.3)'
 		context.fill();
 	}
 
 	drawBlur = (frame, size) => {
 		const context = this.context;
-		const { width, height } = this.context.canvas;
+		const { width, height } = this.canvas;
 
 		const x = (width - size) / 2;
 		const y = (height - size) / 2;
 
-		context.filter = 'blur(20px)'
+		context.drawImage(frame, 0, 0, width, height);
+		let image = context.getImageData(x, y, size, size);
+
+		context.filter = 'blur(5px)';
 		context.drawImage(frame, 0, 0, width, height);
 
-		context.filter = 'none'
-		context.drawImage(frame, x, y, size, size, x, y, size, size)
+		this.drawOverlay(size);
+
+		context.filter = 'none';
+		context.putImageData(image, x, y);
 	}
 
 	connectCamera = async () => {
@@ -224,16 +228,9 @@ export default class SimpleController extends Controller {
 
 		const frame = await this.grabFrame();
 
-		// v1
-		// context.drawImage(frame, 0, 0, width, height);
-		// this.drawCenterArea();
-		// this.drawOverlay(250);
-
-		// v2
 		this.drawBlur(frame, 250);
 		this.drawCenterArea();
 
-		//let frameAsImageData = context.getImageData(0, 0, width, height);
 		let frameAsImageData = context.getImageData(...this.getCenterArea());
 
 		return frameAsImageData;
