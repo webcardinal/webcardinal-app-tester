@@ -23,7 +23,6 @@ export default class SimpleController extends Controller {
 		let result;
 		while(!result){
 			let frame = await this.captureFrame();
-			let {width, height} =  this.getVideoResolution();
 			//this.debugFrame(frame);
 
 			result = await this.decode(frame);
@@ -39,13 +38,9 @@ export default class SimpleController extends Controller {
 		await this.scanning();
 	}
 
-	getVideoResolution = () => {
-		return this.videoStream.getVideoTracks()[0].getConstraints();
-	}
-
 	getCenterArea = () =>{
 		let size = 250;
-		let {width, height} = this.getVideoResolution();
+		let {width, height} = this.canvas;
 		const points = [(width-size)/2, (height-size)/2, size, size];
 		return points;
 	}
@@ -192,8 +187,7 @@ export default class SimpleController extends Controller {
 				console.log(capabilities);
 
 				constraints.video.height = 1080;
-				constraints.video.width = 1080*(capabilities.width.max/capabilities.height.max);
-				//constraints.video.width = 1920;
+				constraints.video.width = 1920;
 
 				await track.applyConstraints(constraints.video);
 				//track.stop();
@@ -216,6 +210,8 @@ export default class SimpleController extends Controller {
 
 			video.addEventListener("loadeddata", (...args)=>{
 				console.log(args);
+				this.canvas.width = video.videoWidth;
+				this.canvas.height = video.videoHeight;
 				resolve(true);
 			});
 
@@ -223,8 +219,8 @@ export default class SimpleController extends Controller {
 
 			this.videoStream = stream;
 
-			this.canvas.width = constraints.video.width;
-			this.canvas.height = constraints.video.height;
+			/*this.canvas.width = constraints.video.width;
+			this.canvas.height = constraints.video.height;*/
 
 			video.srcObject = stream;
 		});
@@ -233,9 +229,6 @@ export default class SimpleController extends Controller {
 	captureFrame = async () =>{
 
 		let context = this.context;
-
-		let {width, height} = this.getVideoResolution();
-
 
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
 
