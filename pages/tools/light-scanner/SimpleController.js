@@ -190,8 +190,10 @@ export default class SimpleController extends Controller {
 				const track = stream.getVideoTracks()[0];
 				const capabilities = track.getCapabilities();
 				console.log(capabilities);
-				constraints.video.width = 1920;
+
 				constraints.video.height = 1080;
+				constraints.video.width = 1080*(capabilities.width.max/capabilities.height.max);
+				//constraints.video.width = 1920;
 
 				await track.applyConstraints(constraints.video);
 				//track.stop();
