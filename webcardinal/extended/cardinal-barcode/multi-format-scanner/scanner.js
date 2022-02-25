@@ -132,7 +132,11 @@ export default function Scanner(domElement) {
 			video.autoplay = true;
 			video.muted = true;
 			video.loop = true;
-
+			if (!gotFullSupport()) {
+				video.width = 1;
+				video.height = 1;
+				video.setAttribute("playsinline", "");
+			}
 			video.addEventListener("loadeddata", (...args) => {
 				canvas.width = video.videoWidth;
 				canvas.height = video.videoHeight;
@@ -148,9 +152,6 @@ export default function Scanner(domElement) {
 
 			//enable autoplay video for Safari desktop and mobile
 			if (!gotFullSupport()) {
-				video.width = 1;
-				video.height = 1;
-				video.setAttribute("playsinline", "");
 				domElement.append(video);
 			}
 		});
