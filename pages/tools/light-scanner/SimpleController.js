@@ -15,14 +15,14 @@ export default class SimpleController extends Controller {
 	setup = async () => {
 		let cameraIsOn = await this.connectCamera();
 
-		if(cameraIsOn){
+		if (cameraIsOn) {
 			await this.scanning();
 		}
 	}
 
 	scanning = async () => {
 		let result;
-		while(!result){
+		while (!result) {
 			let frame = this.getDataForScanning();
 			//this.debugFrame(frame);
 
@@ -30,42 +30,42 @@ export default class SimpleController extends Controller {
 			//console.log("Decoding finished", result, new Date().getTime());
 		}
 
-		if(result){
+		if (result) {
 			console.log("Got:", result);
 			//alert(`Got your code ${JSON.stringify(result)}`);
-		}else{
+		} else {
 			alert(`Trouble in paradise!`);
 		}
 		await this.scanning();
 	}
 
-	getCenterArea = () =>{
+	getCenterArea = () => {
 		let size = SCAN_AREA_SIZE;
 		let {width, height} = this.canvas;
-		const points = [(width-size)/2, (height-size)/2, size, size];
+		const points = [(width - size) / 2, (height - size) / 2, size, size];
 		return points;
 	}
 
-	debugFrame = (frame) =>{
+	debugFrame = (frame) => {
 		const debug = this.element.querySelector("#debug");
 		const ctx = debug.getContext("2d");
 
 		ctx.putImageData(frame, 0, 0);
 	}
 
-	decode = (imageData) =>{
-		let promise = new Promise((resolve, reject)=>{
-			if(!this.worker){
+	decode = (imageData) => {
+		let promise = new Promise((resolve, reject) => {
+			if (!this.worker) {
 				this.worker = new Worker(WORKER_SCRIPT_PATH);
 			}
 
-			let waitFor = (message)=>{
-				try{
+			let waitFor = (message) => {
+				try {
 					//verify message
 					let result;
 					let payload = message.data;
 					let messageType = payload.message;
-					switch(messageType) {
+					switch (messageType) {
 						case "failed decoding":
 							//console.log("got an message with failed decoding status");
 							break;
@@ -80,12 +80,12 @@ export default class SimpleController extends Controller {
 					this.worker.removeEventListener("message", waitFor);
 					this.worker.removeEventListener("error", errorHandler);
 					resolve(result);
-				}catch(err){
+				} catch (err) {
 					console.log(err);
 				}
 			}
 
-			let errorHandler = (...args)=>{
+			let errorHandler = (...args) => {
 				this.worker = undefined;
 				reject(...args);
 			};
@@ -105,7 +105,7 @@ export default class SimpleController extends Controller {
 	}
 
 	connectCamera = async () => {
-		return new Promise(async (resolve, reject)=>{
+		return new Promise(async (resolve, reject) => {
 			let stream;
 			let constraints = {
 				audio: false,
@@ -143,7 +143,7 @@ export default class SimpleController extends Controller {
 			video.style.left = '0px'
 			video.style.right = '0px'
 
-			video.addEventListener("loadeddata", (...args)=>{
+			video.addEventListener("loadeddata", (...args) => {
 				console.log(args);
 				this.canvas.width = video.videoWidth;
 				this.canvas.height = video.videoHeight;
@@ -152,6 +152,7 @@ export default class SimpleController extends Controller {
 			});
 
 			video.addEventListener("error", reject);
+			this.videoTag = video;
 
 			this.videoStream = stream;
 
@@ -162,7 +163,7 @@ export default class SimpleController extends Controller {
 		});
 	}
 
-	getDataForScanning = () =>{
+	getDataForScanning = () => {
 		let frameAsImageData = this.context.getImageData(...this.getCenterArea());
 
 		return frameAsImageData;
@@ -178,23 +179,23 @@ export default class SimpleController extends Controller {
 
 	drawOverlay = () => {
 		let size = SCAN_AREA_SIZE;
-		const { width, height } = this.canvas;
+		const {width, height} = this.canvas;
 
 		const x = (width - size) / 2;
 		const y = (height - size) / 2;
 
 		const backgroundPoints = [
-			{ x: width, y: 0 },
-			{ x: width, y: height },
-			{ x: 0, y: height },
-			{ x: 0, y: 0 },
+			{x: width, y: 0},
+			{x: width, y: height},
+			{x: 0, y: height},
+			{x: 0, y: 0},
 		];
 
 		const holePoints = [
-			{ x, y: y + size },
-			{ x: x + size, y: y + size },
-			{ x: x + size, y },
-			{ x, y }
+			{x, y: y + size},
+			{x: x + size, y: y + size},
+			{x: x + size, y},
+			{x, y}
 		];
 
 		let context = this.context;
@@ -216,42 +217,75 @@ export default class SimpleController extends Controller {
 		context.fill();
 	}
 
-	measureTime = () =>{
-		if(this.end){
+	measureTime = () => {
+		if (this.end) {
 			return;
 		}
 
-		if(!this.start){
+		if (!this.start) {
 			this.start = Date.now();
 			return;
 		}
 		this.end = Date.now();
-		console.log(this.end-this.start);
+		console.log(this.end - this.start);
 		return;
 	}
 
-	drawFrame = async () =>{
-this.measureTime();
+	drawFrame = async () => {
+		this.measureTime();
 		let context = this.context;
 
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
 
 		const frame = await this.grabFrameFromStream();
+		if (!frame) {
+			console.log("Dropping frame");
+			return;
+		}
 
-		const { width, height } = this.canvas;
+		const {width, height} = this.canvas;
 
 		context.drawImage(frame, 0, 0, width, height);
 
 		this.drawOverlay();
 
 		this.drawCenterArea();
-this.measureTime();
+		this.measureTime();
 	}
 
-	grabFrameFromStream = () => {
-		const track = this.videoStream.getVideoTracks()[0];
-		const imageCapture = new ImageCapture(track);
+	grabFrameFromStream = async () => {
+		if(!this.gotFullSupport()){
+			return this.grabFrameAlternative();
+		}
 
-		return imageCapture.grabFrame();
+		let frame;
+		try {
+			const track = this.videoStream.getVideoTracks()[0];
+			const imageCapture = new ImageCapture(track);
+			frame = await imageCapture.grabFrame();
+		} catch (err) {
+			console.log("Got a situation during grabFrame from stream process.", err);
+		}
+		return frame;
+	}
+
+	gotFullSupport = () =>{
+		//return !!window.ImageCapture;
+		return false;
+	}
+
+	grabFrameAlternative = () =>{
+		let canvas = document.createElement("canvas");
+		let context = canvas.getContext("2d");
+		let {width, height} = this.canvas;
+		canvas.width = width;
+		canvas.height = height;
+
+		context.drawImage(this.videoTag, 0, 0, width, height);
+		/*let frameAsDataURL = canvas.toDataURL();
+		let img = document.createElement("img");
+		img.src = frameAsDataURL;
+		return img;*/
+		return canvas;
 	}
 }
