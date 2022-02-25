@@ -18,7 +18,9 @@ export default class SimpleController extends Controller {
 				let result = await scanner.scan();
 				if (result) {
 					console.log("Got:", result);
-					//alert(`Got your code ${JSON.stringify(result)}`);
+					await new Promise((resolve)=>{
+						setTimeout(resolve, 1000);
+					});
 				}
 			}
 		}

@@ -10,6 +10,8 @@ export default function Scanner(domElement) {
 	let worker;
 	let workerPath = WORKER_SCRIPT_PATH;
 
+	let strokeColor = "#000000";
+
 	this.setup = async () => {
 		internalSetup();
 		return await connectCamera();
@@ -18,10 +20,15 @@ export default function Scanner(domElement) {
 	this.scan = async () => {
 		let frame = getDataForScanning();
 		let result = await decode(frame);
+		if (result) {
+			strokeColor = "#008000";
+		}else{
+			strokeColor = "#000000";
+		}
 		return result;
 	}
 
-	this.scanImageData = async (imageData) =>{
+	this.scanImageData = async (imageData) => {
 		//todo: crop if needed the image....
 		let result = await decode(imageData);
 		return result;
@@ -33,7 +40,7 @@ export default function Scanner(domElement) {
 
 	function internalSetup() {
 		let id = "scene"
-		if(!domElement.querySelector("#"+id)){
+		if (!domElement.querySelector("#" + id)) {
 			canvas = document.createElement("canvas");
 			canvas.id = id;
 			context = canvas.getContext("2d");
@@ -162,9 +169,9 @@ export default function Scanner(domElement) {
 
 		return frameAsImageData;
 	}
-
 	const drawCenterArea = () => {
 		context.lineWidth = 3;
+		context.strokeStyle = strokeColor;
 		const centerAreaPoints = getCenterArea();
 		context.strokeRect(...centerAreaPoints);
 	}
