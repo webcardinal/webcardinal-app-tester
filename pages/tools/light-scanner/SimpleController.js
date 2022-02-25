@@ -152,7 +152,7 @@ export default class SimpleController extends Controller {
 
 			let video = this.createElement('video', {
 				autoplay: true,
-				playsinline: true,
+				muted: true,
 				loop: true
 			});
 			video.width=1;
@@ -168,6 +168,7 @@ export default class SimpleController extends Controller {
 
 			video.addEventListener("error", reject);
 			this.videoTag = video;
+			this.videoTag.setAttribute("playsinline", "");
 
 			this.videoStream = stream;
 
