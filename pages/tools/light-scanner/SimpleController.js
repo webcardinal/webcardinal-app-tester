@@ -22,7 +22,7 @@ export default class SimpleController extends Controller {
 	scanning = async () => {
 		let result;
 		while(!result){
-			let frame = await this.captureFrame();
+			let frame = this.getDataForScanning();
 			//this.debugFrame(frame);
 
 			result = await this.decode(frame);
@@ -43,14 +43,6 @@ export default class SimpleController extends Controller {
 		let {width, height} = this.canvas;
 		const points = [(width-size)/2, (height-size)/2, size, size];
 		return points;
-	}
-
-	drawCenterArea = () => {
-		const context = this.context;
-
-		context.lineWidth = 3;
-		const centerAreaPoints = this.getCenterArea();
-		context.strokeRect(...centerAreaPoints);
 	}
 
 	debugFrame = (frame) =>{
@@ -111,64 +103,6 @@ export default class SimpleController extends Controller {
 		return promise;
 	}
 
-	drawOverlay = (size) => {
-		const { width, height } = this.canvas;
-
-		const x = (width - size) / 2;
-		const y = (height - size) / 2;
-
-		const backgroundPoints = [
-			{ x: width, y: 0 },
-			{ x: width, y: height },
-			{ x: 0, y: height },
-			{ x: 0, y: 0 },
-		];
-
-		const holePoints = [
-			{ x, y: y + size },
-			{ x: x + size, y: y + size },
-			{ x: x + size, y },
-			{ x, y }
-		];
-
-		let context = this.context;
-		context.beginPath();
-
-		context.moveTo(backgroundPoints[0].x, backgroundPoints[0].y);
-		for (let i = 0; i < 4; i++) {
-			context.lineTo(backgroundPoints[i].x, backgroundPoints[i].y);
-		}
-
-		context.moveTo(holePoints[0].x, holePoints[0].y);
-		for (let i = 0; i < 4; i++) {
-			context.lineTo(holePoints[i].x, holePoints[i].y);
-		}
-
-		context.closePath();
-
-		context.fillStyle = 'rgba(0, 0, 0, 0.3)'
-		context.fill();
-	}
-
-	drawBlur = (frame, size) => {
-		const context = this.context;
-		const { width, height } = this.canvas;
-
-		const x = (width - size) / 2;
-		const y = (height - size) / 2;
-
-		context.drawImage(frame, 0, 0, width, height);
-		let image = context.getImageData(x, y, size, size);
-
-		context.filter = 'blur(5px)';
-		context.drawImage(frame, 0, 0, width, height);
-
-		this.drawOverlay(size);
-
-		context.filter = 'none';
-		context.putImageData(image, x, y);
-	}
-
 	connectCamera = async () => {
 		return new Promise(async (resolve, reject)=>{
 			let stream;
@@ -212,6 +146,7 @@ export default class SimpleController extends Controller {
 				console.log(args);
 				this.canvas.width = video.videoWidth;
 				this.canvas.height = video.videoHeight;
+				setInterval(this.drawFrame, 30);
 				resolve(true);
 			});
 
@@ -226,23 +161,91 @@ export default class SimpleController extends Controller {
 		});
 	}
 
-	captureFrame = async () =>{
+	getDataForScanning = () =>{
+		let frameAsImageData = this.context.getImageData(...this.getCenterArea());
+
+		return frameAsImageData;
+	}
+
+	drawBlur = (frame, size) => {
+		const context = this.context;
+		const { width, height } = this.canvas;
+
+		const x = (width - size) / 2;
+		const y = (height - size) / 2;
+
+		context.drawImage(frame, 0, 0, width, height);
+		let image = context.getImageData(x, y, size, size);
+
+		context.filter = 'blur(5px)';
+		context.drawImage(frame, 0, 0, width, height);
+
+		this.drawOverlay(size);
+
+		context.filter = 'none';
+		context.putImageData(image, x, y);
+	}
+
+	drawCenterArea = () => {
+		const context = this.context;
+
+		context.lineWidth = 3;
+		const centerAreaPoints = this.getCenterArea();
+		context.strokeRect(...centerAreaPoints);
+	}
+
+	drawOverlay = (size) => {
+		const { width, height } = this.canvas;
+
+		const x = (width - size) / 2;
+		const y = (height - size) / 2;
+
+		const backgroundPoints = [
+			{ x: width, y: 0 },
+			{ x: width, y: height },
+			{ x: 0, y: height },
+			{ x: 0, y: 0 },
+		];
+
+		const holePoints = [
+			{ x, y: y + size },
+			{ x: x + size, y: y + size },
+			{ x: x + size, y },
+			{ x, y }
+		];
+
+		let context = this.context;
+		context.beginPath();
+
+		context.moveTo(backgroundPoints[0].x, backgroundPoints[0].y);
+		for (let i = 0; i < 4; i++) {
+			context.lineTo(backgroundPoints[i].x, backgroundPoints[i].y);
+		}
+
+		context.moveTo(holePoints[0].x, holePoints[0].y);
+		for (let i = 0; i < 4; i++) {
+			context.lineTo(holePoints[i].x, holePoints[i].y);
+		}
+
+		context.closePath();
+
+		context.fillStyle = 'rgba(0, 0, 0, 0.3)'
+		context.fill();
+	}
+
+	drawFrame = async () =>{
 
 		let context = this.context;
 
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
 
-		const frame = await this.grabFrame();
+		const frame = await this.grabFrameFromStream();
 
 		this.drawBlur(frame, 250);
 		this.drawCenterArea();
-
-		let frameAsImageData = context.getImageData(...this.getCenterArea());
-
-		return frameAsImageData;
 	}
 
-	grabFrame = () => {
+	grabFrameFromStream = () => {
 		const track = this.videoStream.getVideoTracks()[0];
 		const imageCapture = new ImageCapture(track);
 
