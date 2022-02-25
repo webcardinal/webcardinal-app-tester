@@ -158,12 +158,13 @@ export default class SimpleController extends Controller {
 
 	drawBlur = (frame, size) => {
 		const context = this.context;
+		const { width, height } = this.context.canvas;
 
-		const x = (frame.width - size) / 2;
-		const y = (frame.height - size) / 2;
+		const x = (width - size) / 2;
+		const y = (height - size) / 2;
 
 		context.filter = 'blur(20px)'
-		context.drawImage(frame, 0, 0, frame.width, frame.height);
+		context.drawImage(frame, 0, 0, width, height);
 
 		context.filter = 'none'
 		context.drawImage(frame, x, y, size, size, x, y, size, size)
