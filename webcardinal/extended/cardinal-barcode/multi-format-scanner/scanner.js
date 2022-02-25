@@ -247,13 +247,13 @@ export default function Scanner(domElement) {
 	}
 
 	const grabFrameAlternative = () => {
-		let canvas = document.createElement("canvas");
-		let context = canvas.getContext("2d");
+		let tempCanvas = document.createElement("canvas");
+		let tempContext = tempCanvas.getContext("2d");
 		let {width, height} = canvas;
-		canvas.width = width;
-		canvas.height = height;
+		tempCanvas.width = width;
+		tempCanvas.height = height;
 
-		context.drawImage(videoTag, 0, 0, width, height);
-		return canvas;
+		tempContext.drawImage(videoTag, 0, 0, width, height);
+		return tempCanvas;
 	}
 }
