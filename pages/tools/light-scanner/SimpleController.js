@@ -177,8 +177,8 @@ export default class SimpleController extends Controller {
 		context.drawImage(frame, 0, 0, width, height);
 		let image = context.getImageData(x, y, size, size);
 
-		context.filter = 'blur(5px)';
-		context.drawImage(frame, 0, 0, width, height);
+		/*context.filter = 'blur(5px)';
+		context.drawImage(frame, 0, 0, width, height);*/
 
 		this.drawOverlay(size);
 
@@ -229,12 +229,26 @@ export default class SimpleController extends Controller {
 
 		context.closePath();
 
-		context.fillStyle = 'rgba(0, 0, 0, 0.3)'
+		context.fillStyle = 'rgba(0, 0, 0, 0.5)'
 		context.fill();
 	}
 
-	drawFrame = async () =>{
+	measureTime = () =>{
+		if(this.end){
+			return;
+		}
 
+		if(!this.start){
+			this.start = Date.now();
+			return;
+		}
+		this.end = Date.now();
+		console.log(this.end-this.start);
+		return;
+	}
+
+	drawFrame = async () =>{
+this.measureTime();
 		let context = this.context;
 
 		//context.filter = 'brightness(1.75) contrast(1) grayscale(1)';
@@ -243,6 +257,7 @@ export default class SimpleController extends Controller {
 
 		this.drawBlur(frame, 250);
 		this.drawCenterArea();
+this.measureTime();
 	}
 
 	grabFrameFromStream = () => {
