@@ -1,5 +1,6 @@
 const {Controller} = WebCardinal.controllers;
 const WORKER_SCRIPT_PATH = "webcardinal/extended/cardinal-barcode/worker/scan-worker-old-zxing.js";
+const SCAN_AREA_SIZE = 250;
 
 export default class SimpleController extends Controller {
 	constructor(...props) {
@@ -39,7 +40,7 @@ export default class SimpleController extends Controller {
 	}
 
 	getCenterArea = () =>{
-		let size = 250;
+		let size = SCAN_AREA_SIZE;
 		let {width, height} = this.canvas;
 		const points = [(width-size)/2, (height-size)/2, size, size];
 		return points;
@@ -167,25 +168,6 @@ export default class SimpleController extends Controller {
 		return frameAsImageData;
 	}
 
-	drawBlur = (frame, size) => {
-		const context = this.context;
-		const { width, height } = this.canvas;
-
-		const x = (width - size) / 2;
-		const y = (height - size) / 2;
-
-		context.drawImage(frame, 0, 0, width, height);
-		let image = context.getImageData(x, y, size, size);
-
-		/*context.filter = 'blur(5px)';
-		context.drawImage(frame, 0, 0, width, height);*/
-
-		this.drawOverlay(size);
-
-		context.filter = 'none';
-		context.putImageData(image, x, y);
-	}
-
 	drawCenterArea = () => {
 		const context = this.context;
 
@@ -194,7 +176,8 @@ export default class SimpleController extends Controller {
 		context.strokeRect(...centerAreaPoints);
 	}
 
-	drawOverlay = (size) => {
+	drawOverlay = () => {
+		let size = SCAN_AREA_SIZE;
 		const { width, height } = this.canvas;
 
 		const x = (width - size) / 2;
@@ -255,7 +238,12 @@ this.measureTime();
 
 		const frame = await this.grabFrameFromStream();
 
-		this.drawBlur(frame, 250);
+		const { width, height } = this.canvas;
+
+		context.drawImage(frame, 0, 0, width, height);
+
+		this.drawOverlay();
+
 		this.drawCenterArea();
 this.measureTime();
 	}
