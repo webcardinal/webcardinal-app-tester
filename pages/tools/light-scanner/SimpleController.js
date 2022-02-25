@@ -33,6 +33,7 @@ export default class SimpleController extends Controller {
 			"    transform: translate(-50%, 50%);";
 		button.onclick = ()=>{
 			this.videoTag.play();
+			button.remove();
 		}
 		this.element.append(button);
 	}
@@ -152,14 +153,10 @@ export default class SimpleController extends Controller {
 			let video = this.createElement('video', {
 				autoplay: true,
 				playsinline: true,
-				hidden: true,
 				loop: true
 			});
-			video.style.position = 'fixed';
-			video.style.top = '0px';
-			video.style.bottom = '0px';
-			video.style.left = '0px'
-			video.style.right = '0px'
+			video.width=1;
+			video.height=1;
 
 			video.addEventListener("loadeddata", (...args) => {
 				console.log(args);
@@ -178,6 +175,9 @@ export default class SimpleController extends Controller {
 			this.canvas.height = constraints.video.height;*/
 
 			video.srcObject = stream;
+			if(!this.gotFullSupport()){
+				this.element.append(video);
+			}
 		});
 	}
 
@@ -288,8 +288,8 @@ export default class SimpleController extends Controller {
 	}
 
 	gotFullSupport = () =>{
-		//return !!window.ImageCapture;
-		return false;
+		return !!window.ImageCapture;
+		//return false;
 	}
 
 	grabFrameAlternative = () =>{
