@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/assets/css/demo/nested-templates.css" />
+
+<webc-container controller="../../pages/manual-tests/webc-template/2/templates-without-controllers/NestedTemplatesController">
+    <h1>Template Inception Problem Demo</h1>
+    
+    <webcat-section header="Markup">
+        <psk-code language="HTML" file="pages/manual-tests/webc-template/2/templates-without-controllers/markup.html"></psk-code>
+    </webcat-section>
+    
+    <webcat-section header="Template: mother-template">
+        <psk-code language="HTML" file="templates/webc-template/2/templates-without-controllers/mother-template.html"></psk-code>
+    </webcat-section>
+    
+    <webcat-section header="Template: child-template"> 
+        <psk-code language="HTML" file="templates/webc-template/2/templates-without-controllers/child-template.html"></psk-code>
+    </psk-code>
+
+    <webcat-section header="Template: no-child-template">
+        <psk-code language="HTML" file="templates/webc-template/2/templates-without-controllers/no-child-template.html"></psk-code>
+    </webcat-section>
+    
+    
+    <webcat-section header="Controller">
+        <psk-code language="JavaScript" file="../../pages/manual-tests/webc-template/2/templates-without-controllers/NestedTemplatesController.js"></psk-code>
+    </webcat-section>
+    
+    <webcat-section header="Result">
+        <div class="green-border">
+            <h6>{{@testString}}</h6>
+            <webc-template template="@templateName" data-view-model="@"></webc-template>
+        </div>
+    </webcat-section>
+</webc-container>
