@@ -1,0 +1,18 @@
+.green-border {
+    border: 3px solid green;
+    padding: 5px;
+}
+
+.red-border {
+    border: 3px solid red;
+    padding: 5px;
+}
+
+.blue-border {
+    border: 3px solid blue;
+    padding: 5px;
+}
+.yellow-border {
+    border: 3px solid yellow;
+    padding: 5px;
+}

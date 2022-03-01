@@ -214,6 +214,22 @@
           "children": [
             {
               "name": "Test 1"
+            },
+            {
+              "name": "Test 2",
+              "src": "./2",
+              "children": [
+                {
+                  "name": "Templates-without-controllers",
+                  "path": "./templates-without-controllers",
+                  "src": "./templates-without-controllers/index.html"
+                },
+                {
+                  "name": "Templates-with-controllers",
+                  "path": "./templates-with-controllers",
+                  "src": "./templates-with-controllers/index.html"
+                }
+              ]
             }
           ]
         },

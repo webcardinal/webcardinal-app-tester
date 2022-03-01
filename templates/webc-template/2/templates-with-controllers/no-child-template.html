@@ -1,0 +1,9 @@
+<webc-container controller="../../pages/manual-tests/webc-template/2/templates-with-controllers/InnerTemplateController" data-view-model="@">
+    <div class="yellow-border">
+        <h1>No Child Template</h1>
+        <div data-if="@name">
+            <h6 slot="true">{{@name}}</h6>
+            <h6 slot="false">No children.</h6>
+        </div>
+    </div>
+</webc-container>
