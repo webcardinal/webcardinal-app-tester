@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 .dev/
-libs/
 node_modules/
 pages/automated-tests/cardinal-*
 
