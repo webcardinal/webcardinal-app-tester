@@ -31,6 +31,10 @@
     font-weight: normal;
   }
 
+  :host .container h2 {
+    margin: 0;
+  }
+
   :host .container hr {
     margin: 1.5em 0;
   }
@@ -38,7 +42,10 @@
 
 <div class="container">
   <header>
-    <h1>Scanner <br><strong>{{ @header }}</strong></h1>
+    <div>
+      <h1>{{ @header }}</h1>
+      <h2>{{ @subheader }}</h2>
+    </div>
     <button>&times;</button>
   </header>
 

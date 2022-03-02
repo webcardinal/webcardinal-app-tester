@@ -1,0 +1,16 @@
+{
+    "status": {
+        "feedback": [
+            "Scanner initializing",
+            "Waiting for user approval..."
+        ],
+        "permission-denied": [
+            "Permission denied!",
+            "To begin scanning, please check your settings and allow access to the camera."
+        ],
+        "no-cameras": [
+            "Camera not found!",
+            "It seems that your device does not have any camera."
+        ]
+    }
+}

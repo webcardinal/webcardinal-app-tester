@@ -35,6 +35,17 @@
           "collectLog": false
         }
       ]
+    },
+    {
+      "name": "zxing-wrapper",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/webcardinal/zxing-wrapper.git",
+          "target": "./libs",
+          "collectLog": false
+        }
+      ]
     }
   ],
   "test": [

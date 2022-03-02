@@ -309,21 +309,28 @@
       "src": "./tools",
       "children": [
         {
-          "name": "Scanner",
+          "name": "Scanner Downloader",
+          "src": "./light-scanner-downloader/index.html"
+        },
+        {
+          "name": "Scanner Auto-Checker",
+          "src": "./light-scanner-checker/index.html",
+          "indexed": false
+        },
+        {
+          "name": "Scanner [deprecated]",
           "src": "./psk-barcode-scanner/index.html",
           "indexed": false
         },
         {
-          "name": "Scanner Downloader",
-          "src": "./psk-barcode-scanner-downloader/index.html"
+          "name": "Scanner Downloader [deprecated]",
+          "src": "./psk-barcode-scanner-downloader/index.html",
+          "indexed": false
         },
         {
-          "name": "Scanner Auto-Checker",
-          "src": "./psk-barcode-scanner-checker/index.html"
-        },
-        {
-          "name": "Light Scanner",
-          "src": "./light-scanner/index.html"
+          "name": "Scanner Auto-Checker [deprecated]",
+          "src": "./psk-barcode-scanner-checker/index.html",
+          "indexed": false
         }
       ]
     },
