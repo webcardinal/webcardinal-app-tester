@@ -122,3 +122,19 @@ export async function timeout(time) {
     }, time);
   });
 }
+
+/**
+ * @param {string} prefix
+ * @return {string}
+ */
+export function getFileNamePrefix(prefix) {
+  return [
+    prefix,
+    new Date()
+        .toISOString()
+        .split(".")[0]
+        .replace("T", ".")
+        .split(":")
+        .join("-"),
+  ].join(".");
+}

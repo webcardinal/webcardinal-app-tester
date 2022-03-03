@@ -62,16 +62,17 @@ define("test-container");
 define("test-container-scoped", "test-container/test-container-scoped");
 define("rw-pagination", { shadow: true });
 
-define("scanner-options");
-define("scanner-modal", { shadow: true });
+define("scanner-modal", "scanner/scanner-modal", { shadow: true });
 
-define("scanner-data");
-define("scanner-downloader-options", "scanner-options/scanner-downloader-options");
-define("scanner-checker-options", "scanner-options/scanner-checker-options");
+// deprecated
+define("scanner-data",  "scanner/scanner-data");
+define("scanner-downloader-options", "scanner/scanner-downloader-options");
+define("scanner-checker-options", "scanner/scanner-checker-options");
 
-define("light-scanner-data", "scanner-data/light-scanner-data");
-define("light-scanner-downloader-options", "scanner-options/light-scanner-downloader-options");
-define("light-scanner-checker-options", "scanner-options/light-scanner-checker-options");
+// in use
+define("light-scanner-data", "scanner/light-scanner-data");
+define("light-scanner-downloader-options", "scanner/light-scanner-downloader-options");
+define("light-scanner-checker-options", "scanner/light-scanner-checker-options");
 
 addHook("beforePageLoads", "404", async () => {
   await navigateToUrl("/webcardinal-app-tester");

@@ -4,6 +4,7 @@
     background: #373737;
 }
 
+
 .barcode-container {
     position: relative;
     margin: 0 auto;
@@ -23,13 +24,14 @@
     border-color: #FA113D;
 }
 
+
 .buttons-container {
     position: absolute;
-    top: 1rem;
+    top: 1em;
     display: flex;
     width: 100%;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.5em;
     z-index: 1;
 }
 
@@ -37,12 +39,16 @@
     display: flex;
     align-items: center;
     top: unset;
-    bottom: 1rem;
+    bottom: 1em;
 }
 
 .buttons-container.modes span {
     color: white;
     cursor: pointer;
+}
+
+.buttons-container > * {
+    margin-bottom: 0;
 }
 
 .buttons-container input {
@@ -56,38 +62,36 @@
     padding-right: 1em;
 }
 
-scanner-modal {
-    display: block;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    width: 100%; height: 100%;
-    overflow: hidden;
-    z-index: 2;
+.buttons-container .total {
+    color: white;
+    display: flex;
+    align-items: center;
 }
 
-scanner-modal input[type="checkbox"],
-scanner-modal label {
+
+light-scanner-checker-options input[type="checkbox"],
+light-scanner-checker-options label {
     cursor: pointer;
     accent-color: var(--primary-color);
     margin: 0;
 }
 
-scanner-modal input[type="checkbox"] {
+light-scanner-checker-options input[type="checkbox"] {
     width: 1.5em;
     height: 1.5em
 }
 
-scanner-modal label {
+light-scanner-checker-options label {
     font-size: 1.1em;
 }
 
-scanner-modal .option {
+light-scanner-checker-options .option {
     display: flex;
     align-items: center;
     gap: 0.75em;
 }
 
-scanner-checker-options {
+light-scanner-checker-options {
     display: grid;
     gap: 0.5em;
 }

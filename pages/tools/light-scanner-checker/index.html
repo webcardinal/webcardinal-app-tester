@@ -3,14 +3,13 @@
 <main class="barcode-fullscreen">
   <webc-container controller="../../pages/tools/light-scanner-checker/ScannerController" class="barcode-container">
     <div class="buttons-container">
-      <button data-tag="scan" hidden="@isAuto">Next scan ›</button>
+      <button data-tag="scan" hidden="@isAuto">Scan ›</button>
       <input type="number" data-view-model="@input">
+      <span class="total">/ {{ @input.max }}</span>
     </div>
     <div class="buttons-container modes">
-      <button data-tag="auto">Auto</button>
-      <button data-tag="manual">Manual</button>
-
-      <button class="button-clear" data-tag="mode">Options</button>
+      <button class="button-clear" data-tag="automatic">Automatic mode <u>{{ @automaticStatus }}</u></button>
+      <button class="button-clear" data-tag="options">Options</button>
     </div>
 
     <div id="scanner-placeholder">

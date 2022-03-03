@@ -314,8 +314,7 @@
         },
         {
           "name": "Scanner Auto-Checker",
-          "src": "./light-scanner-checker/index.html",
-          "indexed": false
+          "src": "./light-scanner-checker/index.html"
         },
         {
           "name": "Scanner [deprecated]",

@@ -3,28 +3,36 @@ import {
   cerateCanvasContextWithImageElement,
   createScannerModal,
   downloadJSON,
+  getFileNamePrefix,
   timeout
 } from '../light-scanner/utils.js';
-import ScanService from '../../../scripts/services/ScanService.js';
+import ScanService from "../../../scripts/services/ScanService.js";
+import { parseGS1Code } from "../../../scripts/services/ScanParser.js";
 
 const { Controller } = WebCardinal.controllers;
 
+const TAG = '[ScannerController]';
 const PATH = "./pages/tools/light-scanner/codes";
-const MAX_DURATION_FOR_A_PICTURE = 1500;
-const DELAY_BEFORE_NEXT = 200;
+const SCAN_FAILED = "SCAN FAILED!";
+const SCAN_SUCCEEDED = "SCAN SUCCEEDED!";
+const DELAY_AFTER_TEST = 200;
 
 class ScannerController extends Controller {
   constructor(...props) {
     super(...props);
 
-    console.log("[ScannerController] Light Scanner Checker");
+    console.log(TAG, "Light Scanner Checker");
 
     this.files = FILES;
     this.useVideoFrames = false;
+    this.delayAfterTest = DELAY_AFTER_TEST;
 
     this.model = {
-      fileIndex: 0,
+      fileIndex: 1,
+
       scannedData: {},
+      scannedHistory: [],
+
       isAuto: false,
 
       ignoreFormats: {
@@ -32,102 +40,82 @@ class ScannerController extends Controller {
         png: false,
         gif: false,
       },
+
+      noDelay: true,
+      noModal: false,
+
       input: {
-        min: "0",
-        value: "0",
-        max: `${this.files.length - 1}`,
+        min: "1",
+        value: "1",
+        max: `${this.files.length}`,
       },
     };
 
     this.setControls();
     this.filterCodes();
 
-    this.model.onChange("data", async () => {
-      this.saveResult();
-      this.shouldGoNext(true);
-      this.triggerClassname(true);
+    this.onTagClick("scan", async () => {
+      await this.createScanner();
 
-      if (this.model.isAuto && this.model.fileIndex < this.files.length) {
-        await timeout(DELAY_BEFORE_NEXT);
+      let fileIndex = this.model.fileIndex - 1;
+      if (fileIndex < 0 || fileIndex >= this.files.length) {
+        return;
+      }
+
+      const fileName = this.files[this.model.fileIndex - 1];
+      let fileSrc = fileName;
+      if (!fileSrc.startsWith("http")) {
+        fileSrc = [PATH, fileSrc].join("/");
+      }
+
+      const result = await this.scanFrame(fileSrc);
+      this.triggerClassname(!!result);
+      await this.manageResult(fileName, result);
+
+      fileIndex = this.model.fileIndex + 1;
+      const shouldStop = fileIndex > this.files.length;
+
+      if (shouldStop) {
+        if (this.model.isAuto) {
+
+          const scannedHistory = this.injectPercentage(this.model.scannedHistory)
+          downloadJSON(scannedHistory, getFileNamePrefix('checker-results'));
+          this.setControls(false);
+        }
+
+        this.removeScanner();
+        return;
+      }
+
+      this.model.fileIndex = fileIndex;
+
+      if (this.model.isAuto) {
+        await timeout(this.delayAfterTest);
+
         this.buttons.scan.click();
+        this.triggerClassname();
       }
     });
+
+    this.onTagClick("automatic", async () => {
+      if (!this.model.isAuto) {
+        this.setControls(true);
+      }
+    });
+
+    this.onTagClick("options", this.showOptionsModal);
 
     this.model.onChange("fileIndex", () => {
       this.model.input.value = `${this.model.fileIndex}`;
     });
 
-    this.onTagEvent("manual", "click", () => {
-      this.model.isAuto = false;
-      this.input.disabled = false;
-      this.buttons.scan.disabled = false;
-      this.buttons.auto.disabled = false;
-      this.buttons.manual.disabled = true;
-    });
+    this.model.onChange("noDelay", () => {
+      this.delayAfterTest = this.model.noDelay ? 0 : DELAY_AFTER_TEST
+    })
 
-    this.onTagEvent("auto", "click", async () => {
-      this.buttons.manual.disabled = true;
-      this.buttons.auto.disabled = true;
-
-      this.model.isAuto = true;
-      this.model.fileIndex = 0;
-
-      this.model.scannedData = {};
-
-      this.buttons.scan.click();
-    });
-
-    this.onTagEvent("scan", "click", async () => {
-      await this.createScanner();
-      this.shouldGoNext(false);
-
-      // set current test code as input for psk-barcode-scanner
-      await this.scanFrame();
-
-      // store current test code
-      const fileIndex = this.model.fileIndex;
-      const fileName = this.files[fileIndex];
-      const shouldStop = fileIndex >= this.files.length - 1;
-      let shouldDownload = false;
-
-      if (shouldStop) {
-        this.model.isAuto = false;
-        shouldDownload = true;
-      }
-
-      await timeout(MAX_DURATION_FOR_A_PICTURE);
-
-      // if there is no code saved, scanning produced has already failed
-      if (!this.model.scannedData[fileName] || this.model.scannedData[fileName] === "NO DATA") {
-        this.shouldGoNext(true);
-        this.triggerClassname(false);
-        this.model.scannedData[fileName] = "NO DATA";
-
-        // if failed, go to the following test
-        // otherwise see the code from on "data"
-        if (this.model.isAuto && fileIndex < this.files.length) {
-          await timeout(DELAY_BEFORE_NEXT);
-          this.buttons.scan.click();
-        }
-      }
-
-      // when looped over all tests in "auto" mode
-      if (shouldDownload) {
-        this.shouldGoNext(false);
-        this.triggerClassname();
-
-        const data = this.injectPercentage(this.model.scannedData);
-        console.log(data);
-        downloadJSON(data, 'results');
-
-        this.buttons.manual.disabled = false;
-        this.buttons.auto.disabled = true;
-      }
-    });
-
-    this.onTagEvent("mode", "click", async () => {
-      await this.showOptionsModal();
-    });
+    this.model.addExpression('automaticStatus', () => {
+      return this.model.isAuto ? 'is active' : ''
+    }, 'isAuto');
 
     for (const format of Object.keys(this.model.ignoreFormats)) {
       this.model.onChange(`ignoreFormats.${format}`, this.filterCodes);
@@ -145,6 +133,7 @@ class ScannerController extends Controller {
     if (!this.scanService) {
       try {
         this.scanService = new ScanService(this.querySelector("#scanner-placeholder"));
+        this.scanService.onStatusChanged = (status) => this.onScannerStatusChanged(status);
         await this.scanService.setup(true);
       } catch (error) {
         throw error;
@@ -159,54 +148,86 @@ class ScannerController extends Controller {
     }
   };
 
-  shouldGoNext = (goNext) => {
-    if (goNext) {
-      this.buttons.scan.disabled = false;
-      this.input.disabled = false;
-      this.model.fileIndex = this.model.fileIndex < this.files.length - 1 ? this.model.fileIndex + 1 : 0;
-      return;
-    }
-
-    this.buttons.scan.disabled = true;
-    this.input.disabled = true;
-  };
-
-  setControls = () => {
-    this.buttons = {
-      auto: this.getElementByTag("auto"),
-      manual: this.getElementByTag("manual"),
-      scan: this.getElementByTag("scan"),
-    };
-    this.buttons.manual.disabled = true;
-
-    this.input = this.querySelector(".buttons-container input");
-    this.input.addEventListener("input", (e) => {
-      this.model.fileIndex = Number.parseInt(e.target.value);
-    });
-  };
-
-  scanFrame = async () => {
+  /**
+   * @param {string} [src]
+   * @return Promise<Result>
+   */
+  scanFrame = async (src) => {
     if (!this.scanService) {
+      throw Error('Scan service is not correctly set up!');
+    }
+
+    console.log(TAG, `Scanning "${src}"...`);
+
+    const context = await cerateCanvasContextWithImageElement(src);
+    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+    return await this.scanService.scan(imageData);
+  };
+
+  /**
+   * @param {string} fileName
+   * @param {Result | undefined} result
+   * @return {Promise<void>}
+   */
+  manageResult = async (fileName, result) => {
+    let scannedFields = {};
+    let scannedData = undefined;
+
+    if (result && result.text) {
+      scannedData = result.text;
+      scannedFields = parseGS1Code(result.text)
+    }
+
+    // In automatic mode all scanning results are stored in scannedHistory
+    if (this.model.isAuto) {
+      const history = { fileName }
+
+      if (!scannedData) {
+        history.status = SCAN_FAILED;
+      } else {
+        history.status = SCAN_SUCCEEDED;
+        history.scannedData = scannedData;
+        history.scannedFields = scannedFields;
+      }
+
+      this.model.scannedHistory.push(history);
       return;
     }
 
-    if (this.useVideoFrames) {
-      const file = await fetch(`./pages/manual-tests/psk-barcode-scanner/test-1/frames-deny-b.json`);
-      const frames = await file.json();
-      await this.applyVideo(frames);
-      return;
+    // If manual mode is active
+    if (!this.model.noModal && scannedData) {
+      this.model.scannedData = scannedData;
+      this.model.scannedFields = JSON.stringify(scannedFields, null, 2);
+      await this.showResultsModal();
+    }
+  }
+
+  filterCodes = () => {
+    this.files = FILES;
+
+    if (this.model.ignoreFormats.jpg) {
+      this.files = this.files.filter((file) => {
+        file = file.toLowerCase();
+        return !file.endsWith("jpg") && !file.endsWith("jpeg");
+      });
     }
 
-    let fileSrc = this.files[this.model.fileIndex];
-    if (!fileSrc.startsWith("http")) {
-      fileSrc = [PATH, fileSrc].join("/");
+    if (this.model.ignoreFormats.png) {
+      this.files = this.files.filter(
+          (file) => !file.toLowerCase().endsWith("png")
+      );
     }
 
-    const context = await cerateCanvasContextWithImageElement(fileSrc);
-    const imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height)
+    if (this.model.ignoreFormats.gif) {
+      this.files = this.files.filter(
+          (file) => !file.toLowerCase().endsWith("gif")
+      );
+    }
 
-    const result = await this.scanService.scan(imageData);
-    console.log(result);
+    this.model.fileIndex = 1;
+    this.model.input.max = `${this.files.length}`;
+
+    console.log(`[ScannerController] now scanning: ${this.files.length} codes`);
   };
 
   applyVideo = async (frames) => {
@@ -243,6 +264,61 @@ class ScannerController extends Controller {
     this.history.listen(clearFrameInterval);
   };
 
+  setControls = (isAutomatic) => {
+    if (isAutomatic === true) {
+      this.model.fileIndex = 1;
+      this.model.isAuto = true;
+
+      this.input.disabled = true;
+
+      this.buttons.options.hidden = true;
+      this.buttons.automatic.disabled = true;
+      this.buttons.scan.click();
+      return;
+    }
+
+    if (isAutomatic === false) {
+      this.model.fileIndex = 1;
+      this.model.isAuto = false;
+      this.model.scannedHistory = [];
+
+      this.input.disabled = false;
+
+      this.buttons.options.hidden = false;
+      this.buttons.automatic.disabled = false;
+      return;
+    }
+
+    this.buttons = {
+      scan: this.getElementByTag("scan"),
+      options: this.getElementByTag("options"),
+      automatic: this.getElementByTag("automatic"),
+    };
+
+    this.input = this.querySelector(".buttons-container input");
+    this.input.addEventListener("input", (e) => {
+      this.model.fileIndex = Number.parseInt(e.target.value);
+    });
+  };
+
+  showOptionsModal = async () => {
+    await createScannerModal({
+      header: "Scanner Checker",
+      subheader: "Options",
+      contentTagName: "light-scanner-checker-options",
+      parentElement: this.element
+    })
+  };
+
+  showResultsModal = async () => {
+    await createScannerModal({
+      header: "Scanner Auto-Checker",
+      subheader: "Results",
+      contentTagName: "light-scanner-data",
+      parentElement: this.element,
+    });
+  };
+
   triggerClassname = (isSuccessful) => {
     if (isSuccessful === true) {
       this.element.classList.add("success");
@@ -260,77 +336,28 @@ class ScannerController extends Controller {
     this.element.classList.remove("fail");
   };
 
-  injectPercentage = (data) => {
+  injectPercentage = (tests) => {
     let positiveLength = 0;
-    const totalLength = Object.keys(data).length;
-    for (const key of Object.keys(data)) {
-      if (this.model.scannedData[key] !== "NO DATA") {
+    let totalLength = tests.length;
+
+    for (let test of tests) {
+      if (test.status === SCAN_SUCCEEDED) {
         positiveLength++;
       }
     }
 
     return {
       percentage: `${positiveLength}/${totalLength} (${(positiveLength * 100) / totalLength}%)`,
-      data: { ...data },
+      data: tests,
     };
-  };
-
-  saveResult = () => {
-    const fileName = this.files[this.model.fileIndex];
-    const { data } = this.model;
-
-    if (this.element.hasAttribute("is-automatic-processing")) {
-      const output = this.getElementByTag("automatic-output");
-      output.innerHTML = "";
-      output.append(JSON.stringify({ fileName, data }, null, 2));
-
-      this.element.setAttribute("is-automatic-processing", "true");
-    }
-
-    if (!this.model.scannedData[fileName]) {
-      this.model.scannedData[fileName] = data;
-    }
-  };
-
-  showOptionsModal = async () => {
-    await createScannerModal({
-      header: "Scanner Checker",
-      subheader: "Options",
-      contentTagName: "light-scanner-checker-options",
-      parentElement: this.element
-    })
-  };
-
-  filterCodes = () => {
-    this.files = FILES;
-
-    if (this.model.ignoreFormats.jpg) {
-      this.files = this.files.filter((file) => {
-        file = file.toLowerCase();
-        return !file.endsWith("jpg") && !file.endsWith("jpeg");
-      });
-    }
-
-    if (this.model.ignoreFormats.png) {
-      this.files = this.files.filter(
-        (file) => !file.toLowerCase().endsWith("png")
-      );
-    }
-
-    if (this.model.ignoreFormats.gif) {
-      this.files = this.files.filter(
-        (file) => !file.toLowerCase().endsWith("gif")
-      );
-    }
-
-    this.model.fileIndex = 0;
-    this.model.input.max = `${this.files.length - 1}`;
-    
-    console.log(`[ScannerController] now scanning: ${this.files.length} codes`);
   };
 
   // dev-ref:
   // https://github.com/PharmaLedger-IMI/leaflet-ssapp/blob/master/code/scripts/controllers/ScanController.js
+
+  onScannerStatusChanged(status) {
+    // ignore default status logging
+  }
 }
 
 export default ScannerController
