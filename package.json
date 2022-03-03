@@ -14,7 +14,6 @@
     "server": "node server.js"
   },
   "devDependencies": {
-    "dom-parser": "^0.1.6",
     "jsdom": "^19.0.0",
     "live-server": "^1.1.0",
     "octopus": "https://github.com/webcardinal/octopus"
