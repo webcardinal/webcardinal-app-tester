@@ -317,6 +317,10 @@
           "src": "./light-scanner-checker/index.html"
         },
         {
+          "name": "Scanner Filter Applier",
+          "src": "./filter-applier/index.html"
+        },
+        {
           "name": "Scanner [deprecated]",
           "src": "./psk-barcode-scanner/index.html",
           "indexed": false
