@@ -12,7 +12,7 @@ import { parseGS1Code } from "../../../scripts/services/ScanParser.js";
 const { Controller } = WebCardinal.controllers;
 
 const TAG = '[ScannerController]';
-const PATH = "./pages/tools/light-scanner/codes";
+const PATH = "./pages/tools/light-scanner";
 const SCAN_FAILED = "SCAN FAILED!";
 const SCAN_SUCCEEDED = "SCAN SUCCEEDED!";
 const DELAY_AFTER_TEST = 200;
@@ -78,7 +78,7 @@ class ScannerController extends Controller {
       if (shouldStop) {
         if (this.model.isAuto) {
 
-          const scannedHistory = this.injectPercentage(this.model.scannedHistory)
+          const scannedHistory = this.injectPercentages(this.model.scannedHistory)
           downloadJSON(scannedHistory, getFileNamePrefix('checker-results'));
           this.setControls(false);
         }
@@ -180,7 +180,8 @@ class ScannerController extends Controller {
 
     // In automatic mode all scanning results are stored in scannedHistory
     if (this.model.isAuto) {
-      const history = { fileName }
+      const { fileIndex } = this.model;
+      const history = { fileName, fileIndex }
 
       if (!scannedData) {
         history.status = SCAN_FAILED;
@@ -336,20 +337,49 @@ class ScannerController extends Controller {
     this.element.classList.remove("fail");
   };
 
-  injectPercentage = (tests) => {
-    let positiveLength = 0;
-    let totalLength = tests.length;
+  injectPercentages = (tests) => {
+    let positive = 0;
+    const countsByCategory = {};
 
-    for (let test of tests) {
-      if (test.status === SCAN_SUCCEEDED) {
-        positiveLength++;
-      }
+    const getType = (test) => {
+      return test.fileName.split('/')[1];
     }
 
-    return {
-      percentage: `${positiveLength}/${totalLength} (${(positiveLength * 100) / totalLength}%)`,
-      data: tests,
+    const getCoverage = (total, positive) => {
+      return `${positive}/${total} (${Number((positive * 100) / total).toFixed(2)}%)`
+    }
+
+    for (let test of tests) {
+      const type = getType(test);
+
+      if (typeof countsByCategory[type] === 'undefined') {
+        countsByCategory[type] = { total: 0, positive: 0 };
+      }
+
+      if (test.status === SCAN_SUCCEEDED) {
+        positive++;
+        countsByCategory[type].positive++;
+      }
+
+      countsByCategory[type].total++;
+    }
+
+    const percentageTotal = getCoverage(tests.length, positive);
+    const percentageByCategory = {};
+
+    for (const [category, counts] of Object.entries(countsByCategory)) {
+      percentageByCategory[category] = getCoverage(counts.total, counts.positive);
+    }
+
+    const results = {
+      percentageTotal,
+      percentageByCategory,
+      tests,
     };
+
+    console.log(TAG, 'Results', results);
+
+    return results;
   };
 
   // dev-ref:

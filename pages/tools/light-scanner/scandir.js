@@ -1,20 +1,35 @@
-const fs = require("fs");
-const path = require("path");
-
 const ACCEPTED_FORMATS = ["png", "jpg", "jpeg", "gif"];
-const SCAN_PATH = "./codes/submitted/Redmi";
+const SCAN_PATH = "./codes";
 
-fs.readdir(SCAN_PATH, (error, filenames) => {
-  if (error) {
-    console.error(error);
-    return;
-  }
+const { join } = require('path');
+const { readdir, writeFile } = require('fs').promises;
 
-  const files = filenames.filter((filename) => {
-    const format = filename.split(".").pop();
-    return ACCEPTED_FORMATS.includes(format);
-  });
+async function getCodes(dir) {
+  const dirs = await readdir(dir, { withFileTypes: true });
 
-  const output = files.map((file) => path.join(SCAN_PATH, file));
-  console.log(output);
-});
+  const files = await Promise.all(dirs.map(dirent => {
+    const path = join(dir, dirent.name);
+
+    if (dirent.name === 'unused') {
+      return;
+    }
+
+    if (dirent.isDirectory()) {
+      return getCodes(path);
+    }
+
+    const ext = path.split('.').pop();
+    if (!ACCEPTED_FORMATS.includes(ext)) {
+      return;
+    }
+
+    return path;
+  }))
+
+  return files.filter(Boolean).flat();
+}
+
+(async () => {
+  const codes = await getCodes(SCAN_PATH);
+  await writeFile('./index.generated.js', `export default ${JSON.stringify(codes, null, 2)}`)
+})()
