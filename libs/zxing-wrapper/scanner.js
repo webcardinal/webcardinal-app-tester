@@ -1,12 +1,21 @@
 const WORKER_SCRIPT_PATH = "worker/zxing-0.18.6-worker.js";
 const SCAN_AREA_SIZE = 250;
+const FRAME_RATE = 30;
 const CANVAS_ID = "scene";
+
+async function timeout(time = 0) {
+	return new Promise((resolve) => {
+		const id = setTimeout(() => {
+			clearTimeout(id)
+			resolve();
+		}, time)
+	});
+}
 
 export default function Scanner(domElement, testMode) {
 
 	let canvas;
 	let context;
-	let interval;
 	let videoTag;
 	let videoStream;
 	let overlay;
@@ -14,6 +23,7 @@ export default function Scanner(domElement, testMode) {
 	let workerPath = WORKER_SCRIPT_PATH;
 	let scanAreaSize = SCAN_AREA_SIZE;
 	let facingMode = "environment";
+	let isRecursiveDrawingActive = false;
 
 	let strokeColor = "#000000";
 
@@ -38,6 +48,10 @@ export default function Scanner(domElement, testMode) {
 
 	this.shutDown = async () =>{
 		reset();
+
+		if (worker) {
+			worker.terminate();
+		}
 
 		if (domElement.children.length) {
 			domElement.innerHTML = "";
@@ -181,8 +195,8 @@ export default function Scanner(domElement, testMode) {
 			}
 		}
 
-		if(interval){
-			clearInterval(interval);
+		if (isRecursiveDrawingActive) {
+			isRecursiveDrawingActive = false;
 		}
 	}
 
@@ -216,7 +230,7 @@ export default function Scanner(domElement, testMode) {
 		let promise = new Promise((resolve, reject) => {
 			let segments = workerPath.split("/");
 			let fileName = segments.pop();
-			let basePath  = segments.join("/")+segments.length > 1 ? "/" : "";
+			let basePath = segments.join("/")+segments.length > 1 ? "/" : "";
 
 			if (!worker) {
 				worker = new Worker(workerPath);
@@ -311,7 +325,10 @@ export default function Scanner(domElement, testMode) {
 			video.addEventListener("loadeddata", () => {
 				canvas.width = video.videoWidth;
 				canvas.height = video.videoHeight;
-				interval = setInterval(drawFrame, 30);
+
+				isRecursiveDrawingActive = true;
+				drawFrameRecursive();
+
 				resolve(true);
 			});
 			video.addEventListener("error", (e) => reject(e.error));
@@ -365,6 +382,24 @@ export default function Scanner(domElement, testMode) {
 		}
 
 		context.drawImage(frame, 0, 0, width, height);
+	}
+
+	const drawFrameRecursive = async () => {
+		if (isRecursiveDrawingActive) {
+			const startDrawing = Date.now();
+
+			await drawFrame();
+
+			const drawingTime = Date.now() - startDrawing;
+
+			const sleepTime = FRAME_RATE - drawingTime;
+
+			if (sleepTime > 0) {
+				await timeout(sleepTime);
+			}
+
+			await drawFrameRecursive();
+		}
 	}
 
 	const grabFrameFromStream = async () => {
