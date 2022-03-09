@@ -3,7 +3,7 @@ import { parseGS1Code } from '../../../scripts/services/ScanParser.js';
 import {
   createCanvasContextFromImageData,
   createScannerModal,
-  downloadImage, downloadJSON,
+  downloadImage,
   getFileNamePrefix
 } from '../light-scanner/utils.js';
 

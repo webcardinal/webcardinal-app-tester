@@ -99,16 +99,28 @@ function switchFacingMode(facingMode) {
   }
 }
 
+async function scanUsingScanner(scanner, imageData) {
+  if (imageData instanceof ImageData) {
+    scanner.scanCounter = 1;
+    return await scanner.scanImageData(imageData);
+  }
+
+  return await scanner.scan();
+}
+
 class ScanService {
   constructor(domElement) {
     this._status = SCANNER_STATUS.INITIALIZING;
     this._facingMode = null;
 
     this.scanner = new Scanner(domElement, true);
-
     this.scanner.changeWorker("libs/zxing-wrapper/worker/zxing-0.18.6-worker.js");
+    this.scanner.drawOverlay = (centralPoints, dimensions) => createOverlay(centralPoints, dimensions);
 
-    this.scanner.drawOverlay = (centralPoints, canvasDimensions) => createOverlay(centralPoints, canvasDimensions);
+    this.experimentalScanner = new Scanner(domElement, true);
+    this.experimentalScanner.changeWorker("libs/zxing-wrapper/worker/zxing-0.18.6-worker-experimental.js");
+    this.experimentalScanner.drawOverlay = () => null;
+    this.experimentalScanner.getCenterArea = (dimensions) => [0, 0, dimensions.width, dimensions.height];
 
     Object.defineProperty(this, "status", {
       get: () => this._status,
@@ -128,7 +140,6 @@ class ScanService {
         facingMode: this._facingMode,
         useBasicSetup: !!useBasicSetup,
       });
-      this.status = SCANNER_STATUS.ACTIVE;
     } catch (error) {
       if (error.name === "NotAllowedError") {
         this.status = SCANNER_STATUS.PERMISSION_DENIED;
@@ -136,19 +147,32 @@ class ScanService {
       }
       throw error;
     }
+
+    try {
+      await this.experimentalScanner.setup({
+        facingMode: this._facingMode,
+        // camera was already requested by the first scanner
+        useBasicSetup: true,
+      })
+    } catch (error) {
+      throw error;
+    }
+
+    this.status = SCANNER_STATUS.ACTIVE;
   }
 
   async scan(imageData) {
-    if (imageData instanceof ImageData) {
-      this.scanner.scanCounter = 1;
-      return await this.scanner.scanImageData(imageData);
+    const defaultResult = await scanUsingScanner(this.scanner, imageData);
+    if (defaultResult) {
+      return defaultResult;
     }
 
-    return await this.scanner.scan();
+    return await scanUsingScanner(this.experimentalScanner, imageData);
   }
 
   stop() {
     this.scanner.shutDown();
+    this.experimentalScanner.shutDown();
   }
 
   download() {
