@@ -6,7 +6,7 @@ import {
   getFileNamePrefix,
   timeout
 } from '../light-scanner/utils.js';
-import ScanService from "../../../scripts/services/ScanService.js";
+import ScanService, { SCANNER_FORMATS } from "../../../scripts/services/ScanService.js";
 import { parseGS1Code } from "../../../scripts/services/ScanParser.js";
 
 const { Controller } = WebCardinal.controllers;
@@ -55,8 +55,6 @@ class ScannerController extends Controller {
     this.filterCodes();
 
     this.onTagClick("scan", async () => {
-      await this.createScanner();
-
       let fileIndex = this.model.fileIndex - 1;
       if (fileIndex < 0 || fileIndex >= this.files.length) {
         return;
@@ -68,6 +66,10 @@ class ScannerController extends Controller {
         fileSrc = [PATH, fileSrc].join("/");
       }
 
+      const options = {
+        format: this.getFormat(this.getType(fileName))
+      };
+      await this.createScanner(options);
       const result = await this.scanFrame(fileSrc);
       this.triggerClassname(!!result);
       await this.manageResult(fileName, result);
@@ -111,7 +113,7 @@ class ScannerController extends Controller {
 
     this.model.onChange("noDelay", () => {
       this.delayAfterTest = this.model.noDelay ? 0 : DELAY_AFTER_TEST
-    })
+    });
 
     this.model.addExpression('automaticStatus', () => {
       return this.model.isAuto ? 'is active' : ''
@@ -126,13 +128,14 @@ class ScannerController extends Controller {
     this.removeScanner();
   }
 
-  createScanner = async () => {
+  createScanner = async (options) => {
     this.triggerClassname();
     this.removeScanner();
 
     if (!this.scanService) {
       try {
-        this.scanService = new ScanService(this.querySelector("#scanner-placeholder"));
+        const placeholderElement = this.querySelector("#scanner-placeholder");
+        this.scanService = new ScanService(placeholderElement, options);
         this.scanService.onStatusChanged = (status) => this.onScannerStatusChanged(status);
         await this.scanService.setup(true);
       } catch (error) {
@@ -341,16 +344,12 @@ class ScannerController extends Controller {
     let positive = 0;
     const countsByCategory = {};
 
-    const getType = (test) => {
-      return test.fileName.split('/')[1];
-    }
-
     const getCoverage = (total, positive) => {
       return `${positive}/${total} (${Number((positive * 100) / total).toFixed(2)}%)`
     }
 
     for (let test of tests) {
-      const type = getType(test);
+      const type = this.getType(test.fileName);
 
       if (typeof countsByCategory[type] === 'undefined') {
         countsByCategory[type] = { total: 0, positive: 0 };
@@ -380,6 +379,22 @@ class ScannerController extends Controller {
     console.log(TAG, 'Results', results);
 
     return results;
+  };
+
+  getType = (fileName) => {
+    return fileName.split('/')[1];
+  };
+
+  getFormat = (type) => {
+    switch (type) {
+      case "DataMatrix":
+      case "Stacked-DataMatrix":
+        return SCANNER_FORMATS.DATA_MATRIX;
+      case "BarCode":
+        return SCANNER_FORMATS.GS1_DATABAR_LIMITED_COMPOSITE;
+      default:
+        return SCANNER_FORMATS.UNKNOWN;
+    }
   };
 
   // dev-ref:

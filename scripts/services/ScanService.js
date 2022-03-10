@@ -1,4 +1,4 @@
-import Scanner from "../../libs/zxing-wrapper/scanner.js";
+import Scanner, { SCANNER_FORMATS } from "../../libs/zxing-wrapper/scanner.js";
 
 const TAG = "[ScanService]";
 
@@ -11,7 +11,9 @@ const SCANNER_STATUS = {
   PERMISSION_DENIED: "Access to the camera was denied!",
 };
 
-function createOverlay([x, y, w, h], canvasDimensions) {
+function createOverlay(canvasDimensions, scanerArea) {
+  const [x, y, w, h] = scanerArea;
+
   const canvas = document.createElement("canvas");
   canvas.id = "overlay";
   canvas.width = canvasDimensions.width;
@@ -99,28 +101,23 @@ function switchFacingMode(facingMode) {
   }
 }
 
-async function scanUsingScanner(scanner, imageData) {
-  if (imageData instanceof ImageData) {
-    scanner.scanCounter = 1;
-    return await scanner.scanImageData(imageData);
-  }
-
-  return await scanner.scan();
-}
-
 class ScanService {
-  constructor(domElement) {
+  constructor(domElement, options) {
     this._status = SCANNER_STATUS.INITIALIZING;
     this._facingMode = null;
 
-    this.scanner = new Scanner(domElement, true);
-    this.scanner.changeWorker("libs/zxing-wrapper/worker/zxing-0.18.6-worker.js");
-    this.scanner.drawOverlay = (centralPoints, dimensions) => createOverlay(centralPoints, dimensions);
+    if (typeof options !== 'object') {
+      options = {};
+    }
 
-    this.experimentalScanner = new Scanner(domElement, true);
-    this.experimentalScanner.changeWorker("libs/zxing-wrapper/worker/zxing-0.18.6-worker-experimental.js");
-    this.experimentalScanner.drawOverlay = () => null;
-    this.experimentalScanner.getCenterArea = (dimensions) => [0, 0, dimensions.width, dimensions.height];
+    options = {
+      ...options,
+      isTestingMode: true
+    }
+
+    this.scanner = new Scanner(domElement, options);
+    this.scanner.changeWorkerScript("libs/zxing-wrapper/worker/zxing-0.18.6-worker-experimental.js");
+    this.scanner.drawOverlay = (canvasDimensions, scanerArea) => createOverlay(canvasDimensions, scanerArea);
 
     Object.defineProperty(this, "status", {
       get: () => this._status,
@@ -148,31 +145,16 @@ class ScanService {
       throw error;
     }
 
-    try {
-      await this.experimentalScanner.setup({
-        facingMode: this._facingMode,
-        // camera was already requested by the first scanner
-        useBasicSetup: true,
-      })
-    } catch (error) {
-      throw error;
-    }
-
     this.status = SCANNER_STATUS.ACTIVE;
   }
 
   async scan(imageData) {
-    const defaultResult = await scanUsingScanner(this.scanner, imageData);
-    if (defaultResult) {
-      return defaultResult;
-    }
-
-    return await scanUsingScanner(this.experimentalScanner, imageData);
+    this.scanner.scanCounter = 1;
+    return await this.scanner.scan(imageData);
   }
 
   stop() {
     this.scanner.shutDown();
-    this.experimentalScanner.shutDown();
   }
 
   download() {
@@ -186,4 +168,4 @@ class ScanService {
 }
 
 export default ScanService;
-export { SCANNER_STATUS };
+export { SCANNER_STATUS, SCANNER_FORMATS };
