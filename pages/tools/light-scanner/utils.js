@@ -29,6 +29,48 @@ export async function createScannerModal({
 }
 
 /**
+ * @param {string} data
+ * @param {HTMLElement} parentElement
+ * @param {string | number} [badge]
+ * @param {function} [onRemove]
+ * @return {Promise<any>}
+ */
+export async function createScannerTooltip({
+  data,
+  parentElement,
+  badge,
+  onRemove,
+}) {
+  const tooltipElement = document.createElement("scanner-tooltip");
+
+  tooltipElement.badge = badge;
+  tooltipElement.data = data;
+
+  const pskCode = document.createElement("psk-code");
+  pskCode.language = "JSON";
+  pskCode.append(data);
+
+  tooltipElement.append(pskCode);
+  parentElement.append(tooltipElement);
+
+  tooltipElement.style.opacity = 0;
+
+  await pskCode.componentOnReady();
+
+  tooltipElement.style.opacity = 1;
+
+  setTimeout(async () => {
+    await timeout(500);
+    tooltipElement.classList.add("out");
+    await timeout(700);
+    tooltipElement.remove();
+    onRemove && (await onRemove());
+  });
+
+  return tooltipElement;
+}
+
+/**
  * @param {ImageData} imageData
  * @returns {CanvasRenderingContext2D}
  */
@@ -103,11 +145,13 @@ export function downloadImage(data, fileName, format = "png") {
  * @param {string} fileName
  */
 export function downloadJSON(data, fileName) {
-    const json = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-    const anchor = document.createElement("a");
-    anchor.setAttribute("href", json);
-    anchor.setAttribute("download", `${fileName}.json`);
-    anchor.click();
+  const json =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(data, null, 2));
+  const anchor = document.createElement("a");
+  anchor.setAttribute("href", json);
+  anchor.setAttribute("download", `${fileName}.json`);
+  anchor.click();
 }
 
 /**
@@ -131,10 +175,32 @@ export function getFileNamePrefix(prefix) {
   return [
     prefix,
     new Date()
-        .toISOString()
-        .split(".")[0]
-        .replace("T", ".")
-        .split(":")
-        .join("-"),
+      .toISOString()
+      .split(".")[0]
+      .replace("T", ".")
+      .split(":")
+      .join("-"),
   ].join(".");
+}
+
+/**
+ * @param {number} frequency
+ * @param {OscillatorType} type
+ * @param {number} volume
+ * @param {number} duration
+ */
+export function beep({ frequency, type, volume, duration }) {
+  const audio = new (window.AudioContext || window.webkitAudioContext)();
+  const oscillator = audio.createOscillator();
+  const gainNode = audio.createGain();
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audio.destination);
+
+  gainNode.gain.value = volume;
+  oscillator.frequency.value = frequency;
+  oscillator.type = type;
+
+  oscillator.start();
+  setTimeout(() => oscillator.stop(), duration);
 }

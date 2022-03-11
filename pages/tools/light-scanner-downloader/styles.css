@@ -23,7 +23,6 @@
     border-color: #FA113D;
 }
 
-
 .buttons-container {
     position: absolute;
     top: 1rem;
@@ -123,4 +122,10 @@ light-scanner-downloader-options psk-code pre {
     display: flex;
     flex-direction: column;
     transform: translateY(-50%);
+}
+
+[data-tag=scanner-tooltip-placeholder] {
+    position: absolute;
+    bottom: 5em;
+    width: 100%;
 }

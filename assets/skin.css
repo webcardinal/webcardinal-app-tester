@@ -30,3 +30,53 @@ scanner-modal {
     overflow: hidden;
     z-index: 2;
 }
+
+scanner-tooltip {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+scanner-tooltip.out {
+    animation: fade-out 500ms 1;
+    animation-fill-mode: forwards;
+}
+
+scanner-tooltip::part(container) {
+    display: flex;
+    border-radius: 0.25em;
+    overflow: hidden;
+}
+
+scanner-tooltip.active::part(container) {
+    box-shadow: 0 0 10px 2px rgb(75, 175, 80);
+}
+
+scanner-tooltip::part(badge) {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75em;
+    background: var(--primary-color);
+    color: #000000;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+scanner-tooltip > psk-code > pre {
+    /* reset psk-styles */
+    font-size: 0.9em !important;
+    padding: 0 0.5em !important;
+    margin: 0 !important;
+}
+
+scanner-tooltip > psk-code > pre > code {
+    /* reset psk-styles */
+    padding: 0 !important;
+}
+
+@keyframes fade-out {
+    0%   { opacity: 1; }
+    100% { opacity: 0; transform: translate(-50%, 30%) scale(.9); }
+}

@@ -74,6 +74,10 @@ define("light-scanner-data", "scanner/light-scanner-data");
 define("light-scanner-downloader-options", "scanner/light-scanner-downloader-options");
 define("light-scanner-checker-options", "scanner/light-scanner-checker-options");
 
+addHook("beforeAppLoads", async () => {
+  await import("/webcardinal-app-tester/components/scanner/scanner-tooltip.js");
+});
+
 addHook("beforePageLoads", "404", async () => {
   await navigateToUrl("/webcardinal-app-tester");
 });

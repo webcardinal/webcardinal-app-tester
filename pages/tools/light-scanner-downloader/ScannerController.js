@@ -1,8 +1,10 @@
 import ScanService, { SCANNER_STATUS } from "../../../scripts/services/ScanService.js";
 import { parseGS1Code } from '../../../scripts/services/ScanParser.js';
 import {
+  beep,
   createCanvasContextFromImageData,
   createScannerModal,
+  createScannerTooltip,
   downloadImage,
   getFileNamePrefix
 } from '../light-scanner/utils.js';
@@ -22,6 +24,7 @@ class ScannerController extends Controller {
       scannedData: "",
       scannedFields: "{}",
       downloadOnSuccess: false,
+      showResultOnModal: false
     };
 
     this.refs = {
@@ -32,11 +35,11 @@ class ScannerController extends Controller {
 
     this.onTagClick("mode", async () => {
       if (this.model.mode === "Options") {
-        await this.showOptionsModal();
+        await this.showOptions();
         return;
       }
 
-      await this.showResultsModal();
+      await this.showResults();
     });
 
     this.onTagClick("retry", this.createScanner);
@@ -92,7 +95,7 @@ class ScannerController extends Controller {
     }
   };
 
-  showOptionsModal = async () => {
+  showOptions = async () => {
     await createScannerModal({
       header: "Scanner Downloader",
       subheader: "Options",
@@ -101,15 +104,55 @@ class ScannerController extends Controller {
     });
   };
 
-  showResultsModal = async () => {
-    this.model.mode = "Results";
-    this.refs.retry.hidden = false;
-    await createScannerModal({
-      header: "Scanner Downloader",
-      subheader: "Results",
-      contentTagName: "light-scanner-data",
-      parentElement: this.element,
-    });
+  showResults = async () => {
+    if (this.model.showResultOnModal) {
+      this.model.mode = "Results";
+      this.refs.retry.hidden = false;
+      await createScannerModal({
+        header: "Scanner Downloader",
+        subheader: "Results",
+        contentTagName: "light-scanner-data",
+        parentElement: this.element,
+      });
+      return;
+    }
+
+    const showTooltip = async (badge, data) => {
+      const t = await createScannerTooltip({
+        badge, data,
+        parentElement: this.refs.tooltips.placeholder
+      });
+      t.triggerAccentShadow();
+      return t;
+    }
+
+    const data = this.model.scannedFields;
+
+    if (typeof this.refs.tooltips !== 'object') {
+      this.refs.tooltips = {};
+    }
+
+    if (!this.refs.tooltips.placeholder) {
+      this.refs.tooltips.placeholder = this.getElementByTag('scanner-tooltip-placeholder')
+    }
+
+    if (this.refs.tooltips.last && !this.refs.tooltips.last.isConnected) {
+      this.refs.tooltips.last = undefined;
+    }
+
+    if (!this.refs.tooltips.last) {
+      this.refs.tooltips.last = await showTooltip(1, data);
+      return;
+    }
+
+    if (this.refs.tooltips.last.data === data) {
+      this.refs.tooltips.last = await showTooltip(this.refs.tooltips.last.badge + 1, data);
+      return;
+    }
+
+    const tooltip = await showTooltip(1, data)
+    this.refs.tooltips.last.remove();
+    this.refs.tooltips.last = tooltip;
   };
 
   // dev-ref:
@@ -151,17 +194,27 @@ class ScannerController extends Controller {
 
         this.onScannerStatusChanged(SCANNER_STATUS.DONE);
 
-        console.log("Scan result:", result);
+        beep({
+          frequency: 850,
+          type: 'triangle',
+          volume: 0.15,
+          duration: 30
+        });
 
-        this.scanService.stop();
-        clearInterval(this.scanInterval);
+        console.log("Scan result:", result);
 
         const scannedData = result.text;
         const parsedData = parseGS1Code(scannedData);
 
+        if (this.model.showResultOnModal) {
+          this.scanService.stop();
+          clearInterval(this.scanInterval);
+        }
+
         this.model.scannedData = scannedData;
         this.model.scannedFields = JSON.stringify(parsedData, null, 2);
-        await this.showResultsModal();
+
+        await this.showResults();
 
         if (this.model.downloadOnSuccess) {
           this.refs.download.click();
