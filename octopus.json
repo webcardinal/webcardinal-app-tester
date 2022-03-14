@@ -58,7 +58,7 @@
         },
         {
           "type": "execute",
-          "cmd": "cd ./webc-app-tester@gh-pages && rm -rf ./webcardinal ./themes ./libs"
+          "cmd": "cd ./docs && rm -rf ./webcardinal ./themes ./libs"
         }
       ]
     }
@@ -70,7 +70,7 @@
         {
           "type": "buildWebCardinalComponents",
           "src": "./src/webcardinal/.webcardinal",
-          "target": "./webc-app-tester@gh-pages/webcardinal",
+          "target": "./docs/webcardinal",
           "options": {
             "DEV": true,
             "devComponents": [
@@ -88,7 +88,7 @@
         {
           "type": "buildWebCardinalComponents",
           "src": "./src/webcardinal/.webcardinal",
-          "target": "./webc-app-tester@gh-pages/webcardinal"
+          "target": "./docs/webcardinal"
         }
       ]
     },
@@ -111,7 +111,7 @@
         {
           "type": "copy",
           "src": "./src/themes/clear-sky-theme/src",
-          "target": "./webc-app-tester@gh-pages/themes/clear-sky-theme",
+          "target": "./docs/themes/clear-sky-theme",
           "options": {
             "overwrite": true
           }
@@ -124,7 +124,7 @@
         {
           "type": "copy",
           "src": "./src/libs",
-          "target": "./webc-app-tester@gh-pages/libs",
+          "target": "./docs/libs",
           "options": {
             "overwrite": true
           }
@@ -136,7 +136,7 @@
       "actions": [
         {
           "type": "execute",
-          "cmd": "cd ./webc-app-tester@gh-pages/libs/zxing-wrapper && rm -rf .git"
+          "cmd": "cd ./docs/libs/zxing-wrapper && rm -rf .git"
         }
       ]
     }
@@ -146,7 +146,11 @@
       "name": "release-webcardinal",
       "actions": [
         {
-          "type": "copy",
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal && npm run release"
+        },
+        {
+          "type": "move",
           "src": "./src/webcardinal/release",
           "target": "./dist",
           "options": {

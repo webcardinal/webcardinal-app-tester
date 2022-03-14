@@ -4,10 +4,11 @@
   "license": "MIT",
   "version": "2.0.0",
   "scripts": {
-    "server": "cd webc-app-tester@gh-pages && node server.js",
+    "server": "cd docs && node server.js",
 
     "clean": "node node_modules/octopus/scripts/run clean devmode",
     "update": "npm run clean && node node_modules/octopus/scripts/run dependencies devmode && npm run build",
+    "release": "node src/webcardinal/bin/scripts/run release devmode",
 
     "dev": "node src/webcardinal/bin/scripts/run dev devmode",
     "build": "node src/webcardinal/bin/scripts/run build devmode",
