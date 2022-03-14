@@ -1,3 +1,5 @@
+const LOCAL_BASE_PATH = '/webcardinal-workspace';
+
 async function start(base, options) {
     const fs = require('fs');
     const { promisify } = require('util');
@@ -23,7 +25,6 @@ async function start(base, options) {
                 res.end();
             }]
         };
-
         server.start(params);
     } catch (e) {
         console.error(`Dev Server could not be started`, e);
@@ -33,8 +34,8 @@ async function start(base, options) {
 const options = {
     port: 8000,
     open: true, // When false, it won't load a new window of your browser.
-    // host: '192.168.1.197'
+    // host: <YOUR LOCAL IP>
 };
 
-start('/webcardinal-app-tester', options);
+start(LOCAL_BASE_PATH, options);
 

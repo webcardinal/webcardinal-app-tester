@@ -1,26 +1,27 @@
 {
-  "name": "webcardinal-app-tester",
-  "version": "1.0.0",
-  "description": "Application made only for testing purposes.",
+  "name": "webcardinal-workspace",
+  "description": "Releasing, Testing and Playground area for WebCardinal.",
+  "license": "MIT",
+  "version": "2.0.0",
   "scripts": {
-    "dev": "node node_modules/octopus/scripts/run dev devmode",
-    "build": "node node_modules/octopus/scripts/run build devmode",
+    "server": "cd webc-app-tester@gh-pages && node server.js",
+
+    "clean": "node node_modules/octopus/scripts/run clean devmode",
+    "update": "npm run clean && node node_modules/octopus/scripts/run dependencies devmode && npm run build",
+
+    "dev": "node src/webcardinal/bin/scripts/run dev devmode",
+    "build": "node src/webcardinal/bin/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
     "create-test": "node node_modules/octopus/scripts/run create-local-test devmode",
-    "commit-test": "node node_modules/octopus/scripts/run commit-local-test devmode",
-    "clean": "rm -rf .dev/ themes/ webcardinal/",
-    "local": "node node_modules/octopus/scripts/run dependencies devmode && npm run build",
-    "update": "npm run clean && npm run local",
-    "server": "node server.js"
+    "commit-test": "node node_modules/octopus/scripts/run commit-local-test devmode"
   },
   "devDependencies": {
     "jsdom": "^19.0.0",
     "live-server": "^1.1.0",
-    "octopus": "https://github.com/webcardinal/octopus"
+    "octopus": "https://github.com/PrivateSky/octopus"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/webcardinal/webcardinal-app-tester.git"
-  },
-  "license": "MIT"
+    "url": "git+https://github.com/webcardinal/webcardinal-workspace.git"
+  }
 }

@@ -7,12 +7,12 @@
         {
           "type": "smartClone",
           "src": "https://github.com/webcardinal/webcardinal-bundler",
-          "target": "./.dev",
+          "target": "./src",
           "collectLog": false
         },
         {
           "type": "execute",
-          "cmd": "cd ./.dev/webcardinal && npm install && npm run bundle-all"
+          "cmd": "cd ./src/webcardinal && npm install && npm run bundle-all"
         }
       ]
     },
@@ -21,18 +21,7 @@
       "actions": [
         {
           "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare dom-parser"
-        }
-      ]
-    },
-    {
-      "name": "clear-sky-theme",
-      "actions": [
-        {
-          "type": "smartClone",
-          "src": "https://github.com/PrivateSky/clear-sky-theme.git",
-          "target": "./.dev/themes",
-          "collectLog": false
+          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare dom-parser"
         }
       ]
     },
@@ -42,46 +31,51 @@
         {
           "type": "smartClone",
           "src": "https://github.com/webcardinal/zxing-wrapper.git",
-          "target": "./libs",
+          "target": "./src/libs",
+          "collectLog": false
+        }
+      ]
+    },
+    {
+      "name": "clear-sky-theme",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/PrivateSky/clear-sky-theme.git",
+          "target": "./src/themes",
           "collectLog": false
         }
       ]
     }
   ],
-  "test": [
+  "clean": [
     {
-      "name": "run-automated-tests",
+      "name": "run-clean",
       "actions": [
         {
           "type": "execute",
-          "cmd": "rm -rf ./.dev/webcardinal/.webcardinal/components/webcardinal-core/test"
+          "cmd": "rm -rf ./src"
         },
         {
           "type": "execute",
-          "cmd": "rm -rf ./pages/automated-tests/results"
-        },
+          "cmd": "cd ./webc-app-tester@gh-pages && rm -rf ./webcardinal ./themes ./libs"
+        }
+      ]
+    }
+  ],
+  "dev": [
+    {
+      "name": "build-webcardinal-components",
+      "actions": [
         {
-          "type": "copy",
-          "src": "./pages/automated-tests/tests",
-          "target": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
+          "type": "buildWebCardinalComponents",
+          "src": "./src/webcardinal/.webcardinal",
+          "target": "./webc-app-tester@gh-pages/webcardinal",
           "options": {
-            "overwrite": true
-          }
-        },
-        {
-          "type": "execute",
-          "cmd": "cd ./.dev/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
-        },
-        {
-          "type": "execute",
-          "cmd": "node ./pages/automated-tests/scripts"
-        },
-        {
-          "type": "move",
-          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
-          "target": "./pages/automated-tests/results",
-          "options": {
-            "overwrite": true
+            "DEV": true,
+            "devComponents": [
+              "webcardianl-core"
+            ]
           }
         }
       ]
@@ -93,8 +87,8 @@
       "actions": [
         {
           "type": "buildWebCardinalComponents",
-          "src": "./.dev/webcardinal/.webcardinal",
-          "target": "./webcardinal"
+          "src": "./src/webcardinal/.webcardinal",
+          "target": "./webc-app-tester@gh-pages/webcardinal"
         }
       ]
     },
@@ -103,8 +97,8 @@
       "actions": [
         {
           "type": "copy",
-          "src": "./.dev/webcardinal/.webcardinal/components/cardinal-wiki/node_modules/prismjs/themes/prism-tomorrow.css",
-          "target": "./.dev/themes/clear-sky-theme/src/components/psk-code/psk-code.css",
+          "src": "./src/webcardinal/.webcardinal/components/cardinal-wiki/node_modules/prismjs/themes/prism-tomorrow.css",
+          "target": "./src/themes/clear-sky-theme/src/components/psk-code/psk-code.css",
           "options": {
             "overwrite": true
           }
@@ -116,8 +110,45 @@
       "actions": [
         {
           "type": "copy",
-          "src": "./.dev/themes/clear-sky-theme/src",
-          "target": "./themes/clear-sky-theme",
+          "src": "./src/themes/clear-sky-theme/src",
+          "target": "./webc-app-tester@gh-pages/themes/clear-sky-theme",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copy-libs",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./src/libs",
+          "target": "./webc-app-tester@gh-pages/libs",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "rm-git-from-zxing-wrapper",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "cd ./webc-app-tester@gh-pages/libs/zxing-wrapper && rm -rf .git"
+        }
+      ]
+    }
+  ],
+  "release": [
+    {
+      "name": "release-webcardinal",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./src/webcardinal/release",
+          "target": "./dist",
           "options": {
             "overwrite": true
           }
@@ -125,19 +156,40 @@
       ]
     }
   ],
-  "dev": [
+  "test": [
     {
-      "name": "build-webcardinal-components",
+      "name": "run-automated-tests",
       "actions": [
         {
-          "type": "buildWebCardinalComponents",
-          "src": "./.dev/webcardinal/.webcardinal",
-          "target": "./webcardinal",
+          "type": "execute",
+          "cmd": "rm -rf ./src/webcardinal/.webcardinal/components/webcardinal-core/test"
+        },
+        {
+          "type": "execute",
+          "cmd": "rm -rf ./pages/automated-tests/results"
+        },
+        {
+          "type": "copy",
+          "src": "./pages/automated-tests/tests",
+          "target": "./src/webcardinal/.webcardinal/components/webcardinal-core/test",
           "options": {
-            "DEV": true,
-            "devComponents": [
-              "cardinal-barcode"
-            ]
+            "overwrite": true
+          }
+        },
+        {
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
+        },
+        {
+          "type": "execute",
+          "cmd": "node ./pages/automated-tests/scripts"
+        },
+        {
+          "type": "move",
+          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
+          "target": "./pages/automated-tests/results",
+          "options": {
+            "overwrite": true
           }
         }
       ]
@@ -150,7 +202,7 @@
         {
           "type": "copy",
           "src": "./pages/automated-tests/tests",
-          "target": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test",
+          "target": "./src/webcardinal/.webcardinal/components/webcardinal-core/test",
           "options": {
             "overwrite": true
           }
@@ -164,7 +216,7 @@
       "actions": [
         {
           "type": "move",
-          "src": "./.dev/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
+          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
           "target": "./pages/automated-tests/results",
           "options": {
             "overwrite": true

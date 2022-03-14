@@ -75,11 +75,11 @@ define("light-scanner-downloader-options", "scanner/light-scanner-downloader-opt
 define("light-scanner-checker-options", "scanner/light-scanner-checker-options");
 
 addHook("beforeAppLoads", async () => {
-  await import("/webcardinal-app-tester/components/scanner/scanner-tooltip.js");
+  await import("/webcardinal-workspace/components/scanner/scanner-tooltip.js");
 });
 
 addHook("beforePageLoads", "404", async () => {
-  await navigateToUrl("/webcardinal-app-tester");
+  await navigateToUrl("/webcardinal-workspace");
 });
 
 // Testing setSkin

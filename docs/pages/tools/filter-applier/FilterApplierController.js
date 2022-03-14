@@ -3,7 +3,7 @@
 const { Controller } = WebCardinal.controllers;
 
 const TAG = '[FilterApplierController]';
-const FILTERS_PATH = '/webcardinal-app-tester/libs/zxing-wrapper/worker/filters.js';
+const FILTERS_PATH = '/webcardinal-workspace/libs/zxing-wrapper/worker/filters.js';
 
 class FilterApplierController extends Controller {
     constructor(...props) {
