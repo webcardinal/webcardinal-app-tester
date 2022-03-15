@@ -4,17 +4,19 @@
   "license": "MIT",
   "version": "2.0.0",
   "scripts": {
-    "server": "cd docs && node server.js",
-
-    "clean": "node node_modules/octopus/scripts/run clean devmode",
-    "update": "npm run clean && node node_modules/octopus/scripts/run dependencies devmode && npm run build",
-    "release": "node src/webcardinal/bin/scripts/run release devmode",
-
-    "dev": "node src/webcardinal/bin/scripts/run dev devmode",
-    "build": "node src/webcardinal/bin/scripts/run build devmode",
     "test": "node node_modules/octopus/scripts/run test devmode",
     "create-test": "node node_modules/octopus/scripts/run create-local-test devmode",
-    "commit-test": "node node_modules/octopus/scripts/run commit-local-test devmode"
+    "commit-test": "node node_modules/octopus/scripts/run commit-local-test devmode",
+
+    "get-source-code": "node node_modules/octopus/scripts/run webc.get-source-code devmode",
+    "clean": "node node_modules/octopus/scripts/run webc.clean devmode",
+    "release": "node src/webcardinal/bin/scripts/run webc.release devmode",
+
+    "gh-pages.dependencies": "node node_modules/octopus/scripts/run gh-pages.dependencies devmode",
+    "gh-pages.clean": "node node_modules/octopus/scripts/run gh-pages.clean devmode",
+    "gh-pages.dev": "node src/webcardinal/bin/scripts/run gh-pages.dev devmode",
+    "gh-pages.build": "node src/webcardinal/bin/scripts/run gh-pages.build devmode",
+    "gh-pages.server": "cd docs && node server.js"
   },
   "devDependencies": {
     "jsdom": "^19.0.0",

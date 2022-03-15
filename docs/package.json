@@ -1,0 +1,13 @@
+{
+  "name": "webcardinal-app-tester",
+  "description": "Testing and Playground area hosted on Github Pages.",
+  "license": "MIT",
+  "version": "1.0.0",
+  "scripts": {
+    "server": "cd .. && npm run gh-pages.server",
+    "dev": "cd .. && npm run gh-pages.dev",
+    "build": "cd .. && npm run gh-pages.build",
+    "clean": "cd .. && npm run gh-pages.clean",
+    "update": "npm run clean && cd .. && npm run gh-pages.dependencies && cd ./docs && npm run build"
+  }
+}

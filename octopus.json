@@ -1,165 +1,6 @@
 {
   "workDir": ".",
-  "dependencies": [
-    {
-      "name": "webcardinal",
-      "actions": [
-        {
-          "type": "smartClone",
-          "src": "https://github.com/webcardinal/webcardinal-bundler",
-          "target": "./src",
-          "collectLog": false
-        },
-        {
-          "type": "execute",
-          "cmd": "cd ./src/webcardinal && npm install && npm run bundle-all"
-        }
-      ]
-    },
-    {
-      "name": "webcardinal-tests",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare dom-parser"
-        }
-      ]
-    },
-    {
-      "name": "zxing-wrapper",
-      "actions": [
-        {
-          "type": "smartClone",
-          "src": "https://github.com/webcardinal/zxing-wrapper.git",
-          "target": "./src/libs",
-          "collectLog": false
-        }
-      ]
-    },
-    {
-      "name": "clear-sky-theme",
-      "actions": [
-        {
-          "type": "smartClone",
-          "src": "https://github.com/PrivateSky/clear-sky-theme.git",
-          "target": "./src/themes",
-          "collectLog": false
-        }
-      ]
-    }
-  ],
-  "clean": [
-    {
-      "name": "run-clean",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "rm -rf ./src"
-        },
-        {
-          "type": "execute",
-          "cmd": "cd ./docs && rm -rf ./webcardinal ./themes ./libs"
-        }
-      ]
-    }
-  ],
-  "dev": [
-    {
-      "name": "build-webcardinal-components",
-      "actions": [
-        {
-          "type": "buildWebCardinalComponents",
-          "src": "./src/webcardinal/.webcardinal",
-          "target": "./docs/webcardinal",
-          "options": {
-            "DEV": true,
-            "devComponents": [
-              "webcardianl-core"
-            ]
-          }
-        }
-      ]
-    }
-  ],
-  "build": [
-    {
-      "name": "build-webcardinal",
-      "actions": [
-        {
-          "type": "buildWebCardinalComponents",
-          "src": "./src/webcardinal/.webcardinal",
-          "target": "./docs/webcardinal"
-        }
-      ]
-    },
-    {
-      "name": "copy-psk-code-dark-theme",
-      "actions": [
-        {
-          "type": "copy",
-          "src": "./src/webcardinal/.webcardinal/components/cardinal-wiki/node_modules/prismjs/themes/prism-tomorrow.css",
-          "target": "./src/themes/clear-sky-theme/src/components/psk-code/psk-code.css",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    },
-    {
-      "name": "copy-themes",
-      "actions": [
-        {
-          "type": "copy",
-          "src": "./src/themes/clear-sky-theme/src",
-          "target": "./docs/themes/clear-sky-theme",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    },
-    {
-      "name": "copy-libs",
-      "actions": [
-        {
-          "type": "copy",
-          "src": "./src/libs",
-          "target": "./docs/libs",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    },
-    {
-      "name": "rm-git-from-zxing-wrapper",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "cd ./docs/libs/zxing-wrapper && rm -rf .git"
-        }
-      ]
-    }
-  ],
-  "release": [
-    {
-      "name": "release-webcardinal",
-      "actions": [
-        {
-          "type": "execute",
-          "cmd": "cd ./src/webcardinal && npm run release"
-        },
-        {
-          "type": "move",
-          "src": "./src/webcardinal/release",
-          "target": "./dist",
-          "options": {
-            "overwrite": true
-          }
-        }
-      ]
-    }
-  ],
+
   "test": [
     {
       "name": "run-automated-tests",
@@ -225,6 +66,177 @@
           "options": {
             "overwrite": true
           }
+        }
+      ]
+    }
+  ],
+
+  "webc.get-source-code": [
+    {
+      "name": "webcardinal",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/webcardinal/webcardinal-bundler",
+          "target": "./src",
+          "collectLog": false
+        },
+        {
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal && npm install && npm run bundle-all"
+        }
+      ]
+    },
+    {
+      "name": "webcardinal-tests",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npm i -D @types/jest@26.0.15 jest@26.6.3 jest-cli@26.6.3 @types/puppeteer@5.4.0 puppeteer@5.4.1 jest-stare dom-parser"
+        }
+      ]
+    }
+  ],
+  "webc.clean": [
+    {
+      "name": "cleanup-for-webcardinal",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "rm -rf ./src"
+        }
+      ]
+    }
+  ],
+  "webc.release": [
+    {
+      "name": "release-of-webcardinal",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal && npm run release"
+        },
+        {
+          "type": "move",
+          "src": "./src/webcardinal/release",
+          "target": "./dist",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    }
+  ],
+
+  "gh-pages.dependencies": [
+    {
+      "name": "zxing-wrapper",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/webcardinal/zxing-wrapper.git",
+          "target": "./src/libs",
+          "collectLog": false
+        }
+      ]
+    },
+    {
+      "name": "clear-sky-theme",
+      "actions": [
+        {
+          "type": "smartClone",
+          "src": "https://github.com/PrivateSky/clear-sky-theme.git",
+          "target": "./src/themes",
+          "collectLog": false
+        }
+      ]
+    }
+  ],
+  "gh-pages.clean": [
+    {
+      "name": "cleanup-dependencies-for-gh-pages",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "cd ./docs && rm -rf ./webcardinal ./themes ./libs"
+        }
+      ]
+    }
+  ],
+  "gh-pages.dev": [
+    {
+      "name": "build-webcardinal-components",
+      "actions": [
+        {
+          "type": "buildWebCardinalComponents",
+          "src": "./src/webcardinal/.webcardinal",
+          "target": "./docs/webcardinal",
+          "options": {
+            "DEV": true,
+            "devComponents": [
+              "webcardinal-core"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "gh-pages.build": [
+    {
+      "name": "build-webcardinal",
+      "actions": [
+        {
+          "type": "buildWebCardinalComponents",
+          "src": "./src/webcardinal/.webcardinal",
+          "target": "./docs/webcardinal"
+        }
+      ]
+    },
+    {
+      "name": "copy-psk-code-dark-theme",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./src/webcardinal/.webcardinal/components/cardinal-wiki/node_modules/prismjs/themes/prism-tomorrow.css",
+          "target": "./src/themes/clear-sky-theme/src/components/psk-code/psk-code.css",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copy-themes",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./src/themes/clear-sky-theme/src",
+          "target": "./docs/themes/clear-sky-theme",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "copy-libs",
+      "actions": [
+        {
+          "type": "copy",
+          "src": "./src/libs",
+          "target": "./docs/libs",
+          "options": {
+            "overwrite": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "rm-git-from-zxing-wrapper",
+      "actions": [
+        {
+          "type": "execute",
+          "cmd": "cd ./docs/libs/zxing-wrapper && rm -rf .git"
         }
       ]
     }
