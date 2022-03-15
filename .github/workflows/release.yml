@@ -1,15 +1,16 @@
-name: Release
+name: 'Release Pipeline'
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
+      - name: Node setup
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
 
