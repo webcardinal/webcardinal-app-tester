@@ -64,3 +64,5 @@ jobs:
         run: |
           chmod +x .github/publish_release.sh
           .github/publish_release.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
