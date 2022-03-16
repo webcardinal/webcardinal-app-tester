@@ -3,7 +3,7 @@ name: Generete release
 on: workflow_dispatch
 
 jobs:
-  release:
+  prepare-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,3 +40,15 @@ jobs:
         with:
           name: webcardinal-release
           path: webcardinal-release.zip
+
+  upload-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: webcardinal-release
+
+      - name: Display structure of downloaded files
+        run: ls -R
