@@ -10,8 +10,9 @@ function publish_bundle() {
   cd "$root/$dir/$bundle" || exit
 
   echo "Publishing into repository '$repository' in branch '$branch' from path '$(pwd)'"
-
   git remote set-url origin "https://${GIT_TOKEN}@github.com/webcardinal/$repository.git"
+  echo "Origin: https://${GIT_TOKEN}@github.com/webcardinal/$repository.git"
+
   git config user.name github-actions
   git config user.email github-actions@github.com
   git add -A
