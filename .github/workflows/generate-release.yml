@@ -1,4 +1,4 @@
-name: 'Build WebCardinal'
+name: Generete release
 
 on: workflow_dispatch
 
@@ -35,7 +35,8 @@ jobs:
       - name: Archive
         run: zip -q -r webcardinal-release.zip ./dist
         shell: bash
-        uses: actions/upload-artifact@v2
+
+      - uses: actions/upload-artifact@v2
         with:
           name: webcardinal-release
           path: webcardinal-release.zip
