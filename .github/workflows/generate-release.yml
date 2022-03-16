@@ -57,5 +57,10 @@ jobs:
         run: unzip -q webcardinal-release.zip
         shell: bash
 
-      - name: Display structure of downloaded files
+      - name: Inspect distribution
         run: cd ./dist && ls -A
+
+      - name: Publish the new release
+        run: |
+          chmod +x .github/publish_release.sh
+          .github/publish_release.sh
