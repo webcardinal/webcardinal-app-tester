@@ -42,7 +42,10 @@ jobs:
           path: webcardinal-release.zip
 
   upload-release:
+    needs: prepare-release
+
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
