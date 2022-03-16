@@ -15,9 +15,10 @@ function publish_bundle() {
 
   git config user.name github-actions
   git config user.email github-actions@github.com
+
+  git pull
   git add -A
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
-  git pull
   git push origin "$branch"
 
   cd "$root" || exit
