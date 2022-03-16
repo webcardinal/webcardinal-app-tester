@@ -53,5 +53,9 @@ jobs:
         with:
           name: webcardinal-release
 
+      - name: Unzip archive
+        run: unzip -q webcardinal-release.zip
+        shell: bash
+
       - name: Display structure of downloaded files
-        run: ls -R
+        run: cd ./dist && ls -A
