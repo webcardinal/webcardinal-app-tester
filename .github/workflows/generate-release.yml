@@ -41,31 +41,62 @@ jobs:
           name: webcardinal-release
           path: webcardinal-release.zip
 
-  upload-release:
-    needs: prepare-release
+#  upload-release:
+#    needs: prepare-release
+#
+#    permissions: write-all
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: webcardinal-release
+#
+#      - name: Unzip archive
+#        run: unzip -q webcardinal-release.zip
+#        shell: bash
+#
+#      - name: Inspect distribution
+#        run: cd ./release && ls -A
+#
+#      - name: Publish the new release
+#        run: |
+#          chmod +x .github/publish_release.sh
+#          .github/publish_release.sh
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        shell: bash
 
-    permissions: write-all
+  upload-minimal-release:
+    needs: prepare-release
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          repository: webcardinal/webcardinal-minimal-release
 
       - uses: actions/download-artifact@v3
         with:
           name: webcardinal-release
 
       - name: Unzip archive
+        shell: bash
         run: unzip -q webcardinal-release.zip
+
+      - name: Prepare distribution
         shell: bash
+        run: cp -r ./release/production/bundle-minimal ./
 
-      - name: Inspect distribution
-        run: cd ./release && ls -A
-
-      - name: Publish the new release
+      - name: Push to master branch
+        shell: bash
         run: |
-          chmod +x .github/publish_release.sh
-          .github/publish_release.sh
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add dist/
+          git commit -m "WebCardinal release for bundle-minimal (build-id $GITHUB_RUN_NUMBER)"
+          git push
