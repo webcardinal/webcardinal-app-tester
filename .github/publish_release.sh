@@ -18,13 +18,14 @@ function publish_bundle() {
   git config user.name "Github Actions"
   git config user.email "github-actions@github.com"
 
-  echo "ls -R"
-
   git pull origin "$branch"
-  rm -rf dist/
-  cp -r "$root/$dir/$bundle" "$root/temp"
 
-  echo "ls -R"
+  echo "Structure after 'git pull'" && ls -R
+
+  rm -rf dist/
+  cp -r "$root/$dir/$bundle/*" "$root/temp"
+
+  echo "Structure after 'cp'" && ls -R
 
   git add dist/
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
