@@ -17,8 +17,8 @@ function publish_bundle() {
 
   echo "Origin: https://$GITHUB_TOKEN@github.com/webcardinal/$repository.git"
 
-#  git config user.name "Github Actions"
-#  git config user.email "github-actions@users.noreply.github.com"
+  #  git config user.name "Github Actions"
+  #  git config user.email "github-actions@users.noreply.github.com"
 
   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
   git config --local user.name "github-actions[bot]"
@@ -78,4 +78,4 @@ function publish_distribution() {
 
 #publish_distribution "$1"
 
-publish_bundle "webcardinal-minimal-release" "master" "release/production" "bundle-minimal"
+publish_bundle "webcardinal-minimal-release" "dev" "release/development" "bundle-minimal"
