@@ -2,37 +2,42 @@
 
 function publish_bundle() {
   root=$(pwd)
+
   repository=$1
   branch=$2
   dir=$3
   bundle=$4
 
-  cd "$root/$dir/$bundle" || exit
-
-  echo "Publishing into repository '$repository' in branch '$branch' from path '$(pwd)'"
-  git remote set-url origin "https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git"
-  echo "Origin: https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git"
-
   git config user.name github-actions
   git config user.email github-actions@github.com
 
-  git pull
-  git add -A
+  git clone "https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git" --branch=master --depth=1 ./temp
+
+  cd "$root/temp" || exit 1
+
+  echo "Publishing into repository '$repository' in branch '$branch' from path '$(pwd)'"
+
+  rm -rf dist/
+  cp -r "$root/$dir/$bundle/dist" "$root/temp/dist"
+  git add dist/
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
+
   git push origin "$branch"
 
-  cd "$root" || exit
+  rm -rf "$root/temp"
+
+  cd "$root" || exit 2
 }
 
 function publish_distribution() {
   if [[ $1 == "-p" ]]
   then
-    dir="dist/production"
+    dir="release/production"
     branch=master
   else
     if [[ $1 == "-d" ]]
     then
-      dir="dist/development"
+      dir="release/development"
       branch=dev
     fi
   fi
@@ -61,4 +66,4 @@ function publish_distribution() {
 
 #publish_distribution "$1"
 
-publish_bundle "webcardinal-minimal-release" "master" "dist/production" "bundle-minimal"
+publish_bundle "webcardinal-minimal-release" "master" "release/production" "bundle-minimal"

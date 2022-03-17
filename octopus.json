@@ -119,7 +119,7 @@
         {
           "type": "move",
           "src": "./src/webcardinal/release",
-          "target": "./dist",
+          "target": "./release",
           "options": {
             "overwrite": true
           }

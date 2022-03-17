@@ -1,6 +1,6 @@
 .idea/
 .vscode/
-dist/
+release/
 src/
 node_modules/
 

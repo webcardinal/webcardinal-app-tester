@@ -33,7 +33,7 @@ jobs:
         shell: bash
 
       - name: Archive
-        run: zip -q -r webcardinal-release.zip ./dist
+        run: zip -q -r webcardinal-release.zip ./release
         shell: bash
 
       - uses: actions/upload-artifact@v2
@@ -58,7 +58,7 @@ jobs:
         shell: bash
 
       - name: Inspect distribution
-        run: cd ./dist && ls -A
+        run: cd ./release && ls -A
 
       - name: Publish the new release
         run: |
