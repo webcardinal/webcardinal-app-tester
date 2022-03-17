@@ -10,15 +10,17 @@ function publish_bundle() {
 
   echo "Publishing into repository '$repository' in branch '$branch' from path '$(pwd)'"
 
-  git clone "https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git --branch=$branch --depth=1 ./temp"
+  mkdir "temp"
+  cd "$root/temp" || exit 1
+
+  git remote set-url origin "https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git"
 
   git config user.name "Github Actions"
   git config user.email "github-actions@github.com"
 
-  cd "$root/temp" || exit 1
-
+  git pull origin "$branch"
   rm -rf dist/
-  cp -r "$root/$dir/$bundle/dist" "$root/temp/dist"
+  cp -r "$root/$dir/$bundle" "$root/temp"
   git add dist/
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
   git push origin "$branch"
