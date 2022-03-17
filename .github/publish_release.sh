@@ -23,7 +23,7 @@ function publish_bundle() {
   echo "Structure after 'git pull'" && ls -R
 
   rm -rf dist/
-  cp -r "../$dir/$bundle/*" "./"
+  cp -r "../$dir/$bundle/dist/" "./"
 
   echo "Structure after 'cp'" && ls -R
 
