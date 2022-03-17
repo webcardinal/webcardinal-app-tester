@@ -29,7 +29,7 @@ function publish_bundle() {
 
   git add dist/
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
-  git push origin "$branch" --set-upstream --repo="https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git"
+  git push origin "$branch" --repo="https://${GITHUB_TOKEN}@github.com/webcardinal/$repository.git"
 
   rm -rf "$root/temp"
 
@@ -73,4 +73,4 @@ function publish_distribution() {
 
 #publish_distribution "$1"
 
-publish_bundle "webcardinal-test-release" "master" "release/production" "bundle-minimal"
+publish_bundle "webcardinal-minimal-release" "master" "release/production" "bundle-minimal"
