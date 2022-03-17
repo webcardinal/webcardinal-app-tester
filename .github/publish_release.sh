@@ -18,7 +18,7 @@ function publish_bundle() {
   git config user.name "Github Actions"
   git config user.email "github-actions@github.com"
 
-  git pull origin "$branch"
+  git pull origin "$branch" --rebase
 
   echo "Structure after 'git pull'" && ls -R
 
