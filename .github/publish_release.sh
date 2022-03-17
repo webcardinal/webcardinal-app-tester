@@ -15,6 +15,8 @@ function publish_bundle() {
 
   git remote set-url origin "https://$GITHUB_TOKEN@github.com/webcardinal/$repository.git"
 
+  echo "Origin: https://$GITHUB_TOKEN@github.com/webcardinal/$repository.git"
+
   git config user.name "Github Actions"
   git config user.email "github-actions@users.noreply.github.com"
 
