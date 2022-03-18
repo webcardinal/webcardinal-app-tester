@@ -1,3 +1,4 @@
 module.exports = {
-    TEST_REPORTS_PATH: `./.dev/webcardinal/.webcardinal/components/webcardinal-core/test/reports`
+    TESTS_PATH: 'src/webcardinal/.webcardinal/components/webcardinal-core/test',
+    TESTS_REPORTS_PATH: `src/webcardinal/.webcardinal/components/webcardinal-core/test-results`
 }

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "types": [
-      "../../../.dev/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@types/jest",
-      "../../../.dev/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@stencil/core/testing"
+      "../../../src/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@types/jest",
+      "../../../src/webcardinal/.webcardinal/components/webcardinal-core/node_modules/@stencil/core/testing"
     ]
   },
   "exclude": [

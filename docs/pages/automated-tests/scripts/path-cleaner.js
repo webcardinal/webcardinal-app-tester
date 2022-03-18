@@ -5,7 +5,7 @@ const constants = require('./constants');
 const jsdom = require('jsdom');
 
 function filterPaths(document, reportsJSON) {
-    const keyword = '.dev/webcardinal/.webcardinal/components/webcardinal-core/test';
+    const keyword = constants.TESTS_PATH;
 
     reportsJSON.testResults = reportsJSON.testResults.map(testResult => {
         const index = testResult.testFilePath.indexOf(keyword);
@@ -37,18 +37,18 @@ function injectVisualAdjustments(document) {
 }
 
 async function run() {
-    const pathToHTML = path.join(process.cwd(), constants.TEST_REPORTS_PATH, 'reports.html');
-    const pathToJSON = path.join(process.cwd(), constants.TEST_REPORTS_PATH, 'reports.json');
+    const pathToHTML = path.join(process.cwd(), constants.TESTS_REPORTS_PATH, 'index.html');
+    const pathToJSON = path.join(process.cwd(), constants.TESTS_REPORTS_PATH, 'test.json');
 
     let reportsJSON;
     let rawHTML;
 
-    console.log('[WebCardinal] [testing-workflow] Looking in...', path.join(process.cwd(), constants.TEST_REPORTS_PATH));
+    console.log('[WebCardinal] [testing-workflow] Looking in...', path.join(process.cwd(), constants.TESTS_REPORTS_PATH));
 
     try {
         reportsJSON = require(pathToJSON);
     } catch (error) {
-        console.error('[WebCardinal] [testing-workflow] can no read reports.html!', error);
+        console.error('[WebCardinal] [testing-workflow] can no read test.json from test-results!', error);
         return;
     }
 
@@ -56,7 +56,7 @@ async function run() {
         rawHTML = await promisify(fs.readFile)(pathToHTML, { encoding: 'UTF-8' });
         rawHTML = rawHTML.replace(/<!--(.*?)-->/gs, '');
     } catch (error) {
-        console.error('[WebCardinal] [testing-workflow] can no read reports.html!', error);
+        console.error('[WebCardinal] [testing-workflow] can no read index.html from test-results!', error);
         return;
     }
 
@@ -78,10 +78,10 @@ async function run() {
     }
 
     try {
-        const pathToHTML = path.join(constants.TEST_REPORTS_PATH, 'reports.html');
+        const pathToHTML = path.join(constants.TESTS_REPORTS_PATH, 'index.html');
         await promisify(fs.writeFile)(pathToHTML, dom.serialize(), { encoding: 'UTF-8' });
     } catch (error) {
-        console.error('[WebCardinal] [testing-workflow] can not write in reports.html!', error);
+        console.error('[WebCardinal] [testing-workflow] can not write in index.html of test-results!', error);
     }
 }
 

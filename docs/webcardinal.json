@@ -341,7 +341,7 @@
       "name": "WebCardinal Main Tests Results",
       "tag": "webcardinal/main-tests-results",
       "path": "./tests/automated/results",
-      "src": "./automated-tests/results/reports.html",
+      "src": "./automated-tests/results/index.html",
       "loader": "object",
       "indexed": false
     },

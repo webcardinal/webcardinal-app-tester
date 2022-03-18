@@ -11,11 +11,15 @@
         },
         {
           "type": "execute",
-          "cmd": "rm -rf ./pages/automated-tests/results"
+          "cmd": "rm -rf ./src/webcardinal/.webcardinal/components/webcardinal-core/test-results"
+        },
+        {
+          "type": "execute",
+          "cmd": "rm -rf ./docs/pages/automated-tests/results"
         },
         {
           "type": "copy",
-          "src": "./pages/automated-tests/tests",
+          "src": "./docs/pages/automated-tests/tests",
           "target": "./src/webcardinal/.webcardinal/components/webcardinal-core/test",
           "options": {
             "overwrite": true
@@ -27,12 +31,12 @@
         },
         {
           "type": "execute",
-          "cmd": "node ./pages/automated-tests/scripts"
+          "cmd": "node ./docs/pages/automated-tests/scripts"
         },
         {
           "type": "move",
-          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
-          "target": "./pages/automated-tests/results",
+          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test-results",
+          "target": "./docs/pages/automated-tests/results",
           "options": {
             "overwrite": true
           }
