@@ -13,17 +13,15 @@ function publish_bundle() {
   mkdir "temp"
   cd "$root/temp" || exit 1
 
-  git remote set-url origin "https://$ACCESS_TOKEN@github.com/webcardinal/$repository.git"
+  git init
+  git remote add origin "https://$ACCESS_TOKEN@github.com/webcardinal/$repository.git"
 
   echo "Origin: https://$ACCESS_TOKEN@github.com/webcardinal/$repository.git"
 
-  #  git config user.name "Github Actions"
-  #  git config user.email "github-actions@users.noreply.github.com"
+  git config --local user.email "github-actions@github.com"
+  git config --local user.name "github-actions"
 
-  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-  git config --local user.name "github-actions[bot]"
-
-  git pull origin "$branch" --rebase
+  git pull origin "$branch"
 
   echo "Structure after 'git pull'" && ls -R
 
@@ -36,9 +34,9 @@ function publish_bundle() {
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
   git push origin "$branch"
 
-  rm -rf "$root/temp"
+  cd "../" || exit 2
 
-  cd "$root" || exit 2
+  rm -rf "$root/temp"
 }
 
 function publish_distribution() {
