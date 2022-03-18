@@ -16,19 +16,19 @@ function publish_bundle() {
   git init
   git remote add origin "https://$ACCESS_TOKEN@github.com/webcardinal/$repository.git"
 
-  echo "Origin: https://$ACCESS_TOKEN@github.com/webcardinal/$repository.git"
-
   git config --local user.email "github-actions@github.com"
   git config --local user.name "github-actions"
 
-  git pull origin "$branch"
+  git pull origin master
 
-  echo "Structure after 'git pull'" && ls -R
+  git checkout -b "$branch"
+
+  #  echo "Structure after 'git pull'" && ls -R
 
   rm -rf dist/
   cp -r "../$dir/$bundle/dist/" "./"
 
-  echo "Structure after 'cp'" && ls -R
+  #  echo "Structure after 'cp'" && ls -R
 
   git add dist/
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
