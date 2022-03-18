@@ -74,6 +74,4 @@ function publish_distribution() {
   done
 }
 
-#publish_distribution "$1"
-
-publish_bundle "webcardinal-minimal-release" "master" "release/production" "bundle-minimal"
+publish_distribution "$1"
