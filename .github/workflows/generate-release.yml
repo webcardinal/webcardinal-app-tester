@@ -78,6 +78,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          path: repository/webcardinal-minimal-release
           repository: webcardinal/webcardinal-minimal-release
 
       - uses: actions/download-artifact@v3
@@ -91,9 +92,10 @@ jobs:
       - name: Prepare distribution
         shell: bash
         run: |
+          cd repository/webcardinal-minimal-release
           rm -rf ./dist
-          cp -r ./release/production/bundle-minimal ./
-          ls -A
+          cp -r ../../release/production/bundle-minimal/* ./
+          ls -R
 
       - name: Push to master branch
         shell: bash
