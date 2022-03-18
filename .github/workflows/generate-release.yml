@@ -32,11 +32,29 @@ jobs:
         run: npm run release
         shell: bash
 
+      - name: Preparing tests
+        run: rm -rf ./docs/webcardinal/* && cp -r ./release/production/bundle-all/dist/* ./docs/webcardinal
+        shell: bash
+
+      - name: Tests
+        run: npm test
+
+      - name: Push results
+        if: ${{ always() }}
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "github-actions"
+          git add ./docs/pages/automated-tests/results
+          git commit -m "WebCardinal test results (build-id $GITHUB_RUN_NUMBER)"
+          git push
+
       - name: Archive
+        if: ${{ success() }}
         run: zip -q -r webcardinal-release.zip ./release
         shell: bash
 
       - uses: actions/upload-artifact@v2
+        if: ${{ success() }}
         with:
           name: webcardinal-release
           path: webcardinal-release.zip

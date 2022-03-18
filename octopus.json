@@ -27,7 +27,7 @@
         },
         {
           "type": "execute",
-          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare"
+          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && npx stencil test --spec --e2e --testResultsProcessor=jest-stare || echo $? > exit_code"
         },
         {
           "type": "execute",
@@ -40,6 +40,11 @@
           "options": {
             "overwrite": true
           }
+        },
+        {
+          "type": "execute",
+          "cmd": "cd ./src/webcardinal/.webcardinal/components/webcardinal-core && test -f exit_code && rm exit_code && exit 1 || exit 0",
+          "os": "linux"
         }
       ]
     }
@@ -50,7 +55,7 @@
       "actions": [
         {
           "type": "copy",
-          "src": "./pages/automated-tests/tests",
+          "src": "./docs/pages/automated-tests/tests",
           "target": "./src/webcardinal/.webcardinal/components/webcardinal-core/test",
           "options": {
             "overwrite": true
@@ -65,8 +70,8 @@
       "actions": [
         {
           "type": "move",
-          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test/reports",
-          "target": "./pages/automated-tests/results",
+          "src": "./src/webcardinal/.webcardinal/components/webcardinal-core/test-results",
+          "target": "./docs/pages/automated-tests/test-results",
           "options": {
             "overwrite": true
           }
