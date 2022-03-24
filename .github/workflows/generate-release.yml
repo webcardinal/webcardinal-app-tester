@@ -1,6 +1,8 @@
 name: Generete release
 
-on: workflow_dispatch
+on:
+  repository_dispatch:
+    types: [start-build-distributions]
 
 jobs:
   prepare-release:
