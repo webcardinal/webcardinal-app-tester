@@ -1,0 +1,94 @@
+<style>
+    .tdb-10 webc-datatable {
+        --height: 500px
+    }
+
+    .message {
+        position: relative;
+        border-radius: 11px;
+        min-height: 35px;
+        margin: 0 25px 10px;
+        padding: 0 10px;
+        z-index: 1;
+    }
+
+    .their-message {
+        background: white;
+    }
+
+    .webc-datatable--container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .my-message {
+        background: #afbde3;
+    }
+
+
+    .message p {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.875rem;
+        line-height: 35px;
+        color: #000000;
+        width: calc(100% - 25px);
+        position: relative;
+        z-index: 2;
+    }
+
+    .message span {
+        position: absolute;
+        right: 11px;
+        bottom: 3px;
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.625rem;
+        line-height: 14px;
+        color: #798389;
+        z-index: 2;
+    }
+</style>
+
+<div id="test-container" class="tdb-10">
+    <header>
+        <section>
+            <h3>Basic example of DataTable</h3>
+            <div>keywords: <code>useInfiniteScroll</code>, <code>DataSource</code>,<code>Load from top</code></div>
+        </section>
+    </header>
+    <main>
+        <webcat-section shadow header="Result">
+            <webc-container controller="../../pages/manual-tests/webc-datatable/10/Controller">
+                <webc-datatable datasource="@infinitScrollDataSource">
+                    <container data-if="@myMessage">
+                        <div slot="true" class="message my-message">
+
+                            <p>{{@text}}</p>
+                            <span class="time">{{@time}}</span>
+                        </div>
+                        <div slot="false" class="message their-message">
+
+                            <p>{{@text}}</p>
+                            <span class="time">{{@time}}</span>
+                        </div>
+                    </container>
+                </webc-datatable>
+            </webc-container>
+        </webcat-section>
+
+        <webcat-section shadow header="Markup">
+            <psk-code language="HTML" file="pages/manual-tests/webc-datatable/10/markup.html"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Styles">
+            <psk-code language="CSS" file="pages/manual-tests/webc-datatable/10/styles.css"></psk-code>
+        </webcat-section>
+
+        <webcat-section shadow header="Controller">
+            <psk-code language="JavaScript" file="pages/manual-tests/webc-datatable/10/Controller.js"></psk-code>
+        </webcat-section>
+    </main>
+</div>

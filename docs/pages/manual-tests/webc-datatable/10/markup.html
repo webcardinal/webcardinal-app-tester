@@ -1,0 +1,14 @@
+<webc-datatable datasource="@infinitScrollDataSource">
+    <container data-if="@myMessage">
+        <div slot="true" class="message my-message">
+
+            <p>{{@text}}</p>
+            <span class="time">{{@time}}</span>
+        </div>
+        <div slot="false" class="message their-message">
+
+            <p>{{@text}}</p>
+            <span class="time">{{@time}}</span>
+        </div>
+    </container>
+</webc-datatable>
