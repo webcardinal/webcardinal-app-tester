@@ -1,0 +1,51 @@
+.tdb-10 webc-datatable {
+    --height: 500px
+}
+
+.message {
+    position: relative;
+    border-radius: 11px;
+    min-height: 35px;
+    margin: 0 25px 10px;
+    padding: 0 10px;
+    z-index: 1;
+}
+
+.their-message {
+    background: white;
+}
+
+.webc-datatable--container {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-message {
+    background: #afbde3;
+}
+
+
+.message p {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 35px;
+    color: #000000;
+    width: calc(100% - 25px);
+    position: relative;
+    z-index: 2;
+}
+
+.message span {
+    position: absolute;
+    right: 11px;
+    bottom: 3px;
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.625rem;
+    line-height: 14px;
+    color: #798389;
+    z-index: 2;
+}

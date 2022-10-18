@@ -190,6 +190,12 @@
               "name": "Test 9 - Complete bindings",
               "path": "./9",
               "src": "./9/index.html"
+            },
+            {
+              "name": "Test 10 - Infinit Scroll with loading from Top",
+              "path": "./10",
+              "src": "./10/index.html",
+              "tag": "webc-datasource:test-10"
             }
           ]
         },

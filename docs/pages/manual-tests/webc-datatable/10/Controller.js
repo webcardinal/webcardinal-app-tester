@@ -1,15 +1,34 @@
-// Path: pages/manual-tests/webc-datatable/6/Controller.js
-
-const { Controller } = WebCardinal.controllers;
 const { DataSource } = WebCardinal.dataSources;
-
+const { Controller } = WebCardinal.controllers;
 const timeout = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
+async function generateMessageArray() {
+  var arr = []
+
+  for (let i = 0; i < 1000; i++) {
+    const timestamp = Date.now();
+    const val = `Message ${i + 1}`;
+
+    arr.push({
+      text: val,
+      myMessage: Math.random() < 0.5 ? true : false,
+      time: new Date(timestamp).toLocaleTimeString('ro-RO')
+    })
+    await timeout(10);
+  }
+  return arr;
+}
 const db = {
   async fetchData(start, length) {
+    console.log(start, length)
+
+    if (!this.messages) {
+      this.messages = await generateMessageArray();
+    }
     await timeout(2000);
-    return [...Array(length).keys()];
-  },
+    const toReturn = this.messages.slice(this.messages.length - start - length,this.messages.length - start).sort((a, b) => { return b.time - a.time });
+    return toReturn
+  }
 };
 
 class InfinitScrollDataSource extends DataSource {
@@ -21,10 +40,9 @@ class InfinitScrollDataSource extends DataSource {
     this.setPageSize(15);
 
     // Without knowing the records count datasource will try to fetch data infinitely
-    this.setRecordsNumber(67);
 
     // Specific data only for your custom DataSource
-    this.currentbucketNumber = 0;
+    this.currentbucketNumber = -1;
   }
 
   /**
@@ -33,13 +51,9 @@ class InfinitScrollDataSource extends DataSource {
   async getPageDataAsync(startOffset, dataLengthForCurrentPage) {
     const data = await db.fetchData(startOffset, dataLengthForCurrentPage);
     this.currentbucketNumber++;
-    return data.map((index) => ({
-      lineNumber: startOffset + index + 1,
-      bucketNumber: this.currentbucketNumber,
-      dataNumber: index + 1,
-      dataString: `Current data ${this.currentbucketNumber}.${startOffset + index + 1}.${index + 1}`,
-    }));
+    return data;
   }
+
 }
 
 export default class InfinitScrollController extends Controller {
@@ -48,6 +62,7 @@ export default class InfinitScrollController extends Controller {
     this.model = {
       infinitScrollDataSource: new InfinitScrollDataSource({
         useInfiniteScroll: true,
+        infiniteScrollPosition: 'top',
       }),
     };
   }
