@@ -1,0 +1,17 @@
+<style>
+    .child-card{
+        border:2px solid red;
+    }
+  p.data{
+    background:black;
+    color:white;
+  }
+</style>
+
+
+<webc-container controller="../../../pages/manual-tests/webc-component/5/child-component/ChildComponentController" data-view-model="@">
+  <div class="child-card">
+      <h3>Child component</h3>
+   <p class="data">{{@text1}} <br> {{@text2}}</p>
+  </div>
+</webc-container>

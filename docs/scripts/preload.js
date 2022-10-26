@@ -63,7 +63,9 @@ define("test-container-scoped", "test-container/test-container-scoped");
 define("rw-pagination", { shadow: true });
 
 define("scanner-modal", "scanner/scanner-modal", { shadow: true });
-
+// data-binding error example
+define('slider-component',"../pages/manual-tests/webc-component/5/slider-component/slider-component")
+define('child-component',"../pages/manual-tests/webc-component/5/child-component/child-component")
 // deprecated
 define("scanner-data",  "scanner/scanner-data");
 define("scanner-downloader-options", "scanner/scanner-downloader-options");

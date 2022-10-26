@@ -1,0 +1,17 @@
+<style>
+#parent-container{
+    width:100%;
+}
+</style>
+
+<webc-container id="text-container" controller="../../pages/manual-tests/webc-component/5/Controller">
+
+    <div class="added-with-html">
+        <h1>Added with html</h1>
+        <child-component data-view-model="@outerExample"></child-component>
+    </div>
+    <main id="parent-container">
+        <h1>Added with js</h1>
+        <slider-component data-view-model="@sliderCard"></slider-component>
+    </main>
+</webc-container>
