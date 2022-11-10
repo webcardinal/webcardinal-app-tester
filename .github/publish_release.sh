@@ -31,7 +31,22 @@ function publish_bundle() {
   #  echo "Structure after 'cp'" && ls -R
 
   git add dist/
+
+  # increment the patch version inside package.json, without creating a separated commit (-no-git-tag-version)
+  # and with ignoring the existing local changes (--force) - in order to increment the patch version in the same commit
+  npm version patch -no-git-tag-version --force
+
+  # read updated package version
+  package_version=$(grep version package.json | awk -F \" '{print $4}')
+
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
+
+  # set git tag with current package version
+  git tag "v.$package_version"
+
+  # push tag
+  git push --tags origin
+
   git push origin "$branch"
 
   cd "../" || exit 2
