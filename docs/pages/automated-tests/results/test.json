@@ -26,7 +26,7 @@
     "unmatched": 0,
     "updated": 0
   },
-  "startTime": 1666105352893,
+  "startTime": 1668095816570,
   "success": true,
   "testResults": [
     {
@@ -37,10 +37,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1666105361529,
-        "runtime": 7281,
+        "end": 1668095826568,
+        "runtime": 8358,
         "slow": true,
-        "start": 1666105354248
+        "start": 1668095818210
       },
       "skipped": false,
       "snapshot": {
@@ -59,7 +59,7 @@
             "webc-app-root",
             "renders itself and children"
           ],
-          "duration": 1814,
+          "duration": 1996,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-app-root renders itself and children renders itself",
@@ -73,7 +73,7 @@
             "webc-app-root",
             "renders itself and children"
           ],
-          "duration": 981,
+          "duration": 1245,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-app-root renders itself and children renders webc-app-menu",
@@ -87,7 +87,7 @@
             "webc-app-root",
             "renders itself and children"
           ],
-          "duration": 942,
+          "duration": 1064,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-app-root renders itself and children renders webc-app-container",
@@ -101,7 +101,7 @@
             "webc-app-root",
             "renders itself and children"
           ],
-          "duration": 1444,
+          "duration": 1428,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-app-root renders itself and children renders webc-app-error-toast",
@@ -121,10 +121,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1666105363191,
-        "runtime": 8944,
+        "end": 1668095828464,
+        "runtime": 10205,
         "slow": true,
-        "start": 1666105354247
+        "start": 1668095818259
       },
       "skipped": false,
       "snapshot": {
@@ -143,7 +143,7 @@
             "data-for",
             "renders itself and applies initial binding"
           ],
-          "duration": 3581,
+          "duration": 3694,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "data-for renders itself and applies initial binding renders items",
@@ -157,7 +157,7 @@
             "data-for",
             "renders itself and applies initial binding"
           ],
-          "duration": 3234,
+          "duration": 3805,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "data-for renders itself and applies initial binding should work with push",
@@ -177,10 +177,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1666105370682,
-        "runtime": 16472,
+        "end": 1668095836148,
+        "runtime": 17962,
         "slow": true,
-        "start": 1666105354210
+        "start": 1668095818186
       },
       "skipped": false,
       "snapshot": {
@@ -199,7 +199,7 @@
             "webc-container",
             "renders itself and applies initial binding"
           ],
-          "duration": 3580,
+          "duration": 3794,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container renders itself and applies initial binding renders itself",
@@ -213,7 +213,7 @@
             "webc-container",
             "renders itself and applies initial binding"
           ],
-          "duration": 2587,
+          "duration": 2927,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container renders itself and applies initial binding binds text '{{ @title }}'",
@@ -227,7 +227,7 @@
             "webc-container",
             "renders itself and applies initial binding"
           ],
-          "duration": 1588,
+          "duration": 1719,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container renders itself and applies initial binding binds text 'Description: {{ @description }}'",
@@ -241,7 +241,7 @@
             "webc-container",
             "renders itself and applies initial binding"
           ],
-          "duration": 1527,
+          "duration": 1657,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container renders itself and applies initial binding binds attributes 'class=\"@class\"'",
@@ -255,7 +255,7 @@
             "webc-container",
             "renders itself and applies initial binding"
           ],
-          "duration": 1539,
+          "duration": 1637,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container renders itself and applies initial binding binds data-view-model 'data-view-model=\"@dataViewModel\"",
@@ -269,7 +269,7 @@
             "webc-container",
             "applies re-rendering when is needed"
           ],
-          "duration": 1427,
+          "duration": 1523,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container applies re-rendering when is needed renders itself",
@@ -283,7 +283,7 @@
             "webc-container",
             "applies re-rendering when is needed"
           ],
-          "duration": 1994,
+          "duration": 2031,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-container applies re-rendering when is needed model change triggers a render",
@@ -303,10 +303,10 @@
       "numTodoTests": 0,
       "openHandles": [],
       "perfStats": {
-        "end": 1666105374465,
-        "runtime": 20222,
+        "end": 1668095841396,
+        "runtime": 23185,
         "slow": true,
-        "start": 1666105354243
+        "start": 1668095818211
       },
       "skipped": false,
       "snapshot": {
@@ -325,7 +325,7 @@
             "webc-template",
             "it does binding"
           ],
-          "duration": 8169,
+          "duration": 9386,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-template it does binding initial binding of \"data-view-model\"",
@@ -339,7 +339,7 @@
             "webc-template",
             "it does binding"
           ],
-          "duration": 9830,
+          "duration": 11160,
           "failureDetails": [],
           "failureMessages": [],
           "fullName": "webc-template it does binding should rerender when model is changing ",
