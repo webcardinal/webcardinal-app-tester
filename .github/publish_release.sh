@@ -32,24 +32,30 @@ function publish_bundle() {
 
   git add dist/
 
-  # increment the patch version inside package.json, without creating a separated commit (-no-git-tag-version)
-  # and with ignoring the existing local changes (--force) - in order to increment the patch version in the same commit
-  npm version patch -no-git-tag-version --force
+  if [[ $branch == "master" ]]
+  then
+    # increment the patch version inside package.json, without creating a separated commit (-no-git-tag-version)
+    # and with ignoring the existing local changes (--force) - in order to increment the patch version in the same commit
+    npm version patch -no-git-tag-version --force
 
-  # add files changed by npm version command - put on separated line since package-lock file can be optional
-  git add package.json 
-  git add package-lock.json
-
-  # read updated package version
-  package_version=$(grep version package.json | awk -F \" '{print $4}')
+    # add files changed by npm version command - put on separated line since package-lock file can be optional
+    git add package.json 
+    git add package-lock.json
+  fi
 
   git commit -m "WebCardinal release for $bundle (build-id #$GITHUB_RUN_NUMBER)"
 
-  # set git tag with current package version
-  git tag "v.$package_version"
+  if [[ $branch == "master" ]]
+  then
+    # read updated package version
+    package_version=$(grep version package.json | awk -F \" '{print $4}')
 
-  # push tag
-  git push --tags origin
+    # set git tag with current package version
+    git tag "v.$package_version"
+
+    # push tag
+    git push --tags origin
+  fi
 
   git push origin "$branch"
 
