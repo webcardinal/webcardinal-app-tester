@@ -36,8 +36,9 @@ function publish_bundle() {
   # and with ignoring the existing local changes (--force) - in order to increment the patch version in the same commit
   npm version patch -no-git-tag-version --force
 
-  # add files changed by npm version command
-  git add package.json package-lock.json
+  # add files changed by npm version command - put on separated line since package-lock file can be optional
+  git add package.json 
+  git add package-lock.json
 
   # read updated package version
   package_version=$(grep version package.json | awk -F \" '{print $4}')
