@@ -1,5 +1,7 @@
 const { WebcController } = WebCardinal.controllers;
 
+window.update = false;
+
 export default class ChildComponentController extends WebcController {
     constructor(...props) {
         super(...props);
@@ -12,6 +14,12 @@ export default class ChildComponentController extends WebcController {
         }
 
         //Chiar daca am setat o variabila din model, ea este ignorata
-
+        if(!window.update) {
+            setTimeout(() => {
+                this.model.text1 = "CHILD CHANGES: automatically updated at timeout";
+                this.model.text2 = "CHILD CHANGES: automatically updated at timeout 2";
+            }, 4000)
+            window.update = true;
+        }
     }
 }
