@@ -121,6 +121,11 @@
               "src": "./4/index.html",
               "tag": "accordion",
               "indexed": false
+            },
+            {
+                "name": "Test 5",
+                "path": "./5",
+                "src": "./5/index.html"
             }
           ]
         },
