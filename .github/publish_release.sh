@@ -51,7 +51,7 @@ function publish_bundle() {
     package_version=$(grep version package.json | awk -F \" '{print $4}')
 
     # set git tag with current package version
-    git tag "v.$package_version"
+    git tag "v$package_version"
 
     # push tag
     git push --tags origin
