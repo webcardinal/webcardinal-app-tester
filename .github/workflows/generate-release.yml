@@ -3,6 +3,7 @@ name: Generete release
 on:
   repository_dispatch:
     types: [start-build-distributions]
+  workflow_dispatch:
 
 jobs:
   prepare-release:
