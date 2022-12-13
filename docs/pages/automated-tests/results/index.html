@@ -1,0 +1,480 @@
+<!DOCTYPE html><html><head>
+    <meta charset="UTF-8">
+    <title>jest-stare!</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/diff2html.min.css" rel="stylesheet" type="text/css">
+    <link href="css/jest-stare.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script src="js/diff2html.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/view.js"></script>
+</head>
+
+<body>
+    <header>
+        
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" id="navbar-title" href="#">jest-stare</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    
+                    
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="off-switch" class="off-switch-checkbox" id="lab-passoff-switch" checked="">
+                            <label class="onoff-switch-label" for="lab-passoff-switch">
+                                <span class="pass off-switch-inner"></span>
+                                <span class="off-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="off-switch" class="off-switch-checkbox" id="lab-failoff-switch" checked="">
+                            <label class="onoff-switch-label" for="lab-failoff-switch">
+                                <span class="fail off-switch-inner"></span>
+                                <span class="off-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="off-switch" class="off-switch-checkbox" id="lab-pendingoff-switch" checked="">
+                            <label class="onoff-switch-label" for="lab-pendingoff-switch">
+                                <span class="pending off-switch-inner"></span>
+                                <span class="off-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="onoff-switch mr-sm-2 ml-sm-2">
+                            <input type="checkbox" name="off-switch" class="off-switch-checkbox" id="lab-todooff-switch" checked="">
+                            <label class="onoff-switch-label" for="lab-todooff-switch">
+                                <span class="todo off-switch-inner"></span>
+                                <span class="off-switch-switch"></span>
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+        </nav>
+    </header>
+
+    
+    <main role="main" class="container">
+
+        <h1 class="mt-5"></h1>
+
+        
+        <div class="row">
+            <div class="col-lg-4">
+                <canvas id="test-suites-canvas" width="100" height="100"></canvas>
+                <h2>Test Suites</h2>
+                <div class="list-group">
+                    <p id="test-suites-results" class="list-group-item list-group-item-action">4 passed, 4 total</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <canvas id="tests-canvas" width="100" height="100"></canvas>
+                <h2>Tests</h2>
+                <div class="list-group">
+                    <p id="tests-results" class="list-group-item list-group-item-action">15 passed, 15 total</p>
+                </div>
+            </div>
+            
+            <div class="col-lg-4" id="snapshots-group">
+                <canvas id="snapshots-canvas" width="100" height="100"></canvas>
+                <h2>Snapshots</h2>
+                <div class="list-group">
+                    <p id="snapshots-results" class="list-group-item list-group-item-action">0 passed, 0 total</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div id="loading-info" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+        </div>
+
+        <div class="d-none" id="test-summary"></div>
+        <div class="d-none" id="test-config">{
+  "resultDir": "test-results/",
+  "resultJson": "test.json",
+  "reportTitle": "WebCardinal Tests",
+  "reportHeadline": "webcardinal-core",
+  "resultHtml": "index.html"
+}</div>
+        <div id="accordion">
+            <div class="d-none" id="test-results">{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 4,
+  "numPassedTests": 15,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 4,
+  "numTotalTests": 15,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1670967901801,
+  "success": true,
+  "testResults": [
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 4,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967908636,
+        "runtime": 5640,
+        "slow": true,
+        "start": 1670967902996
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/components/webc-app-root/webc-app-root.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 1398,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 804,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-menu",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-menu"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 642,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-container",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-container"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 857,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-error-toast",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-error-toast"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 2,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967910695,
+        "runtime": 7707,
+        "slow": true,
+        "start": 1670967902988
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/attributes/data-for/data-for.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "data-for",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 3034,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "data-for renders itself and applies initial binding renders items",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders items"
+        },
+        {
+          "ancestorTitles": [
+            "data-for",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2703,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "data-for renders itself and applies initial binding should work with push",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "should work with push"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 7,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967917144,
+        "runtime": 14137,
+        "slow": true,
+        "start": 1670967903007
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/components/webc-container/webc-container.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2870,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2020,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds text '{{ @title }}'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds text '{{ @title }}'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1451,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds text 'Description: {{ @description }}'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds text 'Description: {{ @description }}'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1398,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds attributes 'class=\"@class\"'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds attributes 'class=\"@class\"'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1347,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds data-view-model 'data-view-model=\"@dataViewModel\"",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds data-view-model 'data-view-model=\"@dataViewModel\""
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "applies re-rendering when is needed"
+          ],
+          "duration": 1266,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container applies re-rendering when is needed renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "applies re-rendering when is needed"
+          ],
+          "duration": 1836,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container applies re-rendering when is needed model change triggers a render",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "model change triggers a render"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 2,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967920951,
+        "runtime": 17972,
+        "slow": true,
+        "start": 1670967902979
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/components/webc-template/webc-template.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-template",
+            "it does binding"
+          ],
+          "duration": 6910,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-template it does binding initial binding of \"data-view-model\"",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "initial binding of \"data-view-model\""
+        },
+        {
+          "ancestorTitles": [
+            "webc-template",
+            "it does binding"
+          ],
+          "duration": 9079,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-template it does binding should rerender when model is changing ",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "should rerender when model is changing "
+        }
+      ],
+      "failureMessage": null
+    }
+  ],
+  "wasInterrupted": false
+}</div>
+        </div>
+        <div class="d-none" id="test-global-config"></div>
+
+    </main>
+    
+    
+
+
+
+
+</body></html>

@@ -1,0 +1,356 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 4,
+  "numPassedTests": 15,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 4,
+  "numTotalTests": 15,
+  "openHandles": [],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1670967901801,
+  "success": true,
+  "testResults": [
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 4,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967908636,
+        "runtime": 5640,
+        "slow": true,
+        "start": 1670967902996
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/home/runner/work/webcardinal-workspace/webcardinal-workspace/src/webcardinal/.webcardinal/components/webcardinal-core/test/components/webc-app-root/webc-app-root.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 1398,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 804,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-menu",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-menu"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 642,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-container",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-container"
+        },
+        {
+          "ancestorTitles": [
+            "webc-app-root",
+            "renders itself and children"
+          ],
+          "duration": 857,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-app-root renders itself and children renders webc-app-error-toast",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders webc-app-error-toast"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 2,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967910695,
+        "runtime": 7707,
+        "slow": true,
+        "start": 1670967902988
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/home/runner/work/webcardinal-workspace/webcardinal-workspace/src/webcardinal/.webcardinal/components/webcardinal-core/test/attributes/data-for/data-for.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "data-for",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 3034,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "data-for renders itself and applies initial binding renders items",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders items"
+        },
+        {
+          "ancestorTitles": [
+            "data-for",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2703,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "data-for renders itself and applies initial binding should work with push",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "should work with push"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 7,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967917144,
+        "runtime": 14137,
+        "slow": true,
+        "start": 1670967903007
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/home/runner/work/webcardinal-workspace/webcardinal-workspace/src/webcardinal/.webcardinal/components/webcardinal-core/test/components/webc-container/webc-container.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2870,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 2020,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds text '{{ @title }}'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds text '{{ @title }}'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1451,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds text 'Description: {{ @description }}'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds text 'Description: {{ @description }}'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1398,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds attributes 'class=\"@class\"'",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds attributes 'class=\"@class\"'"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "renders itself and applies initial binding"
+          ],
+          "duration": 1347,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container renders itself and applies initial binding binds data-view-model 'data-view-model=\"@dataViewModel\"",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "binds data-view-model 'data-view-model=\"@dataViewModel\""
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "applies re-rendering when is needed"
+          ],
+          "duration": 1266,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container applies re-rendering when is needed renders itself",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "renders itself"
+        },
+        {
+          "ancestorTitles": [
+            "webc-container",
+            "applies re-rendering when is needed"
+          ],
+          "duration": 1836,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-container applies re-rendering when is needed model change triggers a render",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "model change triggers a render"
+        }
+      ],
+      "failureMessage": null
+    },
+    {
+      "leaks": false,
+      "numFailingTests": 0,
+      "numPassingTests": 2,
+      "numPendingTests": 0,
+      "numTodoTests": 0,
+      "openHandles": [],
+      "perfStats": {
+        "end": 1670967920951,
+        "runtime": 17972,
+        "slow": true,
+        "start": 1670967902979
+      },
+      "skipped": false,
+      "snapshot": {
+        "added": 0,
+        "fileDeleted": false,
+        "matched": 0,
+        "unchecked": 0,
+        "unmatched": 0,
+        "updated": 0,
+        "uncheckedKeys": []
+      },
+      "testFilePath": "/home/runner/work/webcardinal-workspace/webcardinal-workspace/src/webcardinal/.webcardinal/components/webcardinal-core/test/components/webc-template/webc-template.e2e.ts",
+      "testResults": [
+        {
+          "ancestorTitles": [
+            "webc-template",
+            "it does binding"
+          ],
+          "duration": 6910,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-template it does binding initial binding of \"data-view-model\"",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "initial binding of \"data-view-model\""
+        },
+        {
+          "ancestorTitles": [
+            "webc-template",
+            "it does binding"
+          ],
+          "duration": 9079,
+          "failureDetails": [],
+          "failureMessages": [],
+          "fullName": "webc-template it does binding should rerender when model is changing ",
+          "location": null,
+          "numPassingAsserts": 0,
+          "status": "passed",
+          "title": "should rerender when model is changing "
+        }
+      ],
+      "failureMessage": null
+    }
+  ],
+  "wasInterrupted": false
+}
